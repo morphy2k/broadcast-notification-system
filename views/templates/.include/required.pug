@@ -1,0 +1,16 @@
+//- required template scripts
+script.
+  //# host
+  var hostType = #{server.type},
+      host = '';
+
+  if (hostType == 2) {
+    var host = '#{externalIp}' + ':#{server.port}';
+  } else if (hostType == 1) {
+    var host = '#{server.host}' + ':#{server.port}';
+  }
+
+script(src='/jquery.min.js')
+script(src='/socket.io.min.js')
+script
+    include ./required.js

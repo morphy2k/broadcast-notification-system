@@ -1,0 +1,41 @@
+head
+  title= pageTitle
+  link(href="ressources/css/main.css", rel="stylesheet")
+  link(href="https://fonts.googleapis.com/css?family=Roboto:400,700", rel="stylesheet")
+  script.
+    //# host
+    var hostType = #{server.type},
+        host = '',
+        pageTitle = '#{pageTitle}',
+        page;
+
+    if (hostType == 2) {
+      host = '#{externalIp}' + ':#{server.port}';
+    } else if (hostType == 1) {
+      host = '#{server.host}' + ':#{server.port}';
+    }
+
+    if (pageTitle === 'Dashboard') {
+      page = 'dashboard';
+    } else if (pageTitle === 'Settings') {
+      page = 'settings';
+    }
+
+    var // dashboard
+        dPopups = #{settings.dashboard.popups},
+        dFeed = #{settings.dashboard.feed},
+        // notifications
+        nGlobal = #{settings.notification.active},
+        nDuration = #{settings.notification.duration},
+        nFollows = #{settings.api.twitch.types.follows},
+        nSubscriptions = #{settings.api.twitch.types.subscriptions},
+        nHosts = #{settings.api.twitch.types.hosts},
+        nDonations  = #{settings.api.streamlabs.types.donations},
+        // service
+        sTwitch = #{settings.api.twitch.active},
+        sYouTube = #{settings.api.youtube.active},
+        sStreamlabs = #{settings.api.streamlabs.active},
+        // stats
+        chartFollows = [#{stats.charts.follows}],
+        chartSubscriptions = [#{stats.charts.subs}],
+        chartDonations = {count: [#{stats.charts.donations.count}],amount: [#{stats.charts.donations.amount}]};

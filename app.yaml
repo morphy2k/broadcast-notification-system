@@ -1,0 +1,3 @@
+service: default
+runtime: nodejs
+env: flex

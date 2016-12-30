@@ -1,0 +1,150 @@
+doctype html
+
+html
+  include include/head.pug
+
+  body
+    #notificationInfo
+      #notiType
+      #notiName
+      #amount
+      #message
+    include include/header.pug
+
+    main
+      #settings
+
+        #one.box
+          .head Services
+          ul
+            li
+              if settings.api.twitch.auth.token
+                if settings.api.twitch.active
+                  a#sTwitch.check.active(style="cursor:pointer;" onclick="set('service', 'sTwitch', sTwitch);") Twitch
+                else
+                  a#sTwitch.check(style="cursor:pointer;" onclick="set('service', 'sTwitch', sTwitch);") Twitch
+              else
+                a#sTwitch.check(href="/twitch/auth") Twitch
+            li
+              if settings.api.youtube.active
+                a#sYouTube.check.active(style="cursor:not-allowed;" onclick="set('service', 'sYouTube', sYouTube);" title="Not implemented yet!") YouTube
+              else
+                a#sYouTube.check(style="cursor:not-allowed;" onclick="alert('Sorry, has not yet been implemented!');" title="Not implemented yet!") YouTube
+            li
+              if settings.api.streamlabs.token
+                if settings.api.streamlabs.active
+                  a#sStreamlabs.check.active(style="cursor:pointer;" onclick="set('service', 'sStreamlabs', sStreamlabs);") Streamlabs
+                else
+                  a#sStreamlabs.check(style="cursor:pointer;" onclick="set('service', 'sStreamlabs', sStreamlabs);") Streamlabs
+              else
+                a#sStreamlabs.check(href="/streamlabs/auth") Streamlabs
+
+
+        #two.box
+          .head Notifications
+          ul
+            li
+              if settings.api.twitch.types.follows
+                a#nFollows.check.active(style="cursor:pointer;" onclick="set('notification', 'nFollows', nFollows);" title="Follows on/off") Follows
+              else
+                a#nFollows.check(style="cursor:pointer;" onclick="set('notification', 'nFollows', nFollows);" title="Follows on/off") Follows
+            li
+              if settings.api.twitch.types.subscriptions
+                a#nSubscriptions.check.active(style="cursor:pointer;" onclick="set('notification', 'nSubscriptions', nSubscriptions);" title="Subscriber on/off") Subscriptions
+              else
+                a#nSubscriptions.check(style="cursor:pointer;" onclick="set('notification', 'nSubscriptions', nSubscriptions);" title="Subscriber on/off") Subscriptions
+            li
+              if settings.api.twitch.types.hosts
+                a#nHosts.check.active(style="cursor:pointer;" onclick="set('notification', 'nHosts', nHosts);" title="Hosts on/off") Hosts
+              else
+                a#nHosts.check(style="cursor:pointer;" onclick="set('notification', 'nHosts', nHosts);" title="Hosts on/off") Hosts
+            li
+              if settings.api.streamlabs.types.donations
+                a#nDonations.check.active(style="cursor:pointer;" onclick="set('notification', 'nDonations', nDonations);" title="Donations on/off") Donations
+              else
+                a#nDonations.check(style="cursor:pointer;" onclick="set('notification', 'nDonations', nDonations);" title="Donations on/off") Donations
+
+
+        #three.box
+          .head Template
+          #selection
+            select(name="templates" onChange="set('misc', 'template', this.value);")
+              each template in settings.notification.template.list
+                if template == settings.notification.template.selected
+                  option(value= template selected)= template
+                else
+                  option(value= template)= template
+
+
+          a#devButton(onclick="$('#devWindow').show();") Developer options
+
+          #devWindow
+            #dev
+              .head Developer options
+
+              .col-1
+                .label Duration
+                input(id="duration" type="number" name="duration" value= settings.notification.duration onblur="set('notification', 'nDuration', this.value);")
+
+              .col-2
+                #multipages
+                  .label Multipages
+                  .switch(title="ON/OFF")
+                    label.switch
+                      if settings.notification.template.multipages
+                        input(type="checkbox" onclick="set('notification', 'nMultipages', nMultipages);" checked)
+                      else
+                        input(type="checkbox" onclick="set('notification', 'nMultipages', nMultipages);")
+                      .slider
+                  #slider1(title="Page amount")
+                    input(name="pagesIn" id="pagesIn" type="range" min="1" max="4" value= settings.notification.template.pages oninput="pagesAmount.value=pagesIn.value" onblur="set('notification', 'nPages', this.value);")
+                    output(name="pagesAmount" id="pagesAmount" for="rangeIn" value= settings.notification.template.pages) #{settings.notification.template.pages}
+              .bottom
+                .closeButton(onclick="$('#devWindow').hide();") Close
+
+
+        #four.box
+          .head Misc
+          .inner
+            .col-1
+              #dashboardSettings
+                .title Dashboard Settings
+                ul
+                  li
+                    .switch#popupsToggle
+                      label.switch
+                        if settings.dashboard.popups
+                          input(type="checkbox" onclick="set('dashboard', 'dPopups', dPopups);" checked)
+                        else
+                          input(type="checkbox" onclick="set('dashboard', 'dPopups', dPopups);")
+                        .slider
+                    span Notification popups
+                  li
+                    .switch#feedToggle
+                      label.switch
+                        if settings.dashboard.feed
+                          input(type="checkbox" onclick="set('dashboard', 'dFeed', dFeed);" checked)
+                        else
+                          input(type="checkbox" onclick="set('dashboard', 'dFeed', dFeed);")
+                        .slider
+                    span Activity Feed
+                  li
+                    .switch
+                      label.switch
+                        input(type="checkbox")
+                        .slider
+                    span Placeholder
+
+            .col-2
+
+            .col-3
+              #notiTest
+                .title Notification Test
+                select(name="notification" onChange="typeTest(this.value);")
+                  option(value="follow") Follow
+                  option(value="subscription") Subscription
+                  option(value="host") Host
+                  option(value="donation") Donation
+                #push(onclick="pushTest();") Push
+
+    include include/footer.pug

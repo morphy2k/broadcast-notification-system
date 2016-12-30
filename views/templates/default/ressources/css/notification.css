@@ -1,0 +1,207 @@
+@charset "utf-8";
+@font-face {
+    font-family: 'Futura';
+    src: url("https://mashed8.tv/twitchalert/fonts/futura_light.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 200;
+}
+
+@font-face {
+    font-family: 'Futura';
+    src: url("https://mashed8.tv/twitchalert/fonts/futura_book.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 700;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: rgba(235, 235, 235, 0);
+    font-family: 'Futura', sans-serif;
+    font-size: 1rem !important;
+    color: rgb(253, 253, 253);
+    font-weight: normal;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+}
+
+#notiBox {
+    display: none;
+    box-sizing: border-box;
+    height: 6.5rem;
+    width: 30.5rem;
+    margin: 0 auto;
+    /*margin-top: -1.2rem;*/
+}
+
+#logo {
+    position: relative;
+    box-sizing: border-box;
+    height: 6.5rem;
+    width: 6.5rem;
+    background: url(https://mashed8.tv/twitchalert/mashed8_logo_3_transparent2.png);
+    background-color: rgb(37, 37, 37);
+    background-size: 5rem;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#text {
+    box-sizing: border-box;
+    height: 6.5rem;
+    width: 24rem;
+    background-color: rgba(37, 37, 37, 0.8);
+}
+
+#type,
+#name {
+    box-sizing: border-box;
+    position: absolute;
+    text-align: center;
+    width: 24rem;
+    line-height: 6.5rem;
+    font-size: 2rem !important;
+    opacity: 0;
+}
+
+#type {
+    z-index: 10;
+    display: block;
+    font-weight: 700;
+}
+
+#name {
+    z-index: 20;
+}
+
+
+/** animation **/
+
+@keyframes notiBox {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+    to {
+        transform: translate3d(1600px, 0, 0);
+    }
+}
+
+#notiBox {
+    animation-name: notiBox;
+    animation-timing-function: cubic-bezier(.83,.01,.76,.21);
+    animation-duration: 1.5s;
+    animation-fill-mode: forwards;
+    animation-delay: 8.8s;
+}
+
+
+/* zoom */
+
+@keyframes logo {
+    from {
+        opacity: 0;
+        transform: scale3d(.3, .3, .3) !important;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+#logo {
+    animation-name: logo;
+    animation-timing-function: cubic-bezier(.83,.01,.76,.21);
+    animation-duration: .8s;
+    animation-fill-mode: forwards;
+}
+
+
+/* expand */
+
+@keyframes text {
+    from {
+        width: 0;
+    }
+    10% {
+        width: 24rem;
+    }
+    90% {
+        width: 24rem;
+    }
+    to {
+        width: 0;
+    }
+}
+
+#text {
+    animation-name: text;
+    animation-timing-function: cubic-bezier(.83,.01,.76,.21);
+    animation-duration: 7.8s;
+    animation-fill-mode: both;
+    animation-delay: 1s;
+}
+
+
+/* fade */
+
+@keyframes type {
+    from {
+        opacity: 0;
+        transform: translate3d(0, -100%, 0);
+    }
+    40% {
+        opacity: 1;
+        transform: none;
+    }
+    60% {
+        opacity: 1;
+        transform: none;
+    }
+    to {
+        opacity: 0;
+        transform: translate3d(0, 100%, 0);
+    }
+}
+
+#type {
+    animation-name: type;
+    animation-timing-function: cubic-bezier(.83,.01,.76,.21);
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-delay: 1.5s;
+}
+
+@keyframes name {
+    from {
+        opacity: 0;
+        transform: scale3d(.3, .3, .3);
+    }
+    20% {
+        opacity: 1;
+        transform: none;
+    }
+    80% {
+        opacity: 1;
+        transform: none;
+    }
+    to {
+        opacity: 0;
+        transform: translate3d(0, 100%, 0);
+    }
+}
+
+#name {
+    animation-name: name;
+    animation-timing-function: cubic-bezier(.83,.01,.76,.21);
+    animation-duration: 6s;
+    animation-fill-mode: forwards;
+    animation-delay: 2.5s;
+}
+
+#notiBox {
+    display: flex;
+}
