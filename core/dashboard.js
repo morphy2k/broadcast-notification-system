@@ -90,10 +90,9 @@ class Stats {
         if (connected) {
             io.sockets.emit('stats', this.stats);
             callback();
-        } else {
-            callback();
         }
 
+        callback();
     }
 }
 

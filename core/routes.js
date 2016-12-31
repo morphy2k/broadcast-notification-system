@@ -12,6 +12,9 @@ const
     api = require('./api'),
     dashboard = require('./dashboard');
 
+
+const version = require('../package.json').version;
+
 // global
 router.use('/jquery.min.js', express.static('./views/ressources/jquery.min.js'));
 router.use('/socket.io.min.js', express.static('./views/ressources/socket.io.min.js'));
@@ -24,7 +27,8 @@ router.get('/', (req, res) => {
                 pageTitle: 'Landingpage',
                 stats: data.stats,
                 settings: data.settings,
-                server: config.server
+                server: config.server,
+                version
             });
         });
     } else if (config.server.type == 2) {
@@ -35,7 +39,8 @@ router.get('/', (req, res) => {
                     stats: data.stats,
                     settings: data.settings,
                     externalIp: externalIp,
-                    server: config.server
+                    server: config.server,
+                    version
                 });
             });
         });
@@ -48,7 +53,8 @@ router.get('/dashboard', (req, res) => {
                 pageTitle: 'Dashboard',
                 stats: data.stats,
                 settings: data.settings,
-                server: config.server
+                server: config.server,
+                version
             });
         });
     } else if (config.server.type == 2) {
@@ -59,7 +65,8 @@ router.get('/dashboard', (req, res) => {
                     stats: data.stats,
                     settings: data.settings,
                     externalIp: externalIp,
-                    server: config.server
+                    server: config.server,
+                    version
                 });
             });
         });
@@ -72,7 +79,8 @@ router.get('/settings', (req, res) => {
                 pageTitle: 'Settings',
                 stats: data.stats,
                 settings: data.settings,
-                server: config.server
+                server: config.server,
+                version
             });
         });
     } else if (config.server.type == 2) {
@@ -83,7 +91,8 @@ router.get('/settings', (req, res) => {
                     stats: data.stats,
                     settings: data.settings,
                     externalIp: externalIp,
-                    server: config.server
+                    server: config.server,
+                    version
                 });
             });
         });
@@ -101,14 +110,16 @@ router.get('/notifications/', (req, res) => {
     if (config.server.type === 0 || 1) {
         res.render('templates/' + template + '/index', {
             pageTitle: 'Notification window',
-            server: config.server
+            server: config.server,
+            version
         });
     } else if (config.server.type == 2) {
         server.getExternalIp((externalIp) => {
             res.render('templates/' + template + '/index', {
                 pageTitle: 'Notification window',
                 externalIp: externalIp,
-                server: config.server
+                server: config.server,
+                version
             });
         });
     }

@@ -54,7 +54,7 @@ var socket = io.connect(host),
 socket.on('connect', () => {
     connected = true;
 
-    $('body').removeClass('lost');
+    $('body').removeClass('greyOut');
     $('#message').remove();
 
     socket.on('stats', (data) => {
@@ -236,13 +236,47 @@ socket.on('connect', () => {
         }
     });
 
+    socket.on('general', (data) => {
+
+        // client-server version matching
+        if (data.version !== undefined) {
+            if (data.version !== version) {
+                let count = 10;
+
+                $('body').addClass('greyOut');
+                $('body').append(`
+                <div id=message>
+                  <div class="text">
+                    <div class="line1">Server has been updated!</div>
+                    <div class="line2">page reload in <span id="reloadCount">${count}</span></div>
+                  </div>
+                </div>`);
+
+                setInterval(() => {
+                    if (count) {
+                        count = count - 1;
+                        document.getElementById("reloadCount").innerHTML = count;
+                    } else {
+                        location.reload();
+                    }
+                }, 1000);
+
+                version = data.version;
+            }
+        }
+    });
+
 });
 
 socket.on('disconnect', () => {
     connected = false;
 
-    $('body').addClass('lost');
-    $('body').append(`<div id=message>Lost connection to the server!</div>`);
+    $('body').addClass('greyOut');
+    $('body').append(`<div id=message>
+        <div class="text">
+          <div class="line1">Lost connection to server!</div>
+        </div>
+      </div>`);
 });
 
 function set(type, option, value) {
@@ -278,9 +312,9 @@ function typeTest(value) {
 
 function pushTest() {
     if (connected) {
-      socket.emit('dashboard', {
-          type: testType,
-          name: 'testNoti'
-      });
+        socket.emit('dashboard', {
+            type: testType,
+            name: 'testNoti'
+        });
     }
 }

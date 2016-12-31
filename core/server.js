@@ -16,9 +16,22 @@ app.set('trust proxy', true);
 
 exports.express = express;
 exports.app = app;
-exports.io = require('socket.io').listen(server);
 
-//# Google Cloud
+const io = require('socket.io').listen(server);
+exports.io = io;
+
+// send every ** seconds the version for client-server matching
+const version = require('../package.json').version;
+
+io.on('connection', (socket) => {
+    setInterval(() => {
+        socket.emit('general', {
+            version
+        });
+    }, 10000);
+});
+
+// Google Cloud
 const METADATA_NETWORK_INTERFACE_URL = 'http://metadata/computeMetadata/v1/' +
     '/instance/network-interfaces/0/access-configs/0/external-ip';
 

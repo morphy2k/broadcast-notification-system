@@ -23,7 +23,7 @@ header, main, footer {
         opacity: 1;
     }
     to {
-        opacity: .65;
+        opacity: .1;
     }
 }
 
@@ -36,7 +36,9 @@ header, main, footer {
     }
 }
 
-.lost * {
+.greyOut header,
+.greyOut main,
+.greyOut footer {
     animation-name: fadeOut ;
     animation-timing-function: ease;
     animation-duration: 4s;
@@ -52,14 +54,30 @@ header, main, footer {
     height: 100%;
     align-items: center;
     justify-content: center;
-    color: black;
+    color: rgb(0, 0, 0);
     font-size: 1.3rem;
-    font-weight: bold;
     text-align: center;
     animation-name: fadeIn ;
     animation-timing-function: ease;
     animation-duration: 6s;
     animation-fill-mode: forwards;
+}
+
+#message .text {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#message .text div {
+    width: 100%;
+}
+
+#message .text .line1 {
+    font-weight: bold;
+}
+
+#message .text .line2 {
+    font-size: 1.1rem;
 }
 
 

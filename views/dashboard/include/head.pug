@@ -3,6 +3,8 @@ head
   link(href="ressources/css/main.css", rel="stylesheet")
   link(href="https://fonts.googleapis.com/css?family=Roboto:400,700", rel="stylesheet")
   script.
+    var version = '#{version}';
+
     //# host
     var hostType = #{server.type},
         host = '',
@@ -30,7 +32,7 @@ head
         nFollows = #{settings.api.twitch.types.follows},
         nSubscriptions = #{settings.api.twitch.types.subscriptions},
         nHosts = #{settings.api.twitch.types.hosts},
-        nDonations  = #{settings.api.streamlabs.types.donations},
+        nDonations = #{settings.api.streamlabs.types.donations},
         // service
         sTwitch = #{settings.api.twitch.active},
         sYouTube = #{settings.api.youtube.active},
