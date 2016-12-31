@@ -2,8 +2,18 @@ doctype html
 
 html
 
-  include include/head.pug
-  link(href="ressources/css/wait.css", rel="stylesheet")
+  head
+    title= pageTitle
+    link(href="ressources/css/main.css", rel="stylesheet")
+    link(href="https://fonts.googleapis.com/css?family=Roboto:400,700", rel="stylesheet")
+    link(href="ressources/css/wait.css", rel="stylesheet")
+    script.
+      var hostType = #{server.type},
+          host = '';
+
+      if (hostType == 1) {
+          host = '#{server.host}' + ':#{server.port}';
+      }
 
   body
     .sk-folding-cube

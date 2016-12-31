@@ -1,21 +1,11 @@
-var socket = io.connect(host),
-    hash = window.location.hash.substr(1);
+var socket = io.connect(host);
 
-if (hash) {
-    socket.emit('wait', 'waiting', hash);
-    console.log(hash);
-} else {
-    window.location.href = "/";
-}
+socket.on('general', (data) => {
 
-socket.on('wait', function(response) {
+    console.log(data);
 
-    if (response == 'goSettings') {
-        window.location.href = "/settings";
-    }
-
-    if (response == 'goHome') {
-        window.location.href = "/";
+    if (data.redirect) {
+        window.location.href = data.redirect;
     }
 
 });

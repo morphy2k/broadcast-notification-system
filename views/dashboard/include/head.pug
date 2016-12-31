@@ -5,15 +5,12 @@ head
   script.
     var version = '#{version}';
 
-    //# host
     var hostType = #{server.type},
         host = '',
         pageTitle = '#{pageTitle}',
         page;
 
-    if (hostType == 2) {
-      host = '#{externalIp}' + ':#{server.port}';
-    } else if (hostType == 1) {
+    if (hostType == 1) {
       host = '#{server.host}' + ':#{server.port}';
     }
 

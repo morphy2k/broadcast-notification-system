@@ -12,7 +12,7 @@ router.get('/auth', (req, res) => {
 
     if (req.query.code) {
         require('./authentication')('new', req.query.code);
-        res.redirect('/wait#apiStreamlabs');
+        res.redirect('/wait');
     } else {
         let query = qs.stringify({
                 response_type: 'code',
@@ -20,7 +20,7 @@ router.get('/auth', (req, res) => {
                 redirect_uri: `${config.server.url}/streamlabs/auth`,
                 scope: config.api.streamlabs.scopes
             }),
-            url = `https://www.streamlabs.com/api/v1.0/authorize?${query}`;
+            url = `https://streamlabs.com/api/v1.0/authorize?${query}`;
 
         res.redirect(url);
     }

@@ -30,25 +30,3 @@ io.on('connection', (socket) => {
         });
     }, 10000);
 });
-
-// Google Cloud
-const METADATA_NETWORK_INTERFACE_URL = 'http://metadata/computeMetadata/v1/' +
-    '/instance/network-interfaces/0/access-configs/0/external-ip';
-
-exports.getExternalIp = (cb) => {
-    const options = {
-        url: METADATA_NETWORK_INTERFACE_URL,
-        headers: {
-            'Metadata-Flavor': 'Google'
-        }
-    };
-
-    request(options, (err, resp, body) => {
-        if (err || resp.statusCode !== 200) {
-            console.log('Error while talking to metadata server, assuming localhost');
-            cb('localhost');
-            return;
-        }
-        cb(body);
-    });
-};

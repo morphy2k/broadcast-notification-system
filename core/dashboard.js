@@ -149,35 +149,6 @@ io.on('connection', (socket) => {
         callback(data);
     });
 
-    socket.on('wait', (Do, data) => {
-        var path;
-
-        if (Do == 'waiting') {
-            if (data == 'apiTwitch') {
-                path = 'twitch';
-                ifToken();
-            }
-            if (data == 'apiYoutube') {
-                path = 'youtube';
-                ifToken();
-            }
-            if (data == 'apiStreamlabs') {
-                path = 'streamlabs';
-                ifToken();
-            }
-        }
-
-        function ifToken() {
-            setTimeout(() => {
-                if (db[path].get('auth.token').value()) {
-                    socket.emit('wait', 'goSettings');
-                } else {
-                    ifToken();
-                }
-            }, 2000);
-        }
-    });
-
     socket.on('disconnect', () => {
         connected = false;
     });

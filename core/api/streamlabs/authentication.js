@@ -1,10 +1,12 @@
 "use strict";
 
 const
-    async = require("async"),
+async = require("async"),
     request = require('request'),
     config = require('../../../config'),
-    db = require('../../database');
+    db = require('../../database'),
+    server = require('../../server'),
+    io = server.io;
 
 module.exports = (type, data) => {
     var grant_type,
@@ -23,9 +25,9 @@ module.exports = (type, data) => {
 
     var id = config.api.streamlabs.client_id,
         secret = config.api.streamlabs.client_secret,
-        uri = `${config.server.url}'/streamlabs/auth`,
+        uri = `${config.server.url}/streamlabs/auth`,
         options = {
-            url: 'https://www.twitchalerts.com/api/v1.0/token',
+            url: 'https://streamlabs.com/api/v1.0/token',
             form: {
                 grant_type: grant_type,
                 client_id: id,
@@ -38,8 +40,9 @@ module.exports = (type, data) => {
     if (type == 'new') {
 
         request.post(options, (err, response, body) => {
+            if (err) throw err;
+
             if (!err && response.statusCode == 200) {
-              if (err) throw err;
 
                 let json = JSON.parse(body),
                     date = new Date();
@@ -55,11 +58,18 @@ module.exports = (type, data) => {
                     }
                 }).value();
             }
+
+            setTimeout(() => {
+                io.emit('general', {
+                    redirect: '/settings'
+                });
+            }, 3000);
         });
     } else if (type == 'refresh') {
         request.post(options, (err, response, body) => {
+            if (err) throw err;
+
             if (!err && response.statusCode == 200) {
-                if (err) throw err;
 
                 let json = JSON.parse(body),
                     date = new Date();

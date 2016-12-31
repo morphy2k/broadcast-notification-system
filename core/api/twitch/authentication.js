@@ -3,7 +3,9 @@
 const waterfall = require("async/waterfall"),
     request = require('request'),
     config = require('../../../config'),
-    db = require('../../database');
+    db = require('../../database'),
+    server = require('../../server'),
+    io = server.io;
 
 
 module.exports = (code) => {
@@ -92,5 +94,11 @@ module.exports = (code) => {
                 token: result.token
             }
         }).value();
+
+        setTimeout(() => {
+            io.emit('general', {
+                redirect: '/settings'
+            });
+        }, 3000);
     });
 };

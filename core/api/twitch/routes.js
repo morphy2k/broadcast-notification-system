@@ -12,7 +12,7 @@ router.get('/auth', (req, res) => {
 
     if (req.query.code) {
         require('./authentication')(req.query.code);
-        res.redirect('/wait#apiTwitch');
+        res.redirect('/wait');
     } else {
         let query = qs.stringify({
                 response_type: 'code',

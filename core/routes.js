@@ -21,85 +21,42 @@ router.use('/socket.io.min.js', express.static('./views/ressources/socket.io.min
 
 // dashboard
 router.get('/', (req, res) => {
-    if (config.server.type === 0 || 1) {
-        dashboard.getData((data) => {
-            res.render('dashboard/index', {
-                pageTitle: 'Landingpage',
-                stats: data.stats,
-                settings: data.settings,
-                server: config.server,
-                version
-            });
+    dashboard.getData((data) => {
+        res.render('dashboard/index', {
+            pageTitle: 'Landingpage',
+            stats: data.stats,
+            settings: data.settings,
+            server: config.server,
+            version
         });
-    } else if (config.server.type == 2) {
-        server.getExternalIp((externalIp) => {
-            dashboard.getData((data) => {
-                res.render('dashboard/settings', {
-                    pageTitle: 'Settings',
-                    stats: data.stats,
-                    settings: data.settings,
-                    externalIp: externalIp,
-                    server: config.server,
-                    version
-                });
-            });
-        });
-    }
+    });
 });
 router.get('/dashboard', (req, res) => {
-    if (config.server.type === 0 || 1) {
-        dashboard.getData((data) => {
-            res.render('dashboard/dashboard', {
-                pageTitle: 'Dashboard',
-                stats: data.stats,
-                settings: data.settings,
-                server: config.server,
-                version
-            });
+    dashboard.getData((data) => {
+        res.render('dashboard/dashboard', {
+            pageTitle: 'Dashboard',
+            stats: data.stats,
+            settings: data.settings,
+            server: config.server,
+            version
         });
-    } else if (config.server.type == 2) {
-        server.getExternalIp((externalIp) => {
-            dashboard.getData((data) => {
-                res.render('dashboard/settings', {
-                    pageTitle: 'Settings',
-                    stats: data.stats,
-                    settings: data.settings,
-                    externalIp: externalIp,
-                    server: config.server,
-                    version
-                });
-            });
-        });
-    }
+    });
 });
 router.get('/settings', (req, res) => {
-    if (config.server.type === 0 || 1) {
-        dashboard.getData((data) => {
-            res.render('dashboard/settings', {
-                pageTitle: 'Settings',
-                stats: data.stats,
-                settings: data.settings,
-                server: config.server,
-                version
-            });
+    dashboard.getData((data) => {
+        res.render('dashboard/settings', {
+            pageTitle: 'Settings',
+            stats: data.stats,
+            settings: data.settings,
+            server: config.server,
+            version
         });
-    } else if (config.server.type == 2) {
-        server.getExternalIp((externalIp) => {
-            dashboard.getData((data) => {
-                res.render('dashboard/settings', {
-                    pageTitle: 'Settings',
-                    stats: data.stats,
-                    settings: data.settings,
-                    externalIp: externalIp,
-                    server: config.server,
-                    version
-                });
-            });
-        });
-    }
+    });
 });
 router.get('/wait', (req, res) => {
-    res.render('dashboard/wait');
+    res.render('dashboard/wait', {
+        server: config.server
+    });
 });
 router.use('/ressources', express.static('./views/dashboard/ressources'));
 
@@ -107,22 +64,11 @@ router.use('/ressources', express.static('./views/dashboard/ressources'));
 var template = db.settings.get('notification.template.selected').value();
 
 router.get('/notifications/', (req, res) => {
-    if (config.server.type === 0 || 1) {
-        res.render('templates/' + template + '/index', {
-            pageTitle: 'Notification window',
-            server: config.server,
-            version
-        });
-    } else if (config.server.type == 2) {
-        server.getExternalIp((externalIp) => {
-            res.render('templates/' + template + '/index', {
-                pageTitle: 'Notification window',
-                externalIp: externalIp,
-                server: config.server,
-                version
-            });
-        });
-    }
+    res.render('templates/' + template + '/index', {
+        pageTitle: 'Notification window',
+        server: config.server,
+        version
+    });
 });
 router.use('/template/ressources', express.static('./views/templates/' + template + '/ressources'));
 

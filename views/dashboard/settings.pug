@@ -31,7 +31,7 @@ html
               else
                 a#sYouTube.check(style="cursor:not-allowed;" onclick="alert('Sorry, has not yet been implemented!');" title="Not implemented yet!") YouTube
             li
-              if settings.api.streamlabs.token
+              if settings.api.streamlabs.auth.token
                 if settings.api.streamlabs.active
                   a#sStreamlabs.check.active(style="cursor:pointer;" onclick="set('service', 'sStreamlabs', sStreamlabs);") Streamlabs
                 else
