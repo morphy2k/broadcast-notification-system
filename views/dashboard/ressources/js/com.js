@@ -257,7 +257,7 @@ socket.on('connect', () => {
                         count = count - 1;
                         document.getElementById("reloadCount").innerHTML = count;
                     } else {
-                        location.reload();
+                        location.reload(true);
                     }
                 }, 1000);
 
