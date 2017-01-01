@@ -1,6 +1,6 @@
 "use strict";
 
-// # BNS configuration
+// # main configuration
 
 module.exports = {
     server: {
@@ -8,17 +8,5 @@ module.exports = {
         port: '8083',
         type: 0, // '0' = normal, '1' = proxy
         host: 'localhost' // only for 'proxy' type
-    },
-    api: {
-        twitch: {
-            client_id: '9x5ovvfwvm9agvw8fo1u6jb06pdyuw',
-            client_secret: '',
-            scopes: 'channel_subscriptions'
-        },
-        streamlabs: {
-            client_id: 'R00ShGIwLW910D79i1YakpoqJtWaY8GvRLqor3uC',
-            client_secret: 'h8HUwdfNoReTiSaPIWQMEbGMxlK1pD0B4xdqhAoM',
-            scopes: 'donations.read'
-        }
     }
 };
