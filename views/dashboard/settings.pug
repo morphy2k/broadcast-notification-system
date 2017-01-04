@@ -99,6 +99,8 @@ html
                   #slider1(title="Page amount")
                     input(name="pagesIn" id="pagesIn" type="range" min="1" max="4" value= settings.notification.template.pages oninput="pagesAmount.value=pagesIn.value" onblur="set('notification', 'nPages', this.value);")
                     output(name="pagesAmount" id="pagesAmount" for="rangeIn" value= settings.notification.template.pages) #{settings.notification.template.pages}
+              #cssBody
+                textarea(rows="12" cols="90" onblur="set('notification', 'nCSS', this.value);")= css
               .bottom
                 .closeButton(onclick="$('#devWindow').hide();") Close
 

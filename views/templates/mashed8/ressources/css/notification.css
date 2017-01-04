@@ -19,12 +19,12 @@ html, body {
 }
 
 body {
-    background-color: rgba(235, 235, 235, 0);
+    background-color: rgba(235, 235, 235, 0); /* Don't touch! */
     font-family: 'Futura';
     font-size: 1rem !important;
     color: rgb(253, 253, 253);
     font-weight: 300;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6); /* Text Schatten */
     overflow: hidden;
 }
 
@@ -32,20 +32,22 @@ body {
     display: none;
 }
 
+/* Komplette Box */
 .default {
     box-sizing: border-box;
-    height: 6.5rem;
-    width: 30.5rem;
+    height: 6.5rem; /* Höhe */
+    width: 30.5rem; /* Breite */
     margin: 0 auto;
 }
 
 #donation {}
 
+/* Linke Box (Logo) */
 .default .img {
     position: relative;
     box-sizing: border-box;
-    height: 6.5rem;
-    width: 6.5rem;
+    height: 6.5rem; /* Höhe */
+    width: 6.5rem; /* Breite */
     background: url("/template/ressources/img/mashed8_logo_3_transparent2.png");
     background-color: rgba(0, 0, 0, 0.8);
     background-size: 5rem;
@@ -53,10 +55,11 @@ body {
     background-position: center;
 }
 
+/* Rechte Box (Text) */
 .default .text {
     box-sizing: border-box;
-    line-height: 6.5rem;
-    width: 24rem;
+    line-height: 6.5rem; /* Höhe */
+    width: 24rem; /* Breite */
     background-color: rgba(0, 0, 0, 0.7);
 }
 
@@ -65,9 +68,9 @@ body {
     box-sizing: border-box;
     position: absolute;
     text-align: center;
-    width: 24rem;
-    line-height: 6.5rem;
-    font-size: 2rem !important;
+    width: 24rem; /* Breite !!!MUSS mit ".default .text" überinstimmen!!! */
+    line-height: 6.5rem; /* Höhe !!!MUSS mit ".default .text" überinstimmen!!! */
+    font-size: 2rem !important; /* Schriftgrößte rechte Box */
     opacity: 0;
 }
 

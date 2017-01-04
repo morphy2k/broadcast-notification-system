@@ -621,14 +621,14 @@ header #status {
 
 #dev .col-1 {
     flex: 50;
-    height: 25rem;
+    height: 15rem;
     text-align: center;
     padding-top: 1rem;
 }
 
 #dev .col-2 {
     flex: 50;
-    height: 25rem;
+    height: 15rem;
     text-align: center;
     padding-top: 1rem;
 }
@@ -689,6 +689,12 @@ header #status {
     color: white;
     margin: 0;
     font-size: .9rem;
+}
+
+#cssBody {
+  justify-content: center;
+  margin: 0 auto;
+
 }
 
 #slider1 {
