@@ -21,10 +21,10 @@ html, body {
 body {
     background-color: rgba(235, 235, 235, 0); /* Don't touch! */
     font-family: 'Futura';
-    font-size: 1rem !important;
+    font-size: 1rem !important; /* Don't touch! */
     color: rgb(253, 253, 253);
     font-weight: 300;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6); /* Text Schatten */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6); /* Text Schattierung */
     overflow: hidden;
 }
 
@@ -32,7 +32,7 @@ body {
     display: none;
 }
 
-/* Komplette Box */
+/* Parent Box */
 .default {
     box-sizing: border-box;
     height: 6.5rem; /* Höhe */
@@ -42,12 +42,12 @@ body {
 
 #donation {}
 
-/* Linke Box (Logo) */
+/* Linke child Box (Logo) */
 .default .img {
     position: relative;
     box-sizing: border-box;
-    height: 6.5rem; /* Höhe */
-    width: 6.5rem; /* Breite */
+    height: auto;
+    width: 6.5rem; /* Breite (Muss an Parent angepasst sein) */
     background: url("/template/ressources/img/mashed8_logo_3_transparent2.png");
     background-color: rgba(0, 0, 0, 0.8);
     background-size: 5rem;
@@ -55,22 +55,23 @@ body {
     background-position: center;
 }
 
-/* Rechte Box (Text) */
+/* Rechte child Box (Text) */
 .default .text {
     box-sizing: border-box;
-    line-height: 6.5rem; /* Höhe */
-    width: 24rem; /* Breite */
+    line-height: 6.5rem; /* Höhe (Muss selben Wert haben wie Parent) */
+    width: auto;
     background-color: rgba(0, 0, 0, 0.7);
 }
 
+/* Rechte child Box (Text) */
 .default .type, .default .name {
     padding-left: -2px;
     box-sizing: border-box;
     position: absolute;
     text-align: center;
-    width: 24rem; /* Breite !!!MUSS mit ".default .text" überinstimmen!!! */
-    line-height: 6.5rem; /* Höhe !!!MUSS mit ".default .text" überinstimmen!!! */
-    font-size: 2rem !important; /* Schriftgrößte rechte Box */
+    width: 24rem; /* Breite (Muss an Parent angepasst sein) */
+    line-height: 6.5rem; /* Höhe (Muss selben Wert haben wie Parent) */
+    font-size: 2rem !important; /* Schriftgröße rechte Box */
     opacity: 0;
 }
 
