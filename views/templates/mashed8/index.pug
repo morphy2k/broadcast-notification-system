@@ -7,12 +7,12 @@ html(lang="en")
       script.
         function playSound(type) {
               if (type == 'subscription') {
-                  var sub = new Audio('/template/ressources/media/sub.mp3');
-                  setTimeout(function() { sub.play() }, 200);
+                  let sub = new Audio('/template/ressources/media/sub.mp3');
+                  setTimeout(() => sub.play(), 200);
               }
               if (type == 'donation') {
-                  var donation = new Audio('/template/ressources/media/donation.mp3');
-                  setTimeout(function() { donation.play() }, 200);
+                  let donation = new Audio('/template/ressources/media/donation.mp3');
+                  setTimeout(() => donation.play(), 200);
               }
           }
 

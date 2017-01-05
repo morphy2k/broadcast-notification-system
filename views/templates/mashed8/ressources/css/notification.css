@@ -19,12 +19,12 @@ html, body {
 }
 
 body {
-    background-color: rgba(235, 235, 235, 0); /* Don't touch! */
+    background-color: rgba(235, 235, 235, 0);
     font-family: 'Futura';
-    font-size: 1rem !important; /* Don't touch! */
+    font-size: 27vh;
     color: rgb(253, 253, 253);
     font-weight: 300;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6); /* Text Schattierung */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
     overflow: hidden;
 }
 
@@ -32,46 +32,41 @@ body {
     display: none;
 }
 
-/* Parent Box */
 .default {
     box-sizing: border-box;
-    height: 6.5rem; /* Höhe */
-    width: 30.5rem; /* Breite */
+    height: 100vh;
+    width: 450vh;
     margin: 0 auto;
 }
 
 #donation {}
 
-/* Linke child Box (Logo) */
 .default .img {
     position: relative;
     box-sizing: border-box;
-    height: auto;
-    width: 6.5rem; /* Breite (Muss an Parent angepasst sein) */
+    min-height: 100vh;
+    min-width: 100vh;
     background: url("/template/ressources/img/mashed8_logo_3_transparent2.png");
     background-color: rgba(0, 0, 0, 0.8);
-    background-size: 5rem;
+    background-size: 75%;
     background-repeat: no-repeat;
     background-position: center;
 }
 
-/* Rechte child Box (Text) */
 .default .text {
     box-sizing: border-box;
-    line-height: 6.5rem; /* Höhe (Muss selben Wert haben wie Parent) */
-    width: auto;
+    line-height: 100vh;
+    width: 350vh;
     background-color: rgba(0, 0, 0, 0.7);
 }
 
-/* Rechte child Box (Text) */
-.default .type, .default .name {
-    padding-left: -2px;
+.default .type,
+.default .name {
     box-sizing: border-box;
     position: absolute;
     text-align: center;
-    width: 24rem; /* Breite (Muss an Parent angepasst sein) */
-    line-height: 6.5rem; /* Höhe (Muss selben Wert haben wie Parent) */
-    font-size: 2rem !important; /* Schriftgröße rechte Box */
+    width: 350vh;
+    line-height: 100vh;
     opacity: 0;
 }
 
@@ -94,7 +89,7 @@ body {
         transform: translate3d(0, 0, 0);
     }
     to {
-        transform: translate3d(1600px, 0, 0);
+        transform: translate3d(1600vh, 0, 0);
     }
 }
 
@@ -134,10 +129,10 @@ body {
         width: 0;
     }
     10% {
-        width: 24rem;
+        width: 100%;
     }
     90% {
-        width: 24rem;
+        width: 100%;
     }
     to {
         width: 0;
