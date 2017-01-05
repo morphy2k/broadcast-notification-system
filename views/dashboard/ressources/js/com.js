@@ -71,74 +71,74 @@ socket.on('connect', () => {
             // subscriptions
             chartSubscriptions = data.charts.subs;
             chart1.data.datasets[0].data = chartSubscriptions;
-            chart1.update();
 
             // follows
             chartFollows = data.charts.follows;
             chart1.data.datasets[1].data = chartFollows;
-            chart1.update();
 
             // donations
             chartDonations.count = data.charts.donations.count;
             chartDonations.amount = data.charts.donations.amount;
             chart2.data.datasets[0].data = data.charts.donations.count;
             chart2.data.datasets[1].data = data.charts.donations.amount;
+
+            chart1.update();
+            chart2.update();
         }
 
         if (data.feed !== undefined && page === 'dashboard') {
+          
             if (data.feed.remove) {
                 $(`#${data.feed.remove}`).remove();
             }
 
-            if (data.feed.list !== feed && page === 'dashboard') {
-                feed = data.feed.list;
+            let feed = data.feed.list;
 
-                for (let el of feed) {
+            for (let el of feed) {
 
-                    var uuid = $(`#${el.uuid}`).length,
-                        time = moment(el.date).fromNow();
+                var uuid = $(`#${el.uuid}`).length,
+                    time = moment(el.date).fromNow();
 
-                    if (uuid === 0) {
+                if (uuid === 0) {
 
-                        $('#feed > .list')
-                            .append(`<li id="${el.uuid}" class="${el.type}">
-                            <div class="head">
-                              <div class="type">${el.type}</div><time class="date" datetime="${el.date}">${time}</time>
-                            </div>
-                            <div class="body">
-                              <a href="https://twitch.tv/${el.name}" target="_blank">${el.name}</a>
-                            </div>
-                          </li>`);
+                    $('#feed > .list')
+                        .append(`<li id="${el.uuid}" class="${el.type}">
+                        <div class="head">
+                          <div class="type">${el.type}</div><time class="date" datetime="${el.date}">${time}</time>
+                        </div>
+                        <div class="body">
+                          <a href="https://twitch.tv/${el.name}" target="_blank">${el.name}</a>
+                        </div>
+                      </li>`);
 
-                        if (el.type === 'follow') {
-                            $(`#${el.uuid} > .body`)
-                                .append(' is now following you');
-                        }
-                        if (el.type === 'subscription') {
-                            if (el.resubs > 0) {
-                                $(`#${el.uuid} > .body`)
-                                    .append(` has re-subscribed (${el.resubs}x) you`);
-                            } else {
-                                $(`#${el.uuid} > .body`)
-                                    .append(' has subscribed you');
-                            }
-                        }
-                        if (el.type === 'host') {
-                            $(`#${el.uuid} > .body`)
-                                .append(` host you with <span class="viewer">${el.viewer}</span> viewer`);
-                        }
-                        if (el.type === 'donation') {
-                            $(`#${el.uuid} > .body`)
-                                .append(` has <span class="amount">${el.amount}</span> donated`);
-                        }
-                    } else {
-                        //console.log('already exists ' + el.uuid);
+                    if (el.type === 'follow') {
+                        $(`#${el.uuid} > .body`)
+                            .append(' is now following you');
                     }
-
+                    if (el.type === 'subscription') {
+                        if (el.resubs > 0) {
+                            $(`#${el.uuid} > .body`)
+                                .append(` has re-subscribed (${el.resubs}x) you`);
+                        } else {
+                            $(`#${el.uuid} > .body`)
+                                .append(' has subscribed you');
+                        }
+                    }
+                    if (el.type === 'host') {
+                        $(`#${el.uuid} > .body`)
+                            .append(` host you with <span class="viewer">${el.viewer}</span> viewer`);
+                    }
+                    if (el.type === 'donation') {
+                        $(`#${el.uuid} > .body`)
+                            .append(` has <span class="amount">${el.amount}</span> donated`);
+                    }
+                } else {
+                    //console.log('already exists ' + el.uuid);
                 }
 
-                feedFilter();
             }
+
+            feedFilter();
         }
 
     });
