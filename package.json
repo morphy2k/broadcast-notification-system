@@ -1,6 +1,6 @@
 {
   "name": "broadcast-notification-system",
-  "version": "0.8.8",
+  "version": "0.8.9",
   "private": true,
   "description": "A simple and open notification/alert system for livestreams on Twitch and Youtube.",
   "author": "Markus Wiegand <markus.wiegand@outlook.com>",
