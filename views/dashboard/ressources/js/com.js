@@ -1,145 +1,346 @@
+class Socket extends io.connect {
+    constructor(host) {
+        super(host);
+
+        this.connected = false;
+
+        this.on('connect', () => {
+            this.connected = true;
+
+            $('body').removeClass('greyOut');
+            $('#message').remove();
+
+        }).on('disconnect', () => {
+            this.connected = false;
+
+            $('body').addClass('greyOut');
+            $('body').append(`<div id=message>
+                <div class="text">
+                  <div class="line1">Lost connection to server!</div>
+                </div>
+              </div>`);
+
+        });
+    }
+}
+
+const socket = new Socket(host);
+
+
 // UI
-function datetime() {
-    $('#feed > .list > li').each(function() {
-        var datetime = $(`#${this.id} > .head > time`).attr('datetime'),
-            time = moment(datetime).fromNow();
+class Feed {
+    constructor() {
 
-        $(`#${this.id} > .head > time`).html(time);
-    });
+        $(document).ready(() => {
+            this.time();
+        });
+
+        // Filter
+        this.filter = {
+            all: '#all-btn',
+            types: [{
+                    id: '#follow-btn',
+                    class: '.follow',
+                    visible: true
+                },
+                {
+                    id: '#sub-btn',
+                    class: '.subscription',
+                    visible: true
+                },
+                {
+                    id: '#donation-btn',
+                    class: '.donation',
+                    visible: true
+                },
+                {
+                    id: '#host-btn',
+                    class: '.host',
+                    visible: true
+                }
+            ]
+        };
+
+        let types = this.filter.types;
+
+        $(this.filter.all).click(() => {
+            this.select(null);
+        });
+        $(types[0].id).click(() => {
+            this.select(0);
+
+        });
+        $(types[1].id).click(() => {
+            this.select(1);
+
+        });
+        $(types[2].id).click(() => {
+            this.select(2);
+        });
+        $(types[3].id).click(() => {
+            this.select(3);
+        });
+    }
+
+    get prop() {
+        return {
+            follow: this.filter.types[0],
+            subscription: this.filter.types[1],
+            donation: this.filter.types[2],
+            host: this.filter.types[3]
+        };
+    }
+
+    select(type) {
+
+        let types = this.filter.types,
+            id;
+
+        if (type === null) {
+
+            id = this.filter.all;
+            $('#feed > ul > li').show();
+
+            for (let el in this.filter.types) {
+                this.filter.types[el].visible = true;
+            }
+
+        } else {
+
+            id = types[type].id;
+
+            let classes = [];
+
+            for (let el in types) {
+
+                if (el !== type) {
+                    classes.push(this.filter.types[el].class);
+                    this.filter.types[el].visible = false;
+                } else {
+                    this.filter.types[el].visible = true;
+                }
+
+            }
+
+            $(`${classes}`).hide();
+            $(`${types[type].class}`).show();
+        }
+
+        $(`.feed-btn`).removeClass('selected');
+        $(id).addClass('selected');
+
+    }
+
+    compare(data) {
+        if (data.remove) {
+            this.update(data);
+        } else {
+
+            let arr = [],
+                i = 0;
+
+            for (let el of data.list) {
+
+                i = i + 1;
+
+                if (!$(`#${el.uuid}`).length) arr.push(el);
+
+                if (i === data.list.length - 1 && arr.length) {
+                    this.update(arr);
+                }
+            }
+        }
+    }
+
+    update(data) {
+
+        if (data.remove) {
+            $(`#${data.remove}`).remove();
+        } else {
+
+            for (let el of data) {
+
+                let time = moment(el.date).fromNow(),
+                    visible = 'block';
+
+                if (!filter.prop[el.type].visible) {
+                    visible = 'none';
+                }
+
+                $('#feed > .list')
+                    .append(`<li id="${el.uuid}" class="${el.type}" style="display:${visible};">
+                  <div class="head">
+                    <div class="type">${el.type}</div><time class="date" datetime="${el.date}">${time}</time>
+                  </div>
+                  <div class="body">
+                    <a href="https://twitch.tv/${el.name}" target="_blank">${el.name}</a>
+                  </div>
+                </li>`);
+
+                if (el.type === 'follow') {
+                    $(`#${el.uuid} > .body`)
+                        .append(' is now following you');
+                }
+                if (el.type === 'subscription') {
+                    if (el.resubs > 0) {
+                        $(`#${el.uuid} > .body`)
+                            .append(` has re-subscribed (${el.resubs}x) you`);
+                    } else {
+                        $(`#${el.uuid} > .body`)
+                            .append(' has subscribed you');
+                    }
+                }
+                if (el.type === 'host') {
+                    $(`#${el.uuid} > .body`)
+                        .append(` host you with <span class="viewer">${el.viewer}</span> viewer`);
+                }
+                if (el.type === 'donation') {
+                    $(`#${el.uuid} > .body`)
+                        .append(` has <span class="amount">${el.amount}</span> donated`);
+                }
+            }
+        }
+
+    }
+
+    time() {
+        $('#feed > ul > li > .head > time').each(function () {
+            var datetime = $(this).attr('datetime'),
+                time = moment(datetime).fromNow();
+
+            $(this).html(time);
+        });
+
+        setTimeout(() => this.time(), 60000);
+    }
 }
-setInterval(function() {
-    datetime();
-}, 60000);
 
-function feedFilter() {
-    $(".follow")
-        .mouseover(function() {
-            $('.list > .subscription, .list > .host, .list > .donation').css('opacity', '0.3');
-        })
-        .mouseout(function() {
-            $('.list > .subscription, .list > .host, .list > .donation').css('opacity', '1');
-        });
-    $(".subscription")
-        .mouseover(function() {
-            $('.list > .follow, .list > .host, .list > .donation').css('opacity', '0.3');
-        })
-        .mouseout(function() {
-            $('.list > .follow, .list > .host, .list > .donation').css('opacity', '1');
-        });
-    $(".host")
-        .mouseover(function() {
-            $('.list > .follow, .list > .subscription, .list > .donation').css('opacity', '0.3');
-        })
-        .mouseout(function() {
-            $('.list > .follow, .list > .subscription, .list > .donation').css('opacity', '1');
-        });
-    $(".donation")
-        .mouseover(function() {
-            $('.list > .follow, .list > .host, .list > .subscription').css('opacity', '0.3');
-        })
-        .mouseout(function() {
-            $('.list > .follow, .list > .host, .list > .subscription').css('opacity', '1');
-        });
+const feed = new Feed();
+
+
+class Charts {
+    constructor() {
+        this.changed = {
+            chart1: false,
+            chart2: false
+        };
+    }
+
+    compare(data, callback) {
+
+        // Follows
+        for (let i = 0; i < data.follows.length; i++) {
+            if (data.follows[i] !== chartFollows[i]) {
+                chartFollows = data.follows;
+                chart1.data.datasets[1].data = chartFollows;
+
+                this.changed.chart1 = true;
+
+                count = count + 1;
+                done();
+
+                break;
+            } else if (i === data.follows.length - 1) {
+                count = count + 1;
+                done();
+            }
+        }
+
+        // Subscriptions
+        for (let i = 0; i < data.subs.length; i++) {
+            if (data.subs[i] !== chartSubscriptions[i]) {
+                chartSubscriptions = data.subs;
+                chart1.data.datasets[0].data = chartSubscriptions;
+
+                this.changed.chart1 = true;
+
+                count = count + 1;
+                done();
+
+                break;
+            } else if (i === data.subs.length - 1) {
+                count = count + 1;
+                done();
+            }
+        }
+
+        // Donations
+        for (let i = 0; i < data.donations.count.length; i++) {
+            if (data.donations.count[i] !== chartDonations.count[i]) {
+                chartDonations = data.donations.count;
+                chart1.data.datasets[0].data = chartDonations.count;
+                chart1.data.datasets[1].data = chartDonations.amount;
+
+                this.changed.chart2 = true;
+
+                count = count + 1;
+                done();
+
+                break;
+            } else if (i === data.donations.count.length - 1) {
+                count = count + 1;
+                done();
+            }
+        }
+
+        if (feed.changed.chart1 || feed.changed.chart2) this.update();
+
+    }
+
+    update() {
+        if (this.changed.chart1) {
+            chart1.update();
+            this.changed.chart1 = false;
+        }
+        if (this.changed.chart2) {
+            chart2.update();
+            this.changed.chart2 = false;
+        }
+    }
 }
 
-$(document).ready(function() {
-    feedFilter();
-    datetime();
-});
+const charts = new Charts();
 
 
-var socket = io.connect(host),
-    connected = false;
+class Notifications {
+    constructor() {
+        this.testData = {
+            follow: {
+
+            },
+            subscription: {
+
+            },
+            donation: {
+
+            },
+            host: {
+
+            }
+        };
+    }
+
+    parser() {
+
+    }
+
+    show() {
+
+    }
+
+    test() {
+
+    }
+}
+
 
 socket.on('connect', () => {
-    connected = true;
-
-    $('body').removeClass('greyOut');
-    $('#message').remove();
 
     socket.on('stats', (data) => {
 
-        if (data.qCount !== undefined) {
-            if (data.qCount !== qCount) {
-                qCount = data.qCount;
-                $("#qCount").html(qCount);
-            }
-        }
+        if (data.charts !== undefined && page === 'dashboard') charts.compare(data.charts);
+        if (data.feed !== undefined && page === 'dashboard') feed.compare(data.feed);
 
-        if (data.charts !== undefined && page === 'dashboard') {
-
-            // subscriptions
-            chartSubscriptions = data.charts.subs;
-            chart1.data.datasets[0].data = chartSubscriptions;
-
-            // follows
-            chartFollows = data.charts.follows;
-            chart1.data.datasets[1].data = chartFollows;
-
-            // donations
-            chartDonations.count = data.charts.donations.count;
-            chartDonations.amount = data.charts.donations.amount;
-            chart2.data.datasets[0].data = data.charts.donations.count;
-            chart2.data.datasets[1].data = data.charts.donations.amount;
-
-            chart1.update();
-            chart2.update();
-        }
-
-        if (data.feed !== undefined && page === 'dashboard') {
-
-            if (data.feed.remove) {
-                $(`#${data.feed.remove}`).remove();
-            }
-
-            if (data.feed.list) {
-
-                for (let el of data.feed.list) {
-
-                    var uuid = $(`#${el.uuid}`).length,
-                        time = moment(el.date).fromNow();
-
-                    if (!uuid) {
-
-                        $('#feed > .list')
-                            .append(`<li id="${el.uuid}" class="${el.type}">
-                          <div class="head">
-                            <div class="type">${el.type}</div><time class="date" datetime="${el.date}">${time}</time>
-                          </div>
-                          <div class="body">
-                            <a href="https://twitch.tv/${el.name}" target="_blank">${el.name}</a>
-                          </div>
-                        </li>`);
-
-                        if (el.type === 'follow') {
-                            $(`#${el.uuid} > .body`)
-                                .append(' is now following you');
-                        }
-                        if (el.type === 'subscription') {
-                            if (el.resubs > 0) {
-                                $(`#${el.uuid} > .body`)
-                                    .append(` has re-subscribed (${el.resubs}x) you`);
-                            } else {
-                                $(`#${el.uuid} > .body`)
-                                    .append(' has subscribed you');
-                            }
-                        }
-                        if (el.type === 'host') {
-                            $(`#${el.uuid} > .body`)
-                                .append(` host you with <span class="viewer">${el.viewer}</span> viewer`);
-                        }
-                        if (el.type === 'donation') {
-                            $(`#${el.uuid} > .body`)
-                                .append(` has <span class="amount">${el.amount}</span> donated`);
-                        }
-                    } else {
-                        //console.log('already exists ' + el.uuid);
-                    }
-
-                }
-                feedFilter();
-            }
-        }
     });
 
     // settings
@@ -149,9 +350,9 @@ socket.on('connect', () => {
 
         if (data.type === 'notification' || 'service') {
             if (data.value) {
-                $("#" + data.name).addClass('active');
+                $(`#${data.name}`).addClass('active');
             } else {
-                $("#" + data.name).removeClass('active');
+                $(`#${data.name}`).removeClass('active');
             }
         }
 
@@ -164,7 +365,7 @@ socket.on('connect', () => {
 
             $("#notificationInfo").hide();
 
-            setTimeout(function() {
+            setTimeout(() => {
 
                 let type = data.type,
                     name,
@@ -265,17 +466,6 @@ socket.on('connect', () => {
         }
     });
 
-});
-
-socket.on('disconnect', () => {
-    connected = false;
-
-    $('body').addClass('greyOut');
-    $('body').append(`<div id=message>
-        <div class="text">
-          <div class="line1">Lost connection to server!</div>
-        </div>
-      </div>`);
 });
 
 function set(type, option, value) {

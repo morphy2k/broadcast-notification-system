@@ -1,52 +1,57 @@
 doctype html
 
 html
-  include include/head.pug
+    include include/head.pug
 
-  body
-    #notificationInfo
-      #notiType
-      #notiName
-      #amount
-      #message
-    include include/header.pug
+    body
+        #notificationInfo
+            #notiType
+            #notiName
+            #amount
+            #message
+        include include/header.pug
 
-    main
-      #dashboard
-        .col-1
-          .stats
-            canvas#stats1
-          .stats
-            canvas#stats2
-        .col-2
-          #feed
-            .head
-              ul
-                li.follow Follows
-                li.subscription Subscriptions
-                li.host Hosts
-                li.donation Donations
+        main
+            #dashboard
+                .col-1
+                    .stats
+                        canvas#stats1
+                    .stats
+                        canvas#stats2
+                .col-2
+                    #feed
+                        ul.list
+                            each event in stats.feed.list
+                                li(id= event.uuid class= event.type)
+                                    .head
+                                        .type= event.type
+                                        time.date(datetime= event.date) ---
+                                    .body
+                                        a(href= "https://twitch.tv/" + event.name target="_blank")= event.name
+                                        if event.type == 'follow'
+                                            span &nbsp;is now following you
+                                        if event.type == 'subscription'
+                                            if event.resubs > 0
+                                                span &nbsp;has re-subscribed (#{event.resubs}x) you
+                                            else
+                                                span &nbsp;has subscribed you
+                                        if event.type == 'host'
+                                            span &nbsp;host you with
+                                                span.viewer= event.viewer
+                                        if event.type == 'donation'
+                                            span &nbsp;has
+                                                span.amount= event.amount + ' donated'
+                .col-3
+                    ul
+                        li
+                            #all-btn.feed-btn.selected A
+                        li
+                            #follow-btn.feed-btn F
+                        li
+                            #sub-btn.feed-btn S
+                        li
+                            #donation-btn.feed-btn D
+                        li
+                            #host-btn.feed-btn H
 
-            ul.list
-              each event in stats.feed.list
-                li(id= event.uuid class= event.type)
-                  .head
-                    .type= event.type
-                    time.date(datetime= event.date) ---
-                  .body
-                    a(href= "https://twitch.tv/" + event.name target="_blank")= event.name
-                    if event.type == 'follow'
-                      span &nbsp;is now following you
-                    if event.type == 'subscription'
-                      if event.resubs > 0
-                        span &nbsp;has re-subscribed (#{event.resubs}x) you
-                      else
-                        span &nbsp;has subscribed you
-                    if event.type == 'host'
-                      span &nbsp;host you with
-                        span.viewer= event.viewer
-                    if event.type == 'donation'
-                      span &nbsp;has
-                        span.amount= event.amount + ' donated'
-
-    include include/footer.pug
+        include include/footer.pug

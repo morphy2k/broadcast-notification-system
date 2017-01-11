@@ -2,20 +2,19 @@ doctype html
 
 html
 
-  include include/head.pug
+    include include/head.pug
 
+    body
+        main#landingpage
+            h1#headline
+            a#dashboardBTN(href="/dashboard") Dashboard
 
-  body
-    main#landingpage
-      h1#headline
-      a#dashboardBTN(href="/dashboard") Dashboard
-
-    include include/footer.pug
-    script.
-      $(function(){
-            $("#headline").typed({
-                strings: ["Welcome to the<br> ^800 <span>Broadcast Notification System!</span>"],
-                typeSpeed: 30,
-                showCursor: false
+        include include/footer.pug
+        script.
+            $(function(){
+                $("#headline").typed({
+                    strings: ["Welcome to the<br> ^800 <span>Broadcast Notification System!</span>"],
+                    typeSpeed: 30,
+                    showCursor: false
+                });
             });
-        });

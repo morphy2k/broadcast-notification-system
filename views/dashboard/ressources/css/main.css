@@ -5,7 +5,7 @@ html, body {
 }
 
 body {
-    background-color: rgb(227, 227, 227);
+    background-color: rgb(241, 241, 241);
     font-family: 'Roboto', sans-serif;
     font-size: 1rem;
     color: rgb(0, 0, 0);
@@ -47,7 +47,7 @@ header, main, footer {
 
 #message {
     z-index: 100;
-    position: absolute;
+    position: fixed;
     display: flex;
     top: 0;
     width: 100%;
@@ -80,6 +80,59 @@ header, main, footer {
     font-size: 1.1rem;
 }
 
+
+@keyframes popup {
+    0% {
+        opacity: 0;
+    }
+    30% {
+        opacity: 1;
+    }
+    70% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        display: none;
+    }
+}
+
+#notificationInfo {
+    display: none;
+    z-index: 10;
+    position: fixed;
+    top: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, .7);
+    color: white;
+    padding: 2rem;
+    width: 16rem;
+    text-align: center;
+    transition: all 800ms ease-in-out;
+    animation-name: popup;
+    animation-timing-function: ease;
+    animation-duration: 10s;
+    animation-fill-mode: forwards;
+    opacity: 0;
+}
+
+#notiType {
+    font-weight: 700;
+    font-size: 1.3rem;
+    text-decoration: underline;
+    margin-bottom: .6rem;
+}
+
+#notiName {
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+#notificationInfo span {
+    display: block;
+    margin-top: .3rem;
+}
 
 /*** switch ***/
 
@@ -160,60 +213,42 @@ input:checked+.slider:before {
 
 /* header */
 
-@keyframes popup {
-    0% {
-        opacity: 0;
-    }
-    30% {
-        opacity: 1;
-    }
-    70% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-        display: none;
-    }
+header .col-1 {
+    display: flex;
+    flex: auto;
 }
 
-#notificationInfo {
-    display: none;
-    z-index: 10;
-    position: fixed;
-    top: 3rem;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0, 0, 0, .7);
-    color: white;
-    padding: 2rem;
-    width: 16rem;
-    text-align: center;
-    transition: all 800ms ease-in-out;
-    animation-name: popup;
-    animation-timing-function: ease;
-    animation-duration: 10s;
-    animation-fill-mode: forwards;
-    opacity: 0;
+header .col-2 {
+    display: flex;
+    flex: auto;
+    justify-content: flex-end;
 }
 
-#notiType {
-    font-weight: 700;
-    font-size: 1.3rem;
-    text-decoration: underline;
-    margin-bottom: .6rem;
+
+header {
+    display: flex;
+    padding: 1rem;
+    align-items: center;
 }
 
-#notiName {
-    font-weight: 700;
-    font-size: 1rem;
-}
-
-#notificationInfo span {
+header h1 {
+    box-sizing: border-box;
     display: block;
-    margin-top: .3rem;
+    margin: 0;
+    padding: 0;
+    line-height: 3rem;
+    color: rgb(83, 83, 83);
+    font-size: 2.4rem;
+    text-transform: uppercase;
 }
 
-#setup {
+header nav {
+    box-sizing: border-box;
+    line-height: 3rem;
+}
+
+
+#settings-btn {
     display: inline-block;
     background-image: url(/ressources/img/settings.svg);
     background-repeat: no-repeat;
@@ -225,96 +260,25 @@ input:checked+.slider:before {
     transition: opacity 400ms ease-in-out;
 }
 
-#setup:hover {
+#settings-btn:hover {
     opacity: .6;
 }
 
-#back {
+#back-btn {
     display: inline-block;
     background-image: url(/ressources/img/back.svg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 1.7rem;
     width: 1.7rem;
+    margin-right: .4rem;
     color: rgba(0, 0, 0, 0);
     opacity: 1;
     transition: opacity 400ms ease-in-out;
 }
 
-#back:hover {
+#back-btn:hover {
     opacity: .6;
-}
-
-header {
-    display: flex;
-    padding: 1rem;
-}
-
-header h1 {
-    box-sizing: border-box;
-    display: block;
-    margin: 0;
-    padding: 0;
-    line-height: 3rem;
-    color: rgb(83, 83, 83);
-    padding-left: .6rem;
-    font-size: 2.4rem;
-    text-transform: uppercase;
-}
-
-@keyframes fade {
-    from {
-        opacity: 0;
-    }
-    15% {
-        opacity: 1;
-        color: green;
-    }
-    70% {
-        opacity: 1;
-        color: black;
-    }
-    to {
-        opacity: 0;
-    }
-}
-
-.fade {
-    animation-name: fade;
-    animation-timing-function: cubic-bezier(.83, .01, .76, .21);
-    animation-duration: 6s;
-    animation-fill-mode: forwards;
-    animation-delay: 0;
-}
-
-header nav {
-    box-sizing: border-box;
-    text-align: right;
-    line-height: 3rem;
-}
-
-header #status {
-    display: flex;
-    width: 14rem;
-    line-height: 3rem;
-    font-size: .95rem;
-    text-transform: uppercase;
-    margin-left: auto;
-    align-items: center;
-}
-
-#status .text {
-    margin: 0 .3rem 0 1rem;
-}
-
-#toggle {
-    margin: 0 1rem 0 2rem;
-}
-
-#toggle .switch {}
-
-#status span {
-    font-weight: 700;
 }
 
 
@@ -323,13 +287,13 @@ header #status {
 #dashboard {
     box-sizing: border-box;
     display: flex;
-    padding: 0 4rem;
+    padding: 0 2rem;
     justify-content: center;
 }
 
 #dashboard .col-1 {
     box-sizing: border-box;
-    flex: 70;
+    flex: 67;
     min-height: 40rem;
 }
 
@@ -339,65 +303,73 @@ header #status {
     min-height: 40rem;
 }
 
+#dashboard .col-3 {
+    box-sizing: border-box;
+    flex: 3;
+    min-height: 40rem;
+}
+
+#dashboard .col-3 ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#dashboard .col-3 li {
+    box-sizing: border-box;
+    line-height: 2.5rem;
+    width: 2.5rem;
+    text-align: center;
+    background: rgba(230, 230, 230, 0.5);
+    transition: background .3s ease, color .2s ease;
+}
+
+#dashboard .col-3 .selected {
+    background: rgb(90, 90, 90);
+    color: rgb(255, 255, 255);
+}
+
+#dashboard .col-3 li:hover {
+    background: rgba(90, 90, 90, 0.5);
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+}
+
 .stats {
     box-sizing: border-box;
     display: flex;
-    background: rgb(216, 216, 216);
-    height: 28rem;
+    background: rgb(230, 230, 230);
+    max-height: 28rem;
     justify-content: center;
     align-items: center;
     margin-bottom: 1rem;
 }
 
-.stats #canvas {
-    width: 10%;
-}
-
-.stats .wip {
-    text-align: center;
-    font-size: 3rem;
-    color: rgb(145, 145, 145);
-}
-
 #feed {
     box-sizing: border-box;
-    background: rgb(216, 216, 216);
+    background: rgb(230, 230, 230);
     margin: 0 0 0 1rem;
-    min-height: 57rem;
+    height: 57rem;
+    overflow-y: scroll;
+}
+
+
+#feed::-webkit-scrollbar {
+    width: .4rem;
+}
+ 
+#feed::-webkit-scrollbar-thumb {
+    background: rgba(51, 51, 51, .1);
+}
+
+#feed::-webkit-scrollbar-thumb:hover {
+    background: rgba(51, 51, 51, 0.6);
 }
 
 #feed .title {
     text-align: center;
     font-weight: bold;
     text-transform: uppercase;
-}
-
-#feed .head ul {
-    box-sizing: border-box;
-    display: flex;
-    list-style: none;
-    padding: 0;
-    justify-content: center;
-    margin: 0;
-}
-
-#feed .head li {
-    box-sizing: border-box;
-    display: block;
-    padding: .2rem;
-    font-size: .8rem;
-    text-align: center;
-    width: 100%;
-    line-height: 1.4rem;
-    background: rgb(90, 90, 90);
-    color: white;
-    cursor: pointer;
-    transition: opacity .6s ease;
-    opacity: 1;
-}
-
-#feed .head li:hover {
-    opacity: .8;
 }
 
 #feed .list {
@@ -407,8 +379,7 @@ header #status {
     list-style: none;
     font-size: .9rem;
     margin: 0;
-    padding: .5rem .6rem;
-    ;
+    padding: .1rem .2rem .3rem .6rem;
 }
 
 #feed .list li {
@@ -447,17 +418,13 @@ header #status {
     font-weight: bold;
 }
 
-.highlight {
-    background: rgba(51, 51, 51, 0.3);
-}
-
-
 /*** Settings ***/
 
 #settings {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    padding: 0 1rem;
 }
 
 #one ul, #two ul {
@@ -476,9 +443,10 @@ header #status {
 #settings .box {
     box-sizing: border-box;
     margin: 0 auto;
-    margin: 1rem;
+    margin: 0 1rem;
     padding: 1rem;
-    background: rgb(216, 216, 216);
+    background: rgb(230, 230, 230);
+    margin-bottom: 2rem;
 }
 
 .box .head {
@@ -491,23 +459,21 @@ header #status {
 }
 
 .box#one {
-    width: 78rem;
-    margin-bottom: 2rem;
+    flex: 100%;
+    
 }
 
 .box#two {
-    width: 38rem;
-    padding: 1rem;
+    flex: 50;
 }
 
 .box#three {
-    width: 38rem;
+    flex: 50;
     text-align: center;
 }
 
 .box#four {
-    width: 78rem;
-    margin-bottom: 2rem;
+    flex: 100%;
 }
 
 #settings .check {

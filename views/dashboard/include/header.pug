@@ -1,22 +1,12 @@
 header
-  if pageTitle == 'Settings'
-    nav
-      a#back(href="/dashboard" title="Back to dashboard") &nbsp;
-  h1= pageTitle
-  #status
-    .text(title="Notifications in queue") In Queue:
-    span#qCount= stats.qCount
-    #toggle(title="Turn notifications on/off")
-      if settings.notification.active
-        .switch
-          label.switch
-            input(type="checkbox" onchange="set('notification', 'nGlobal', nGlobal);" checked)
-            .slider
-      else
-        .switch
-          label.switch
-            input(type="checkbox" onchange="set('notification', 'nGlobal', nGlobal);")
-            .slider
-  if pageTitle == 'Dashboard'
-    nav
-      a#setup(href="/settings" title="Settings") &nbsp;
+
+    .col-1
+        if pageTitle == 'Settings'
+            nav
+                a#back-btn(href="/dashboard" title="Back to dashboard") &nbsp;
+        h1= pageTitle
+
+    .col-2
+        if pageTitle == 'Dashboard'
+            nav
+                a#settings-btn(href="/settings" title="Settings") &nbsp;
