@@ -4,22 +4,19 @@ html
     include include/head.pug
 
     body
-        #notificationInfo
-            #notiType
-            #notiName
-            #amount
-            #message
+        #notification
+
         include include/header.pug
 
         main
             #dashboard
-                .col-1
-                    .stats
-                        canvas#stats1
-                    .stats
-                        canvas#stats2
-                .col-2
-                    #feed
+                #stats1.stats.box
+                    canvas#chart1
+                #stats2.stats.box
+                    canvas#chart2
+
+                #feed.box
+                    .wrapper
                         ul.list
                             each event in stats.feed.list
                                 li(id= event.uuid class= event.type)
@@ -41,17 +38,18 @@ html
                                         if event.type == 'donation'
                                             span &nbsp;has
                                                 span.amount= event.amount + ' donated'
-                .col-3
-                    ul
-                        li
-                            #all-btn.feed-btn.selected A
-                        li
-                            #follow-btn.feed-btn F
-                        li
-                            #sub-btn.feed-btn S
-                        li
-                            #donation-btn.feed-btn D
-                        li
-                            #host-btn.feed-btn H
+                                                .message= event.message
+                    nav
+                        ul
+                            li
+                                #all-btn.feed-btn.selected All
+                            li
+                                #follow-btn.feed-btn F
+                            li
+                                #sub-btn.feed-btn S
+                            li
+                                #donation-btn.feed-btn D
+                            li
+                                #host-btn.feed-btn H
 
         include include/footer.pug

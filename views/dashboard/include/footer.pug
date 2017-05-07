@@ -2,12 +2,12 @@ footer
     p BNS v#{version} coded by&nbsp;
         a(href="https://github.com/Morphy2k" target="_blank") Morphy
 
-script(src='/jquery.slim.min.js?v=3.1.1')
+script(src='/jquery.slim.min.js?v=' + version)
 script(src='/socket.io.min.js?v=' + version)
+script(src="/moment-with-locales.min.js?v=" + version)
 script(src="ressources/js/com.js?v=" + version)
-script(src="ressources/js/moment-with-locales.min.js?v=" + version)
 if pageTitle == 'Dashboard'
-    script(src="ressources/js/Chart.min.js?v=" + version)
+    script(src="/Chart.min.js?v=" + version)
     script(src="ressources/js/chartConfig.js?v=" + version)
 
 if pageTitle == 'Landingpage'

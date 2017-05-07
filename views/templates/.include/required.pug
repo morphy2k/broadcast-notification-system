@@ -1,16 +1,17 @@
 //- required template scripts
 script.
-  var version = '#{version}';
+    var version = '#{version}',
+        jwt = '#{jwt}';
 
-  //# host
-  var hostType = #{server.type},
-      host = '';
+    //# host
+    var hostType = #{server.type},
+        host = '';
 
-  if (hostType == 1) {
-    var host = '#{server.host}' + ':#{server.port}';
-  }
+    if (hostType == 1) {
+        var host = '#{server.host}' + ':#{server.port}';
+    }
 
-script(src='/jquery.min.js?v=' + version)
+script(src='/jquery.slim.min.js?v=' + version)
 script(src='/socket.io.min.js?v=' + version)
 script
     include ./required.js

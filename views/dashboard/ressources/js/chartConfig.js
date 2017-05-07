@@ -36,8 +36,8 @@ var chart2 = {
     }]
 };
 window.onload = () => {
-    var ctx1 = document.getElementById("stats1").getContext("2d"),
-        ctx2 = document.getElementById("stats2").getContext("2d"),
+    var ctx1 = document.getElementById("chart1").getContext("2d"),
+        ctx2 = document.getElementById("chart2").getContext("2d"),
         options = {
             responsive: true,
             defaultFontFamily: "'Roboto', sans-serif",
@@ -67,7 +67,11 @@ window.onload = () => {
             },
             tooltips: {
                 mode: 'index',
-                intersect: false
+                intersect: false,
+                cornerRadius: 0,
+                caretSize: 0,
+                xPadding: 15,
+                yPadding: 12
             },
             layout: {
                 padding: 20

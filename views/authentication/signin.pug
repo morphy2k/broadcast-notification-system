@@ -1,0 +1,24 @@
+doctype html
+
+html
+    
+    head
+        title= pageTitle
+        link(href="ressources/css/style.css", rel="stylesheet")
+        link(href="https://fonts.googleapis.com/css?family=Roboto:400,700", rel="stylesheet")
+    
+    body
+        
+        main
+            
+            #email
+                
+                .headline Please enter your E-Mail adress
+                
+                form(action="/authentication/signin/send" method="post")
+                    input(required type="email" name="email" placeholder="yourname@example.com")
+                    input(type="submit" value="send")
+                
+                p Please note, the e-mail will be sent automatically by the system only every 7 days! Keep the email or the content carefully, you can only access to the system via the links in this e-mail!
+                p Don't use a disposable email! Use secure email account!
+                p If you losing access to the links or your email account makes a complete system reset required!

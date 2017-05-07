@@ -39,8 +39,6 @@ body {
     margin: 0 auto;
 }
 
-#donation {}
-
 .default .img {
     position: relative;
     box-sizing: border-box;
@@ -53,20 +51,22 @@ body {
     background-position: center;
 }
 
+.default .type,
+.default .name,
 .default .text {
     box-sizing: border-box;
-    line-height: 100vh;
     width: 350vh;
+    line-height: 100vh;
+}
+
+.default .text {
     background-color: rgba(0, 0, 0, 0.7);
 }
 
 .default .type,
 .default .name {
-    box-sizing: border-box;
     position: absolute;
     text-align: center;
-    width: 350vh;
-    line-height: 100vh;
     opacity: 0;
 }
 

@@ -8,5 +8,8 @@ module.exports = {
         port: '8083',
         type: 0, // '0' = normal, '1' = proxy
         host: 'localhost' // only for 'proxy' type
+    },
+    security: {
+        cookieExp: 2880 // cookie expiration time in minutes
     }
 };

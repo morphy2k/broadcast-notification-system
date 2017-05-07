@@ -4,12 +4,12 @@ head
     link(href="ressources/css/main.css?v=" + version, rel="stylesheet")
     link(href="https://fonts.googleapis.com/css?family=Roboto:400,700", rel="stylesheet")
     script.
-        var version = '#{version}';
-
-        var hostType = #{server.type},
+        var version = '#{version}',
+            hostType = #{server.type},
             host = '',
             pageTitle = '#{pageTitle}',
-            page;
+            page,
+            jwt = '#{jwt}';
 
         if (hostType == 1) {
             host = '#{server.host}' + ':#{server.port}';

@@ -1,4 +1,6 @@
-var socket = io.connect(host);
+var socket = io.connect(host, {
+    'query': `token=${jwt}`
+});
 
 socket.on('connect', () => {
     socket.on('notification', (data) => {

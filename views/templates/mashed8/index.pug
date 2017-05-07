@@ -2,45 +2,46 @@ doctype html
 
 html(lang="en")
     head
-      title Notification window
-      link(href="/template/ressources/css/notification.css", rel="stylesheet")
-      script.
-        function playSound(type) {
-              if (type == 'subscription') {
-                  let sub = new Audio('/template/ressources/media/sub.mp3');
-                  setTimeout(() => sub.play(), 200);
-              }
-              if (type == 'donation') {
-                  let donation = new Audio('/template/ressources/media/donation.mp3');
-                  setTimeout(() => donation.play(), 200);
-              }
-          }
+        base(href="/notification/")
+        title Notification window
+        link(href="ressources/css/notification.css", rel="stylesheet")
+        script.
+            function playSound(type) {
+                    if (type == 'subscription') {
+                        let sub = new Audio('ressources/media/sub.mp3');
+                        setTimeout(() => sub.play(), 200);
+                    }
+                    if (type == 'donation') {
+                        let donation = new Audio('ressources/media/donation.mp3');
+                        setTimeout(() => donation.play(), 200);
+                    }
+                }
 
     body
-      #follow.notification.default
-        .img
-        .text
-          .type Neuer Follower
-          .name
+        #follow.notification.default
+            .img
+            .text
+                .type Neuer Follower
+                .name
 
-      #sub.notification.default
-        .img
-        .text
-          .type Neuer Sub
-          .name
+        #sub.notification.default
+            .img
+            .text
+                .type Neuer Sub
+                .name
 
-      #host.notification.default
-        .img
-        .text
-          .type Neuer Host
-          .name
+        #host.notification.default
+            .img
+            .text
+                .type Neuer Host
+                .name
 
-      #donation.notification
-        .img
-        .text
-          .type Neue Donation
-          .name
-          #amount
-          #message
+        #donation.notification
+            .img
+            .text
+                .type Neue Donation
+                .name
+                #amount
+                #message
 
     include ../.include/required.pug

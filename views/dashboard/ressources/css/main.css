@@ -36,10 +36,8 @@ header, main, footer {
     }
 }
 
-.greyOut header,
-.greyOut main,
-.greyOut footer {
-    animation-name: fadeOut ;
+.greyOut header, .greyOut main, .greyOut footer {
+    animation-name: fadeOut;
     animation-timing-function: ease;
     animation-duration: 4s;
     animation-fill-mode: forwards;
@@ -57,7 +55,7 @@ header, main, footer {
     color: rgb(0, 0, 0);
     font-size: 1.3rem;
     text-align: center;
-    animation-name: fadeIn ;
+    animation-name: fadeIn;
     animation-timing-function: ease;
     animation-duration: 6s;
     animation-fill-mode: forwards;
@@ -80,59 +78,91 @@ header, main, footer {
     font-size: 1.1rem;
 }
 
-
-@keyframes popup {
+@keyframes notification {
     0% {
+        left: -20rem;
         opacity: 0;
     }
-    30% {
+    15% {
+        left: 4rem;
         opacity: 1;
     }
     70% {
+        left: 4rem;
         opacity: 1;
     }
     100% {
+        left: 4rem;
         opacity: 0;
-        display: none;
     }
 }
 
-#notificationInfo {
+@keyframes message {
+    0% {
+        opacity: 0;
+        max-height: 0;
+    }
+    15% {
+        opacity: 0;
+        max-height: 0;
+    }
+    60% {
+        opacity: 1;
+        max-height: 8rem;
+    }
+    80% {
+        opacity: 1;
+        max-height: 8rem;
+    }
+    90% {
+        opacity: 0;
+        max-height: 0;
+    }
+    100% {
+        opacity: 0;
+        max-height: 0;
+    }
+}
+
+#notification {
+    position: fixed;
     display: none;
     z-index: 10;
-    position: fixed;
-    top: 3rem;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0, 0, 0, .7);
+    bottom: 3rem;
+    left: -20rem;
+    background: rgba(0, 0, 0, .9);
     color: white;
-    padding: 2rem;
-    width: 16rem;
+    padding: 1.5rem;
+    width: 18rem;
     text-align: center;
-    transition: all 800ms ease-in-out;
-    animation-name: popup;
+    animation-name: notification;
     animation-timing-function: ease;
-    animation-duration: 10s;
+    animation-duration: 15s;
     animation-fill-mode: forwards;
     opacity: 0;
 }
 
-#notiType {
-    font-weight: 700;
-    font-size: 1.3rem;
-    text-decoration: underline;
-    margin-bottom: .6rem;
-}
-
-#notiName {
+#notification .name {
     font-weight: 700;
     font-size: 1rem;
 }
 
-#notificationInfo span {
+#notification .amount {
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+#notification .message {
     display: block;
     margin-top: .3rem;
+    font-style: italic;
+    max-height: 0;
+    animation-name: message;
+    animation-timing-function: ease;
+    animation-duration: 12s;
+    animation-fill-mode: forwards;
 }
+
 
 /*** switch ***/
 
@@ -154,8 +184,8 @@ header, main, footer {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgb(178, 178, 178);
     transition: .4s;
+    border: .05rem solid rgb(131, 131, 131);
 }
 
 .slider:before {
@@ -163,18 +193,17 @@ header, main, footer {
     content: "";
     height: .9rem;
     width: .9rem;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
+    left: 3px;
+    bottom: 3px;
+    background-color: rgb(51, 51, 51);
     transition: .4s;
 }
 
-input:checked+.slider {
-    background-color: rgb(51, 51, 51);
-}
+input:checked+.slider {}
 
 input:checked+.slider:before {
     transform: translateX(26px);
+    background-color: rgb(0, 146, 0);
 }
 
 
@@ -224,7 +253,6 @@ header .col-2 {
     justify-content: flex-end;
 }
 
-
 header {
     display: flex;
     padding: 1rem;
@@ -247,17 +275,17 @@ header nav {
     line-height: 3rem;
 }
 
-
 #settings-btn {
     display: inline-block;
-    background-image: url(/ressources/img/settings.svg);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 1.8rem;
-    width: 1.8rem;
-    color: rgba(0, 0, 0, 0);
-    opacity: 1;
-    transition: opacity 400ms ease-in-out;
+    text-decoration: none;
+    text-align: center;
+    color: white;
+    font-weight: 700;
+    background: rgb(64, 64, 64);
+    transition: all 400ms ease-in-out;
+    line-height: 2rem;
+    width: 6rem;
+    font-size: .9rem;
 }
 
 #settings-btn:hover {
@@ -286,110 +314,138 @@ header nav {
 
 #dashboard {
     box-sizing: border-box;
-    display: flex;
+    display: grid;
+    grid-gap: .5rem;
+    grid-template-columns: 1.1fr 1.1fr 1fr;
+    grid-template-rows: 28rem 28rem;
     padding: 0 2rem;
-    justify-content: center;
 }
 
-#dashboard .col-1 {
+#dashboard #stats1 {
     box-sizing: border-box;
-    flex: 67;
-    min-height: 40rem;
+    grid-column: 1 / 3;
+    grid-row: 1;
+    height: 28rem;
 }
 
-#dashboard .col-2 {
+#dashboard #stats2 {
     box-sizing: border-box;
-    flex: 30;
-    min-height: 40rem;
+    grid-column: 1 / 3;
+    grid-row: 2;
+    height: 28rem;
 }
 
-#dashboard .col-3 {
+#dashboard #feed {
     box-sizing: border-box;
-    flex: 3;
-    min-height: 40rem;
+    display: flex;
+    grid-column: 3;
+    grid-row: 1 / 2;
+    height: 56.5rem;
 }
 
-#dashboard .col-3 ul {
+#dashboard #feed nav ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-#dashboard .col-3 li {
+#dashboard #feed nav li {
     box-sizing: border-box;
     line-height: 2.5rem;
     width: 2.5rem;
     text-align: center;
     background: rgba(230, 230, 230, 0.5);
-    transition: background .3s ease, color .2s ease;
 }
 
-#dashboard .col-3 .selected {
+#dashboard #feed nav li div {
+    z-index: 10;
+    width: 2.5rem;
+    transition: background .3s ease, color .2s ease, width .3s ease;
+}
+
+#dashboard #feed nav li div:hover {
+    width: 4rem;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+}
+
+#dashboard #feed nav .selected {
     background: rgb(90, 90, 90);
     color: rgb(255, 255, 255);
 }
 
-#dashboard .col-3 li:hover {
-    background: rgba(90, 90, 90, 0.5);
-    color: rgb(255, 255, 255);
-    cursor: pointer;
+#all-btn:hover {
+    background: rgba(121, 121, 121, 0.8);
+}
+
+#follow-btn:hover {
+    background: rgba(44, 62, 80, 0.8);
+}
+
+#sub-btn:hover {
+    background: rgba(216, 72, 57, 0.8);
+}
+
+#donation-btn:hover {
+    background: rgba(52, 152, 219, 0.8);
+}
+
+#host-btn:hover {
+    background: rgba(145, 145, 145, 0.8);
+}
+
+.unfocused {
+    opacity: 0.2 !important;
 }
 
 .stats {
     box-sizing: border-box;
     display: flex;
     background: rgb(230, 230, 230);
-    max-height: 28rem;
     justify-content: center;
     align-items: center;
-    margin-bottom: 1rem;
 }
 
-#feed {
-    box-sizing: border-box;
+#feed .wrapper {
     background: rgb(230, 230, 230);
-    margin: 0 0 0 1rem;
-    height: 57rem;
     overflow-y: scroll;
+    box-sizing: border-box;
+    width: 100%;
 }
 
-
-#feed::-webkit-scrollbar {
+#feed .wrapper::-webkit-scrollbar {
     width: .4rem;
 }
- 
-#feed::-webkit-scrollbar-thumb {
+
+#feed .wrapper::-webkit-scrollbar-thumb {
     background: rgba(51, 51, 51, .1);
 }
 
-#feed::-webkit-scrollbar-thumb:hover {
+#feed .wrapper::-webkit-scrollbar-thumb:hover {
     background: rgba(51, 51, 51, 0.6);
-}
-
-#feed .title {
-    text-align: center;
-    font-weight: bold;
-    text-transform: uppercase;
 }
 
 #feed .list {
     display: flex;
     flex-direction: column-reverse;
-    box-sizing: border-box;
     list-style: none;
     font-size: .9rem;
     margin: 0;
-    padding: .1rem .2rem .3rem .6rem;
+    padding: .2rem 0 0 0;
 }
 
 #feed .list li {
-    flex: 0 0 auto;
     box-sizing: border-box;
     display: block;
-    margin: .5rem 0 0 0;
-    padding: .3rem;
+    padding: .5rem .7rem;
     transition: opacity .4s ease;
     opacity: 1;
+    transition: background .2s ease, opacity .2s ease;
+    cursor: default;
+}
+
+#feed .list li:hover {
+    background: rgb(211, 211, 211);
 }
 
 #feed .list .head {
@@ -418,16 +474,30 @@ header nav {
     font-weight: bold;
 }
 
+#feed .list .donation {
+    cursor: pointer !important;
+}
+
+#feed .list .message {
+    display: none;
+    margin-top: .5rem;
+    padding: 0 .3rem;
+    font-style: italic;
+    font-size: .85rem;
+}
+
+
 /*** Settings ***/
 
 #settings {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    padding: 0 1rem;
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: auto auto auto;
+    padding: 0 2rem;
 }
 
-#one ul, #two ul {
+#settings #b1 ul, #settings #b2 ul {
     display: flex;
     margin: 0;
     padding: 0;
@@ -436,91 +506,114 @@ header nav {
     list-style: none;
 }
 
-#one li, #two li {
+#settings #b1 li, #settings #b2 li {
     margin: 1rem;
 }
 
 #settings .box {
     box-sizing: border-box;
     margin: 0 auto;
-    margin: 0 1rem;
-    padding: 1rem;
+    padding: 1.5rem;
     background: rgb(230, 230, 230);
-    margin-bottom: 2rem;
+    width: 100%;
 }
 
-.box .head {
-    margin-bottom: 1rem;
+#settings .box .head {
     text-align: center;
     color: rgb(52, 52, 52);
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     font-weight: 700;
-    text-decoration: underline;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
 }
 
-.box#one {
-    flex: 100%;
-    
+#settings #b1 {
+    grid-column: 1 / 3;
+    grid-row: 1;
 }
 
-.box#two {
-    flex: 50;
+#settings #b2 {
+    grid-column: 1;
+    grid-row: 2;
 }
 
-.box#three {
-    flex: 50;
+#settings #b3 {
+    grid-column: 2;
+    grid-row: 2;
     text-align: center;
 }
 
-.box#four {
-    flex: 100%;
+#settings #b4 {
+    grid-column: 1 / 3;
+    grid-row: 3;
+    min-height: 15rem;
+}
+
+@keyframes saved {
+    from {
+        color: black;
+        border: .05rem solid rgb(131, 131, 131);
+    }
+    50% {
+        color: white;
+        border: .05rem solid white;
+        background: rgb(0, 146, 0);
+    }
+    to {
+        color: black;
+        border: .05rem solid rgb(131, 131, 131);
+    }
 }
 
 #settings .check {
     display: inline-block;
     text-decoration: none;
     text-align: center;
-    color: white;
+    color: black;
     opacity: .3;
     font-weight: 700;
+    border: .05rem solid rgb(131, 131, 131);
     transition: all 400ms ease-in-out;
 }
 
-#one .check {
+.check.active {
+    opacity: 1 !important;
+}
+
+.check .name {
+    display: block;
+}
+
+.saved {
+    animation-name: saved;
+    animation-timing-function: ease;
+    animation-duration: 2.3s;
+    animation-fill-mode: forwards;
+    animation-delay: 0;
+}
+
+#settings #b1 .check {
     width: 15rem;
     line-height: 3.8rem;
     font-size: 1.2rem;
 }
 
-#sTwitch {
-    background: rgb(100, 65, 165);
-}
-
-#sYouTube {
-    background: rgb(205, 32, 31);
-}
-
-#sStreamlabs {
-    background: rgb(24, 196, 162);
-}
-
-#two .check {
+#settings #b2 .check {
     width: 12rem;
     line-height: 3.4rem;
     font-size: 1rem;
-    background: rgb(51, 51, 51);
 }
 
-#three select {
-    margin-top: .2rem;
+#settings #b3 select {
     width: 13rem;
     height: 2.4rem;
     padding: 0 .6rem;
     border: none;
-    color: white;
-    background: rgb(51, 51, 51);
+    color: rgb(0, 0, 0);
+    background: rgb(230, 230, 230);
     font-size: .9rem;
     text-transform: uppercase;
+    border: .05rem solid rgb(131, 131, 131);
 }
 
 #devButton {
@@ -529,11 +622,10 @@ header nav {
     text-align: center;
     width: 10rem;
     line-height: 2.6rem;
-    color: white;
-    background: rgb(51, 51, 51);
-    font-weight: 700;
+    color: rgb(0, 0, 0);
     cursor: pointer;
     transition: all 400ms ease-in-out;
+    border: .05rem solid rgb(131, 131, 131);
 }
 
 #devWindow {
@@ -552,7 +644,8 @@ header nav {
     margin-top: 8rem;
     background: rgb(227, 227, 227);
     width: 50rem;
-    border: 1rem solid rgba(128, 128, 128, 0.8);
+    padding: 1rem;
+    border: .05rem solid rgb(131, 131, 131);
 }
 
 #dev .head {
@@ -578,11 +671,11 @@ header nav {
     text-align: center;
     width: 10rem;
     line-height: 2.4rem;
-    color: white;
-    background: rgb(51, 51, 51);
+    color: rgb(0, 0, 0);
     font-weight: 700;
     cursor: pointer;
     transition: all 400ms ease-in-out;
+    border: .05rem solid rgb(131, 131, 131);
 }
 
 #dev .col-1 {
@@ -623,10 +716,11 @@ header nav {
     width: 8rem;
     line-height: 1.4rem;
     border: none;
-    background: rgb(51, 51, 51);
-    color: white;
+    background: rgb(230, 230, 230);
+    color: rgb(0, 0, 0);
     font-size: .9rem;
     padding: .2rem .2rem .2rem .4rem;
+    border: .05rem solid rgb(131, 131, 131);
 }
 
 #dev input[type="range"] {
@@ -636,15 +730,16 @@ header nav {
     width: 8rem;
     height: 1.5rem;
     padding: .3rem;
-    background: rgb(51, 51, 51);
+    background: rgb(230, 230, 230);
     cursor: pointer;
+    border: .05rem solid rgb(131, 131, 131);
 }
 
 #dev input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: .9rem;
     height: .9rem;
-    background: rgb(250, 250, 250);
+    background: rgb(51, 51, 51);
 }
 
 #dev output {
@@ -657,54 +752,45 @@ header nav {
     font-size: .9rem;
 }
 
-#cssBody {
-  justify-content: center;
-  margin: 0 auto;
-
-}
-
 #slider1 {
     display: flex;
     margin: 0 auto;
     height: 1.5rem;
 }
 
-#four {
-    height: 16rem;
-}
-
-#four .title {
+#settings #b4 .title {
     width: 100%;
     font-weight: bold;
     margin-bottom: .6rem;
 }
 
-#four .inner {
+#settings #b4 .inner {
     display: flex;
 }
 
-#four .col-1, #four .col-2, #four .col-3 {
+#settings #b4 .col-1, #settings #b4 .col-2, #settings #b4 .col-3 {
     flex: 33%
 }
 
-#four .col-3 {
+#settings #b4 .col-3 {
     text-align: center;
     width: 20rem;
 }
 
-#four .col-3 select {
+#settings #b4 .col-3 select {
     margin-top: .2rem;
     width: 12rem;
     height: 2.4rem;
     padding: 0 .6rem;
     border: none;
-    color: white;
-    background: rgb(51, 51, 51);
+    color: rgb(0, 0, 0);
+    background: rgb(230, 230, 230);
     font-size: .9rem;
     text-transform: uppercase;
+    border: .05rem solid rgb(131, 131, 131);
 }
 
-#four .col-1 {
+#settings #b4 .col-1 {
     text-align: center;
     width: 20rem;
 }
@@ -712,13 +798,13 @@ header nav {
 #dashboardSettings ul {
     list-style: none;
     margin: 0;
+    padding: 0 6rem;
 }
 
 #dashboardSettings li {
     display: flex;
     line-height: 2rem;
     align-items: center;
-    padding-left: 2rem;
 }
 
 #dashboardSettings span {
@@ -734,15 +820,11 @@ header nav {
 
 #push {
     margin: .2rem 0 0 .2rem;
-    line-height: 2.45rem;
+    line-height: 2.3rem;
     width: 4rem;
-    background: rgb(51, 51, 51);
-    color: white;
+    color: rgb(0, 0, 0);
     cursor: pointer;
-}
-
-.check.active {
-    opacity: 1 !important;
+    border: .05rem solid rgb(131, 131, 131);
 }
 
 footer {
