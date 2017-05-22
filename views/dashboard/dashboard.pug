@@ -1,21 +1,21 @@
 doctype html
 
-html
+html(lang="en")
     include include/head.pug
 
     body
-        #notification
+        #popup
 
         include include/header.pug
 
         main
             #dashboard
-                #stats1.stats.box
+                #chartBox-1.stats.box
                     canvas#chart1
-                #stats2.stats.box
+                #chartBox-2.stats.box
                     canvas#chart2
 
-                #feed.box
+                #feed
                     .wrapper
                         ul.list
                             each event in stats.feed.list
@@ -42,14 +42,14 @@ html
                     nav
                         ul
                             li
-                                #all-btn.feed-btn.selected All
+                                #feed-all.feed-btn.selected All
                             li
-                                #follow-btn.feed-btn F
+                                #feed-follows.feed-btn F
                             li
-                                #sub-btn.feed-btn S
+                                #feed-subs.feed-btn S
                             li
-                                #donation-btn.feed-btn D
+                                #feed-donations.feed-btn D
                             li
-                                #host-btn.feed-btn H
+                                #feed-hosts.feed-btn H
 
         include include/footer.pug

@@ -2,23 +2,10 @@
   "name": "broadcast-notification-system",
   "version": "0.9.0-0",
   "private": false,
-  "description": "An open and high customisable notification/alert system for livestreams on Twitch and Youtube.",
-  "author": "Markus Wiegand <markus.wiegand@outlook.com>",
   "license": "MIT",
+  "description": "An open, simple and highly customisable notification/alert system for live streams on Twitch and YouTube.",
+  "author": "Markus Wiegand <markus.wiegand@outlook.com>",
   "contributors": "https://github.com/Morphy2k/broadcast-notification-system/graphs/contributors",
-  "engines": {
-    "node": ">=7.10.0"
-  },
-  "scripts": {
-    "start": "node lib"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Morphy2k/broadcast-notification-system.git"
-  },
-  "bugs": {
-    "url": "https://github.com/Morphy2k/broadcast-notification-system/issues"
-  },
   "keywords": [
     "livestream",
     "notification",
@@ -27,23 +14,52 @@
     "youtube",
     "overlay"
   ],
+  "engines": {
+    "node": ">=7.8.0"
+  },
+  "scripts": {
+    "start": "NODE_ENV=production node lib",
+    "build-js": "browserify public/dashboard/js/main.js > public/dashboard/js/main.bundle.js && browserify public/dashboard/js/charts.js > public/dashboard/js/charts.bundle.js && browserify public/template/js/main.js > public/template/js/main.bundle.js"
+  },
   "dependencies": {
-    "async": "^2.4.0",
-    "body-parser": "^1.17.1",
-    "chart.js": "^2.5.0",
+    "body-parser": "^1.17.2",
     "cookie-parser": "^1.4.3",
-    "express": "^4.15.2",
-    "express-jwt": "^5.3.0",
-    "jquery": "^3.2.1",
-    "jsonwebtoken": "^7.4.0",
+    "express": "^4.15.3",
+    "jsonwebtoken": "^7.4.1",
     "lodash": "^4.17.4",
     "lowdb": "^0.16.2",
-    "moment": "^2.18.1",
     "nodemailer": "^4.0.1",
     "pug": "^2.0.0-rc.1",
     "request": "^2.81.0",
-    "socket.io": "^1.7.4",
-    "socketio-jwt": "^4.5.0",
+    "socket.io": "^2.0.1",
     "uuid": "^3.0.1"
+  },
+  "devDependencies": {
+    "browserify": "^14.3.0",
+    "chart.js": "^2.5.0",
+    "jquery": "^3.2.1",
+    "moment": "^2.18.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Morphy2k/broadcast-notification-system.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Morphy2k/broadcast-notification-system/issues"
+  },
+  "eslintConfig": {
+    "extends": "eslint:recommended",
+    "env": {
+      "es6": true,
+      "node": true
+    },
+    "parserOptions": {
+      "ecmaVersion": 8,
+      "impliedStrict": true
+    },
+    "rules": {
+      "semi": 2,
+      "no-console": 0
+    }
   }
 }

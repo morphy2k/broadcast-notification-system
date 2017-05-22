@@ -2,13 +2,32 @@ footer
     p BNS v#{version} coded by&nbsp;
         a(href="https://github.com/Morphy2k" target="_blank") Morphy
 
-script(src='/jquery.slim.min.js?v=' + version)
-script(src='/socket.io.min.js?v=' + version)
-script(src="/moment-with-locales.min.js?v=" + version)
-script(src="ressources/js/com.js?v=" + version)
-if pageTitle == 'Dashboard'
-    script(src="/Chart.min.js?v=" + version)
-    script(src="ressources/js/chartConfig.js?v=" + version)
+script.
+    var version = '#{version}',
+        pageTitle = '#{pageTitle}',
+        page = pageTitle.toLowerCase(),
+        popups = #{settings.dashboard.popups};
+        
+if pageTitle == 'Settings'
+    script.
+        // service
+        twitch = #{settings.api.twitch.enabled},
+        youtube = #{settings.api.youtube.enabled},
+        streamlabs = #{settings.api.streamlabs.enabled},
+        // notifications
+        notifications = #{settings.notification.enabled},
+        duration = #{settings.notification.duration},
+        follows = #{settings.notification.types.follows},
+        subscriptions = #{settings.notification.types.subscriptions},
+        hosts = #{settings.notification.types.hosts},
+        donations = #{settings.notification.types.donations};
 
-if pageTitle == 'Landingpage'
-    script(src="ressources/js/typed.min.js")
+if pageTitle == 'Dashboard'
+    script.
+        // stats
+        chartFollows = [#{stats.charts.follows}],
+        chartSubscriptions = [#{stats.charts.subs}],
+        chartDonations = {count: [#{stats.charts.donations.count}],amount: [#{stats.charts.donations.amount}]};
+    script(src="ressources/js/charts.bundle.js?v=" + version)
+
+script(src='ressources/js/main.bundle.js?v=' + version)
