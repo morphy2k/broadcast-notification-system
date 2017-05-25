@@ -542,7 +542,7 @@ class Socket extends io {
             }
 
             // Listeners
-            this.on('stats', (data) => {
+            this.on('stats', data => {
                 if (data.charts !== undefined && page === 'dashboard')
                     charts.compare(data.charts);
                 if (data.feed !== undefined && page === 'dashboard')
@@ -583,9 +583,9 @@ class Socket extends io {
 
                     if (data.type !== 'testNotification') popup('Success');
                 }
-            }).on('notification', (data) => {
+            }).on('notification', data => {
                 if (popups) notification.parser(data);
-            }).on('general', (data) => {
+            }).on('general', data => {
 
                 // client-server version matching
                 if (data.version !== undefined) {
@@ -818,7 +818,7 @@ class Feed {
                     <time class="date" datetime="${el.date}">${time}</time>
                   </div>
                   <div class="body">
-                    <a href="https://twitch.tv/${el.name}" target="_blank">${el.name}</a>
+                    <a href="https://twitch.tv/${el.name}" target="_blank" rel="noopener">${el.name}</a>
                   </div>
                 </li>`);
 
@@ -996,9 +996,6 @@ function popup(str) {
         $("#popup").show();
     }, 400);
 }
-
-
-
 
 
 class Settings {

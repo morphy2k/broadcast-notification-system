@@ -5,7 +5,8 @@ module.exports = {
         host: 'localhost', // if proxy in use set proxy host
         port: 8083,
         proxy: false, // if nginx or similar used
-        proxyPort: 80
+        proxyPort: 80,
+        compression: true // static file compression (a bit higher CPU/RAM usage, but smaller files to transfer)
     },
     authentication: { // !!!IMPORTANT!!! works only with HTTPS connection! (use nginx or similar as proxy for HTTPS)
         enabled: true, // can be disabled if it runs on a local machine
