@@ -140,8 +140,6 @@
     transition: .4s;
 }
 
-input:checked+.slider {}
-
 input:checked+.slider:before {
     transform: translateX(26px);
     background-color: rgb(0, 146, 0);
@@ -205,7 +203,6 @@ input:checked+.slider:before {
     color: rgb(0, 0, 0);
     cursor: pointer;
     text-decoration: none;
-    transition: all 400ms ease-in-out;
     border: .05rem solid rgb(131, 131, 131);
 }
 
@@ -258,7 +255,6 @@ input:checked+.slider:before {
     color: rgb(0, 0, 0);
     font-weight: 700;
     cursor: pointer;
-    transition: all 400ms ease-in-out;
     border: .05rem solid rgb(131, 131, 131);
 }
 
@@ -356,19 +352,33 @@ input:checked+.slider:before {
 }
 
 #misc .inner {
-    display: flex;
+    display: grid;
+    grid-template-columns: 33.33% 33.33% 33.33%;
+    grid-template-rows: auto;
+    height: 100%;
+    padding-top: 1rem;
 }
 
-#misc .col-1, #misc .col-2, #misc .col-3 {
-    flex: 33%
-}
-
-#misc .col-3 {
+#misc .col-1 {
+    grid-column: auto;
+    grid-row: 1;
     text-align: center;
-    width: 20rem;
 }
 
-#misc .col-3 select {
+#notificationTest {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+#notificationTest .title {
+    font-size: .9rem;
+    text-transform: uppercase;
+    color: rgb(50, 50, 50);
+}
+
+#notificationTest select {
     margin-top: .2rem;
     width: 12rem;
     height: 2.4rem;
@@ -381,34 +391,6 @@ input:checked+.slider:before {
     border: .05rem solid rgb(131, 131, 131);
 }
 
-#misc .col-1 {
-    text-align: center;
-    width: 20rem;
-}
-
-#misc .dashboardSettings ul {
-    list-style: none;
-    margin: 0;
-    padding: 0 6rem;
-}
-
-#misc .dashboardSettings li {
-    display: flex;
-    line-height: 2rem;
-    align-items: center;
-}
-
-#misc .dashboardSettings span {
-    margin-left: .4rem;
-}
-
-#notificationTest {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-}
-
 #push {
     margin: .2rem 0 0 .2rem;
     line-height: 2.3rem;
@@ -416,4 +398,59 @@ input:checked+.slider:before {
     color: rgb(0, 0, 0);
     cursor: pointer;
     border: .05rem solid rgb(131, 131, 131);
+}
+
+#misc .col-2 {
+    display: flex;
+    grid-column: auto;
+    grid-row: 1;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+#misc .col-2 ul {
+    list-style: none;
+    margin: 0;
+}
+
+#misc .col-2 ul {
+    padding: 0;
+    margin: 0;
+}
+
+#misc .col-2 .button {
+    margin: 0 .3rem .3rem .3rem;
+    display: inline-block;
+    text-align: center;
+    width: 11rem;
+    line-height: 2.5rem;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    text-decoration: none;
+    border: .05rem solid rgb(131, 131, 131);
+}
+
+#misc .col-3 {
+    grid-column: auto;
+    grid-row: 1;
+    text-align: center;
+}
+
+#misc .col-3 ul {
+    display: block;
+    list-style: none;
+    margin: 0 auto;
+    padding: 0 6rem;
+    width: 12rem;
+}
+
+#misc .col-3 li {
+    display: flex;
+    line-height: 2rem;
+    align-items: center;
+}
+
+#misc .col-3 span {
+    margin-left: .4rem;
 }

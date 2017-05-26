@@ -98,41 +98,47 @@ html(lang="en")
                     .head Misc
                     .inner
                         .col-1
-                            .dashboardSettings
-                                .title Dashboard Settings
-                                ul
-                                    li
-                                        .switch#popupsToggle
-                                            label.switch
-                                                if settings.dashboard.popups
-                                                    input(type="checkbox" checked)
-                                                else
-                                                    input(type="checkbox")
-                                                .slider
-                                        span Notification popups
-                                    li
-                                        .switch
-                                            label.switch
-                                                input(type="checkbox")
-                                                .slider
-                                        span Placeholder
-                                    li
-                                        .switch
-                                            label.switch
-                                                input(type="checkbox")
-                                                .slider
-                                        span Placeholder
-
-                        .col-2
-
-                        .col-3
                             #notificationTest
-                                .title Notification Test
+                                .title Notification test
                                 select(name="notification")
                                     option(value="follow") Follow
                                     option(value="subscription") Subscription
                                     option(value="host") Host
                                     option(value="donation") Donation
                                 #push Push
+                                
+                        .col-2
+                            ul
+                                li
+                                    a#clearQueue.button(title="Clears the current notification queue") Clear queue
+                                    
+                        .col-3
+                            ul
+                                li(title="Notification switch (global)")
+                                    .switch#notificationToggle
+                                        label.switch
+                                            if settings.notification.enabled
+                                                input(type="checkbox" checked)
+                                            else
+                                                input(type="checkbox")
+                                            .slider
+                                    span(title="Notification switch (global)") Notifications
+                                    
+                                li(title="Switch for notifications on dashboard")
+                                    .switch#popupsToggle
+                                        label.switch
+                                            if settings.dashboard.popups
+                                                input(type="checkbox" checked)
+                                            else
+                                                input(type="checkbox")
+                                            .slider
+                                    span(title="Switch for notifications on dashboard") Dashboard popups
+                                    
+                                li
+                                    .switch
+                                        label.switch
+                                            input(type="checkbox")
+                                            .slider
+                                    span Placeholder
 
         include include/footer.pug

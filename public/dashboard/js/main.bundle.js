@@ -517,7 +517,7 @@ return a.defineLocale("ur",{months:Th,monthsShort:Th,weekdays:Uh,weekdaysShort:U
 },{}],4:[function(require,module,exports){
 /* eslint-env browser */
 /* global twitch, youtube, streamlabs, tipeee, follows, subscriptions, hosts, donations, chart1, chart2, chartFollows:true,
-    chartSubscriptions:true, chartDonations:true, page, popups, version */
+    chartSubscriptions:true, chartDonations:true, page, popups, notifications version */
 'use strict';
 
 const $ = require('../../../node_modules/jquery/dist/jquery.slim.min.js');
@@ -557,15 +557,15 @@ class Socket extends io {
 
                     if (data.type === 'notification' || data.type === 'api') {
 
-                        window[data.name] = data.value;
+                        window[data.prop] = data.value;
 
                         if (data.value) {
-                            $(`#${data.type}-${data.name}`).addClass('enabled');
+                            $(`#${data.type}-${data.prop}`).addClass('enabled');
                         } else {
-                            $(`#${data.type}-${data.name}`).removeClass('enabled');
+                            $(`#${data.type}-${data.prop}`).removeClass('enabled');
                         }
 
-                    } else if (data.name === 'templates') {
+                    } else if (data.prop === 'templates') {
 
                         let arr = data.templates,
                             selected = data.selected;
@@ -983,13 +983,13 @@ class Notification {
     }
 
     test() {
-        let name = $("#notificationTest > select option:selected")
+        let prop = $("#notificationTest > select option:selected")
             .attr('value');
 
         if (socket.connected) {
             socket.emit('dashboard', {
                 type: 'testNotification',
-                name
+                prop
             });
         }
     }
@@ -1049,33 +1049,39 @@ class Settings {
         });
 
         // Misc
-        $('#popupsToggle input').click(() => {
-            this.send('dashboard', 'popups', popups);
-        });
         $("#notificationTest > #push").click(() => {
             notification.test();
         });
+        $('#clearQueue').click(() => {
+            this.send('notification', 'clearQueue', true);
+        });
+        $('#notificationToggle input').click(() => {
+            this.send('notification', 'enabled', notifications);
+        });
+        $('#popupsToggle input').click(() => {
+            this.send('dashboard', 'popups', popups);
+        });
     }
 
-    send(type, option, value) {
+    send(type, prop, value) {
         if (socket.connected && (value === true || value === false)) {
             if (value) {
                 socket.emit('dashboard', {
-                    type: type,
-                    name: option,
+                    type,
+                    prop,
                     value: false
                 });
             } else {
                 socket.emit('dashboard', {
-                    type: type,
-                    name: option,
+                    type,
+                    prop,
                     value: true
                 });
             }
         } else {
             socket.emit('dashboard', {
-                type: type,
-                name: option,
+                type,
+                prop,
                 value: value
             });
         }
