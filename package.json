@@ -22,6 +22,7 @@
     "build-js": "browserify public/dashboard/js/main.js > public/dashboard/js/main.bundle.js && browserify public/dashboard/js/charts.js > public/dashboard/js/charts.bundle.js && browserify public/template/js/main.js > public/template/js/main.bundle.js"
   },
   "dependencies": {
+    "chart.js": "^2.6.0",
     "jsonwebtoken": "^7.4.1",
     "koa": "^2.2.0",
     "koa-views": "^6.0.2",

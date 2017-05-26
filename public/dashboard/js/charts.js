@@ -23,6 +23,7 @@ var chart1 = {
         lineTension: 0
     }]
 };
+
 var chart2 = {
     labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
     datasets: [{
@@ -41,6 +42,7 @@ var chart2 = {
         borderWidth: 0
     }]
 };
+
 window.onload = () => {
     var ctx1 = document.getElementById("chart1").getContext("2d"),
         ctx2 = document.getElementById("chart2").getContext("2d"),
@@ -83,6 +85,7 @@ window.onload = () => {
                 padding: 20
             }
         };
+
     window.chart1 = new Chart(ctx1, {
         type: 'bar',
         data: chart1,
