@@ -1,5 +1,11 @@
 head
 
     title= pageTitle
-    link(href="ressources/css/style.css?v=" + version, rel="stylesheet")
-    link(href="https://fonts.googleapis.com/css?family=Roboto:400,700", rel="stylesheet")
+    link(href="https://fonts.googleapis.com/css?family=Roboto:400,700", rel="stylesheet" media="all")
+    link(href="ressources/css/main.css?v=" + version, rel="stylesheet" media="all")
+    
+    if pageTitle == 'Dashboard'
+        link(href="ressources/css/dashboard.css?v=" + version, rel="stylesheet" media="all")
+            
+    if pageTitle == 'Settings'
+        link(href="ressources/css/settings.css?v=" + version, rel="stylesheet" media="all")

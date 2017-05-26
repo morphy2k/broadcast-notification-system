@@ -41,5 +41,3 @@ views/template
 
 # Database file
 db.json
-
-*.html

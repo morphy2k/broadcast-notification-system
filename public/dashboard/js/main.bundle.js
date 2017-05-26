@@ -543,15 +543,20 @@ class Socket extends io {
 
             // Listeners
             this.on('stats', data => {
+
                 if (data.charts !== undefined && page === 'dashboard')
                     charts.compare(data.charts);
                 if (data.feed !== undefined && page === 'dashboard')
                     feed.compare(data.feed);
+
             }).on('dashboard', (type, err, data) => {
                 if (err) {
                     popup('ERROR!');
+
                 } else if (type === 'response') {
+
                     if (data.type === 'notification' || data.type === 'api') {
+
                         window[data.name] = data.value;
 
                         if (data.value) {
@@ -561,6 +566,7 @@ class Socket extends io {
                         }
 
                     } else if (data.name === 'templates') {
+
                         let arr = data.templates,
                             selected = data.selected;
 
@@ -584,11 +590,14 @@ class Socket extends io {
                     if (data.type !== 'testNotification') popup('Success');
                 }
             }).on('notification', data => {
+
                 if (popups) notification.parser(data);
+
             }).on('general', data => {
 
                 // client-server version matching
                 if (data.version !== undefined) {
+
                     if (data.version !== version) {
                         let count = 10;
 
@@ -685,6 +694,7 @@ class Feed {
         }).mouseleave(() => {
             removeUnfocused();
         });
+
         $(types[1].id).click(() => {
             this.select(1);
         }).mouseenter(() => {
@@ -692,6 +702,7 @@ class Feed {
         }).mouseleave(() => {
             removeUnfocused();
         });
+
         $(types[2].id).click(() => {
             this.select(2);
         }).mouseenter(() => {
@@ -699,6 +710,7 @@ class Feed {
         }).mouseleave(() => {
             removeUnfocused();
         });
+
         $(types[3].id).click(() => {
             this.select(3);
         }).mouseenter(() => {
@@ -987,17 +999,6 @@ class Notification {
 const notification = new Notification();
 
 
-function popup(str) {
-
-    $("#popup").hide();
-
-    setTimeout(() => {
-        $("#popup").html(str);
-        $("#popup").show();
-    }, 400);
-}
-
-
 class Settings {
     constructor() {
 
@@ -1057,7 +1058,7 @@ class Settings {
     }
 
     send(type, option, value) {
-        if (socket.connected && value === true || value === false) {
+        if (socket.connected && (value === true || value === false)) {
             if (value) {
                 socket.emit('dashboard', {
                     type: type,
@@ -1082,5 +1083,16 @@ class Settings {
 }
 
 new Settings();
+
+
+function popup(str) {
+
+    $("#popup").hide();
+
+    setTimeout(() => {
+        $("#popup").html(str);
+        $("#popup").show();
+    }, 400);
+}
 
 },{"../../../node_modules/jquery/dist/jquery.slim.min.js":1,"../../../node_modules/moment/min/moment-with-locales.min.js":2,"../../../node_modules/socket.io-client/dist/socket.io.js":3}]},{},[4]);

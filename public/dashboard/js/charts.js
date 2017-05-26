@@ -7,40 +7,44 @@ const Chart = require('../../../node_modules/chart.js/dist/Chart.min.js');
 var chart1 = {
     labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
     datasets: [{
-        type: 'bar',
-        label: 'Subscriber',
-        backgroundColor: 'rgb(216, 72, 57)',
-        data: chartSubscriptions,
-        borderColor: 'white',
-        borderWidth: 0
-    }, {
-        type: 'line',
-        label: 'Follower',
-        borderColor: 'rgb(44, 62, 80)',
-        backgroundColor: 'rgba(44, 62, 80, 0.3)',
-        data: chartFollows,
-        borderWidth: 0,
-        lineTension: 0
-    }]
+            type: 'bar',
+            label: 'Subscriber',
+            backgroundColor: 'rgb(216, 72, 57)',
+            data: chartSubscriptions,
+            borderColor: 'white',
+            borderWidth: 0
+        },
+        {
+            type: 'line',
+            label: 'Follower',
+            borderColor: 'rgb(44, 62, 80)',
+            backgroundColor: 'rgba(44, 62, 80, 0.3)',
+            data: chartFollows,
+            borderWidth: 0,
+            lineTension: 0
+        }
+    ]
 };
 
 var chart2 = {
     labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
     datasets: [{
-        type: 'bar',
-        label: 'Donations',
-        backgroundColor: 'rgb(52, 152, 219)',
-        data: chartDonations.count,
-        borderColor: 'white',
-        borderWidth: 0
-    }, {
-        type: 'bar',
-        label: 'Amount',
-        backgroundColor: 'rgb(33, 114, 167)',
-        data: chartDonations.amount,
-        borderColor: 'white',
-        borderWidth: 0
-    }]
+            type: 'bar',
+            label: 'Donations',
+            backgroundColor: 'rgb(52, 152, 219)',
+            data: chartDonations.count,
+            borderColor: 'white',
+            borderWidth: 0
+        },
+        {
+            type: 'bar',
+            label: 'Amount',
+            backgroundColor: 'rgb(33, 114, 167)',
+            data: chartDonations.amount,
+            borderColor: 'white',
+            borderWidth: 0
+        }
+    ]
 };
 
 window.onload = () => {
