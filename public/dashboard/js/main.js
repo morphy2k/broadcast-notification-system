@@ -163,9 +163,9 @@ class Feed {
 
         let types = this.filter.types;
 
-        function removeUnfocused() {
+        const removeUnfocused = () => {
             $('#feed > .wrapper > ul > li').removeClass('unfocused');
-        }
+        };
 
         $(this.filter.all).click(() => {
             this.select(null);
@@ -333,7 +333,7 @@ class Feed {
                 if (el.type === 'host') {
                     $(`#${el.uuid} > .body`)
                         .append(` host you with
-                            <span class="viewer">${el.viewer}</span> viewer`);
+                            <span class="viewers">${el.viewers}</span> viewers`);
                 }
                 if (el.type === 'donation') {
                     $(`#${el.uuid} > .body`)
@@ -574,7 +574,7 @@ class Settings {
 new Settings();
 
 
-function popup(str) {
+const popup = str => {
 
     $("#popup").hide();
 
@@ -582,4 +582,4 @@ function popup(str) {
         $("#popup").html(str);
         $("#popup").show();
     }, 400);
-}
+};

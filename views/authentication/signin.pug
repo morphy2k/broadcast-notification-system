@@ -15,10 +15,30 @@ html(lang="en")
                 
                 .headline Please enter your E-Mail address
                 
-                form(action="/authentication/signin/send" method="get")
-                    input(required type="email" name="email" placeholder="john.doe@example.com")
+                form(onsubmit="return submitData();")
+                    input(required id="mail" type="email" name="email" placeholder="john.doe@example.com")
                     input(type="submit" value="send")
                 
                 p Please note, a mail will be sent automatically by the system only every #{days} days! Keep the mail content carefully, you can only access to the system with the link or token in this mail!
                 p If you losing the link/token or the access to your email account, makes a complete reset required!
                 p Don't use a disposable mail address! Use secure email account!
+                
+        script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
+        script.
+            const submitData = () => {
+                $.ajax({
+                    type: "GET",
+                    url: "/authentication/signin/send",
+                    headers: {
+                        "email": document.getElementById('mail').value,
+                    },
+                    cache: false,
+                    success: function () {
+                        alert('Thanks, please check your mailbox in 1-2 minutes.');
+                        window.close();
+                    }
+                });
+
+                return false;
+            }
+            

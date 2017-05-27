@@ -34,8 +34,9 @@
     "uuid": "^3.0.1"
   },
   "devDependencies": {
-    "browserify": "^14.3.0",
+    "browserify": "^14.4.0",
     "chart.js": "^2.5.0",
+    "eslint": "^4.0.0-beta.0",
     "jquery": "^3.2.1",
     "moment": "^2.18.1"
   },
@@ -58,6 +59,10 @@
     },
     "rules": {
       "semi": 2,
+      "semi-style": [
+        "error",
+        "last"
+      ],
       "no-console": 0
     }
   }
