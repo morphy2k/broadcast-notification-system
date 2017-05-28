@@ -46,24 +46,5 @@
   },
   "bugs": {
     "url": "https://github.com/Morphy2k/broadcast-notification-system/issues"
-  },
-  "eslintConfig": {
-    "extends": "eslint:recommended",
-    "env": {
-      "es6": true,
-      "node": true
-    },
-    "parserOptions": {
-      "ecmaVersion": 8,
-      "impliedStrict": true
-    },
-    "rules": {
-      "semi": 2,
-      "semi-style": [
-        "error",
-        "last"
-      ],
-      "no-console": 0
-    }
   }
 }
