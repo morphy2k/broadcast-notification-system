@@ -1,12 +1,12 @@
 header
 
-    .col-1
-        if pageTitle == 'Settings'
-            nav
-                a.back-arrow(href="/dashboard" title="Back to dashboard") &nbsp;
-        h1= pageTitle
+  .col-1
+    if pageTitle == 'Settings'
+      nav
+        a.back-arrow(href="/dashboard" title="Back to dashboard") &nbsp;
+    h1= pageTitle
 
-    .col-2
-        if pageTitle == 'Dashboard'
-            nav
-                a.settings-btn(href="/settings" title="Settings") Settings
+  .col-2
+    if pageTitle == 'Dashboard'
+      nav
+        a.settings-btn(href="/settings" title="Settings") Settings

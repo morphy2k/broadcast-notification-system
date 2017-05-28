@@ -1,55 +1,55 @@
 doctype html
 
 html(lang="en")
-    include include/head.pug
+  include include/head.pug
 
-    body
-        #popup
+  body
+    #popup
 
-        include include/header.pug
+    include include/header.pug
 
-        main
-            #dashboard
-                #chartBox-1.stats.box
-                    canvas#chart1
-                #chartBox-2.stats.box
-                    canvas#chart2
+    main
+      #dashboard
+        #chartBox-1.stats.box
+          canvas#chart1
+        #chartBox-2.stats.box
+          canvas#chart2
 
-                #feed
-                    .wrapper
-                        ul.list
-                            each event in stats.feed.list
-                                li(id= event.uuid class= event.type)
-                                    .head
-                                        .type= event.type
-                                        time.date(datetime= event.date) ---
-                                    .body
-                                        a(href= "https://twitch.tv/" + event.name target="_blank" rel="noopener")= event.name
-                                        if event.type == 'follow'
-                                            span &nbsp;is now following you
-                                        if event.type == 'subscription'
-                                            if event.resubs > 0
-                                                span &nbsp;has re-subscribed (#{event.resubs}x) you
-                                            else
-                                                span &nbsp;has subscribed you
-                                        if event.type == 'host'
-                                            span &nbsp;host you with
-                                                span.viewer= event.viewer
-                                        if event.type == 'donation'
-                                            span &nbsp;has
-                                                span.amount= event.amount + ' donated'
-                                                .message= event.message
-                    nav
-                        ul
-                            li
-                                #feed-all.feed-btn.selected All
-                            li
-                                #feed-follows.feed-btn F
-                            li
-                                #feed-subs.feed-btn S
-                            li
-                                #feed-donations.feed-btn D
-                            li
-                                #feed-hosts.feed-btn H
+        #feed
+          .wrapper
+            ul.list
+              each event in stats.feed.list
+                li(id= event.uuid class= event.type)
+                  .head
+                    .type= event.type
+                    time.date(datetime= event.date) ---
+                  .body
+                    a(href= "https://twitch.tv/" + event.name target="_blank" rel="noopener")= event.name
+                    if event.type == 'follow'
+                      span &nbsp;is now following you
+                    if event.type == 'subscription'
+                      if event.resubs > 0
+                        span &nbsp;has re-subscribed (#{event.resubs}x) you
+                      else
+                        span &nbsp;has subscribed you
+                    if event.type == 'host'
+                      span &nbsp;host you with
+                        span.viewer= event.viewer
+                    if event.type == 'donation'
+                      span &nbsp;has
+                        span.amount= event.amount + ' donated'
+                        .message= event.message
+          nav
+            ul
+              li
+                #feed-all.feed-btn.selected All
+              li
+                #feed-follows.feed-btn F
+              li
+                #feed-subs.feed-btn S
+              li
+                #feed-donations.feed-btn D
+              li
+                #feed-hosts.feed-btn H
 
-        include include/footer.pug
+    include include/footer.pug

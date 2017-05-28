@@ -1,144 +1,144 @@
 doctype html
 
 html(lang="en")
-    include include/head.pug
+  include include/head.pug
 
-    body
-        #popup
+  body
+    #popup
 
-        include include/header.pug
+    include include/header.pug
 
-        main
-            #settings
+    main
+      #settings
 
-                #api.box
-                    .head API
-                    ul
-                        li
-                            if settings.api.twitch.auth.token
-                                if settings.api.twitch.enabled
-                                    a#api-twitch.check.enabled(style="cursor:pointer;") Twitch
-                                else
-                                    a#api-twitch.check(style="cursor:pointer;") Twitch
-                            else
-                                a#api-twitch.check(href="/twitch/auth") Twitch
-                        li
-                            if settings.api.youtube.enabled
-                                a#api-youtube.check.enabled(style="cursor:not-allowed;" title="Not implemented yet!") YouTube
-                            else
-                                a#api-youtube.check(style="cursor:not-allowed;" onclick="alert('Sorry, has not yet been implemented!');" title="Not implemented yet!") YouTube
-                        li
-                            if settings.api.streamlabs.auth.token
-                                if settings.api.streamlabs.enabled
-                                    a#api-streamlabs.check.enabled(style="cursor:pointer;") Streamlabs
-                                else
-                                    a#api-streamlabs.check(style="cursor:pointer;") Streamlabs
-                            else
-                                a#api-streamlabs.check(href="/streamlabs/auth") Streamlabs
-                        li
-                            if settings.api.youtube.enabled
-                                a#api-tipeee.check.enabled(style="cursor:not-allowed;" title="Not implemented yet!") TipeeeStream
-                            else
-                                a#api-tipeee.check(style="cursor:not-allowed;" onclick="alert('Sorry, has not yet been implemented!');" title="Not implemented yet!") TipeeeStream
-
-
-                #notifications.box
-                    .head Notifications
-                    ul
-                        li
-                            if settings.notification.types.follows
-                                a#notification-follows.check.enabled(style="cursor:pointer;"  title="Follows on/off") Follows
-                            else
-                                a#notification-follows.check(style="cursor:pointer;"  title="Follows on/off") Follows
-                        li
-                            if settings.notification.types.subscriptions
-                                a#notification-subscriptions.check.enabled(style="cursor:pointer;" title="Subscriptions on/off") Subscriptions
-                            else
-                                a#notification-subscriptions.check(style="cursor:pointer;"  title="Subscriptions on/off") Subscriptions
-                        li
-                            if settings.notification.types.hosts
-                                a#notification-hosts.check.enabled(style="cursor:pointer;" title="Hosts on/off") Hosts
-                            else
-                                a#notification-hosts.check(style="cursor:pointer;" title="Hosts on/off") Hosts
-                        li
-                            if settings.notification.types.donations
-                                a#notification-donations.check.enabled(style="cursor:pointer;" title="Donations on/off") Donations
-                            else
-                                a#notification-donations.check(style="cursor:pointer;" title="Donations on/off") Donations
+        #api.box
+          .head API
+          ul
+            li
+              if settings.api.twitch.auth.token
+                if settings.api.twitch.enabled
+                  a#api-twitch.check.enabled(style="cursor:pointer;") Twitch
+                else
+                  a#api-twitch.check(style="cursor:pointer;") Twitch
+              else
+                a#api-twitch.check(href="/twitch/auth") Twitch
+            li
+              if settings.api.youtube.enabled
+                a#api-youtube.check.enabled(style="cursor:not-allowed;" title="Not implemented yet!") YouTube
+              else
+                a#api-youtube.check(style="cursor:not-allowed;" onclick="alert('Sorry, has not yet been implemented!');" title="Not implemented yet!") YouTube
+            li
+              if settings.api.streamlabs.auth.token
+                if settings.api.streamlabs.enabled
+                  a#api-streamlabs.check.enabled(style="cursor:pointer;") Streamlabs
+                else
+                  a#api-streamlabs.check(style="cursor:pointer;") Streamlabs
+              else
+                a#api-streamlabs.check(href="/streamlabs/auth") Streamlabs
+            li
+              if settings.api.youtube.enabled
+                a#api-tipeee.check.enabled(style="cursor:not-allowed;" title="Not implemented yet!") TipeeeStream
+              else
+                a#api-tipeee.check(style="cursor:not-allowed;" onclick="alert('Sorry, has not yet been implemented!');" title="Not implemented yet!") TipeeeStream
 
 
-                #template.box
-                    .head Template
-                    div
-                        select(id ="template-selection" name="templates")
-                            each template in settings.notification.template.list
-                                if template == settings.notification.template.selected
-                                    option(value= template selected)= template
-                                else
-                                    option(value= template)= template
-
-                    a#template-search.button(style="cursor:pointer;" title="Search for templates in directory") Search
-                    a#devButton.button Developer options
-
-                    #devWindow
-                        .inner
-                            .head Developer options
-
-                            .col-1
-                                .label Duration
-                                input(id="notification-duration" type="number" name="duration" value= settings.notification.duration onblur="sendValue('notification', 'duration', this.value);")
-
-                            .col-2
-                                
-                            .bottom
-                                .closeButton Close
+        #notifications.box
+          .head Notifications
+          ul
+            li
+              if settings.notification.types.follows
+                a#notification-follows.check.enabled(style="cursor:pointer;"  title="Follows on/off") Follows
+              else
+                a#notification-follows.check(style="cursor:pointer;"  title="Follows on/off") Follows
+            li
+              if settings.notification.types.subscriptions
+                a#notification-subscriptions.check.enabled(style="cursor:pointer;" title="Subscriptions on/off") Subscriptions
+              else
+                a#notification-subscriptions.check(style="cursor:pointer;"  title="Subscriptions on/off") Subscriptions
+            li
+              if settings.notification.types.hosts
+                a#notification-hosts.check.enabled(style="cursor:pointer;" title="Hosts on/off") Hosts
+              else
+                a#notification-hosts.check(style="cursor:pointer;" title="Hosts on/off") Hosts
+            li
+              if settings.notification.types.donations
+                a#notification-donations.check.enabled(style="cursor:pointer;" title="Donations on/off") Donations
+              else
+                a#notification-donations.check(style="cursor:pointer;" title="Donations on/off") Donations
 
 
-                #misc.box
-                    .head Misc
-                    .inner
-                        .col-1
-                            #notificationTest
-                                .title Notification test
-                                select(name="notification")
-                                    option(value="follow") Follow
-                                    option(value="subscription") Subscription
-                                    option(value="host") Host
-                                    option(value="donation") Donation
-                                #push Push
-                                
-                        .col-2
-                            ul
-                                li
-                                    a#clearQueue.button(title="Clears the current notification queue") Clear queue
-                                    
-                        .col-3
-                            ul
-                                li(title="Notification switch (global)")
-                                    .switch#notificationToggle
-                                        label.switch
-                                            if settings.notification.enabled
-                                                input(type="checkbox" checked)
-                                            else
-                                                input(type="checkbox")
-                                            .slider
-                                    span(title="Notification switch (global)") Notifications
-                                    
-                                li(title="Switch for notifications on dashboard")
-                                    .switch#popupsToggle
-                                        label.switch
-                                            if settings.dashboard.popups
-                                                input(type="checkbox" checked)
-                                            else
-                                                input(type="checkbox")
-                                            .slider
-                                    span(title="Switch for notifications on dashboard") Dashboard popups
-                                    
-                                li
-                                    .switch
-                                        label.switch
-                                            input(type="checkbox")
-                                            .slider
-                                    span Placeholder
+        #template.box
+          .head Template
+          div
+            select(id ="template-selection" name="templates")
+              each template in settings.notification.template.list
+                if template == settings.notification.template.selected
+                  option(value= template selected)= template
+                else
+                  option(value= template)= template
 
-        include include/footer.pug
+          a#template-search.button(style="cursor:pointer;" title="Search for templates in directory") Search
+          a#devButton.button Developer options
+
+          #devWindow
+            .inner
+              .head Developer options
+
+              .col-1
+                .label Duration
+                input(id="notification-duration" type="number" name="duration" value= settings.notification.duration onblur="sendValue('notification', 'duration', this.value);")
+
+              .col-2
+
+              .bottom
+                .closeButton Close
+
+
+        #misc.box
+          .head Misc
+          .inner
+            .col-1
+              #notificationTest
+                .title Notification test
+                select(name="notification")
+                  option(value="follow") Follow
+                  option(value="subscription") Subscription
+                  option(value="host") Host
+                  option(value="donation") Donation
+                #push Push
+
+            .col-2
+              ul
+                li
+                  a#clearQueue.button(title="Clears the current notification queue") Clear queue
+
+            .col-3
+              ul
+                li(title="Notification switch (global)")
+                  .switch#notificationToggle
+                    label.switch
+                      if settings.notification.enabled
+                        input(type="checkbox" checked)
+                      else
+                        input(type="checkbox")
+                      .slider
+                  span(title="Notification switch (global)") Notifications
+
+                li(title="Switch for notifications on dashboard")
+                  .switch#popupsToggle
+                    label.switch
+                      if settings.dashboard.popups
+                        input(type="checkbox" checked)
+                      else
+                        input(type="checkbox")
+                      .slider
+                  span(title="Switch for notifications on dashboard") Dashboard popups
+
+                li
+                  .switch
+                    label.switch
+                      input(type="checkbox")
+                      .slider
+                  span Placeholder
+
+    include include/footer.pug
