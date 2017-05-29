@@ -54,7 +54,7 @@ Start the app with
 
 1.  Open the dashboard via `http//:localhost:8080` or what you have configured
 2.  Make your settings
-3.  Take the default template in the as example and build your own
+3.  Take the default template as example and build your own
 4.  Put `http//:localhost:8080/notification[/endpoint]` in your OBS browser source *(if authentication on, with token at the end)*
 
 *I will create a better manual later*
