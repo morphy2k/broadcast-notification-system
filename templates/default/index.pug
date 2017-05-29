@@ -1,23 +1,38 @@
 doctype html
 
 html(lang="en")
-    head
-        title Notification window
-        link(href="ressources/css/notification.css", rel="stylesheet")
-        link(href="https://fonts.googleapis.com/css?family=Roboto:400,700,900", rel="stylesheet")
-        
-    body
-        
-      #default
-        #text
-          #type
-          #name
+  
+  include includes/head.pug
 
-      #donations
-        #text
-          #type
-          #name
-          #amount
-          #message
+  body
+    #follow.notification.default
+      .text
+        .type New Follower
+        .name
 
-    include ../includes/template.pug
+    #subscription.notification.default
+      .text
+        .type New Sub
+        .name
+        .box
+          span.subscription-count
+          span months
+    
+    #host.notification.default
+      .text
+        .type New Host
+        .name
+        .box
+          span.host-views
+          span viewer
+    
+    #donation.notification.default
+      .text
+        .type New Donation
+        .name
+        .box
+          span.donation-amount
+          span.donation-currency
+        .donation-message
+
+  include ../includes/template.pug

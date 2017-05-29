@@ -1,194 +1,230 @@
 @charset "utf-8";
-
-html,
-body {
-    margin: 0;
-    padding: 0;
+html, body {
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    background-color: rgba(235, 235, 235, 0);
-    font-family: 'Serif', sans-serif;
-    font-size: 1rem !important;
-    color: rgb(253, 253, 253);
-    font-weight: normal;
-    text-transform: uppercase;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
-    overflow: hidden;
+  background-color: rgba(235, 235, 235, 0);
+  font-family: 'Open Sans', sans-serif;
+  font-size: 27vh;
+  color: rgb(253, 253, 253);
+  font-weight: 400;
+  overflow: hidden;
 }
 
-#notiBox {
-    display: none;
-    box-sizing: border-box;
-    height: 6.5rem;
-    width: 30.5rem;
-    margin: 0 auto;
-    /*margin-top: -1.2rem;*/
+.notification {
+  display: none;
 }
 
-#logo {
-    position: relative;
-    box-sizing: border-box;
-    height: 6.5rem;
-    width: 6.5rem;
-    background: url(https://mashed8.tv/twitchalert/mashed8_logo_3_transparent2.png);
-    background-color: rgb(37, 37, 37);
-    background-size: 5rem;
-    background-repeat: no-repeat;
-    background-position: center;
+.default {
+  box-sizing: border-box;
+  height: 100vh;
+  width: 430vh;
+  margin: 0 auto;
 }
 
-#text {
-    box-sizing: border-box;
-    height: 6.5rem;
-    width: 24rem;
-    background-color: rgba(37, 37, 37, 0.8);
+.type, .name, .text, .box, .donation-message {
+  box-sizing: border-box;
+  width: 100%;
+  line-height: 100vh;
 }
 
-#type,
-#name {
-    box-sizing: border-box;
-    position: absolute;
-    text-align: center;
-    width: 24rem;
-    line-height: 6.5rem;
-    font-size: 2rem !important;
-    opacity: 0;
+.text {
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
-#type {
-    z-index: 10;
-    display: block;
-    font-weight: 700;
+.type, .name, .box, .donation-message {
+  position: absolute;
+  text-align: center;
+  opacity: 0;
 }
 
-#name {
-    z-index: 20;
+.type {
+  z-index: 10;
+  display: block;
+}
+
+.name {
+  z-index: 20;
+  font-weight: 700;
+  color: rgb(255, 190, 0);
+}
+
+.box {
+  z-index: 30;
+  font-weight: 700;
+}
+
+.donation-currency, .box span {
+  margin-left: .5rem;
+}
+
+.donation-message {
+  z-index: 40;
+  font-weight: 600i;
+  font-size: 18vh;
 }
 
 
 /** animation **/
 
-@keyframes notiBox {
-    from {
-        transform: translate3d(0, 0, 0);
-    }
-    to {
-        transform: translate3d(1600px, 0, 0);
-    }
+@keyframes slideOut {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(1600vh, 0, 0);
+  }
 }
 
-#notiBox {
-    animation-name: notiBox;
-    animation-timing-function: cubic-bezier(.83,.01,.76,.21);
-    animation-duration: 1.5s;
-    animation-fill-mode: forwards;
-    animation-delay: 8.8s;
+#follow {
+  animation-name: slideOut;
+  animation-timing-function: cubic-bezier(.94, .01, .53, .86);
+  animation-duration: 1.5s;
+  animation-fill-mode: forwards;
+  animation-delay: 7.5s;
+}
+
+#donation {
+  animation-name: slideOut;
+  animation-timing-function: cubic-bezier(.94, .01, .53, .86);
+  animation-duration: 1.5s;
+  animation-fill-mode: forwards;
+  animation-delay: 14s;
+}
+
+#subscription, #host {
+  animation-name: slideOut;
+  animation-timing-function: cubic-bezier(.94, .01, .53, .86);
+  animation-duration: 1.5s;
+  animation-fill-mode: forwards;
+  animation-delay: 10s;
 }
 
 
 /* zoom */
 
-@keyframes logo {
-    from {
-        opacity: 0;
-        transform: scale3d(.3, .3, .3) !important;
-    }
-    50% {
-        opacity: 1;
-    }
+@keyframes zoomIn {
+  from {
+    opacity: .4;
+    transform: scale3d(0, 0, 0);
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-#logo {
-    animation-name: logo;
-    animation-timing-function: cubic-bezier(.83,.01,.76,.21);
-    animation-duration: .8s;
-    animation-fill-mode: forwards;
-}
-
-
-/* expand */
-
-@keyframes text {
-    from {
-        width: 0;
-    }
-    10% {
-        width: 24rem;
-    }
-    90% {
-        width: 24rem;
-    }
-    to {
-        width: 0;
-    }
-}
-
-#text {
-    animation-name: text;
-    animation-timing-function: cubic-bezier(.83,.01,.76,.21);
-    animation-duration: 7.8s;
-    animation-fill-mode: both;
-    animation-delay: 1s;
+.text {
+  animation-name: zoomIn;
+  animation-timing-function: cubic-bezier(.94, .01, .53, .86);
+  animation-duration: 1.4s;
+  animation-fill-mode: both;
 }
 
 
 /* fade */
 
 @keyframes type {
-    from {
-        opacity: 0;
-        transform: translate3d(0, -100%, 0);
-    }
-    40% {
-        opacity: 1;
-        transform: none;
-    }
-    60% {
-        opacity: 1;
-        transform: none;
-    }
-    to {
-        opacity: 0;
-        transform: translate3d(0, 100%, 0);
-    }
+  from {
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+  }
+  40% {
+    opacity: 1;
+    transform: none;
+  }
+  60% {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
 }
 
-#type {
-    animation-name: type;
-    animation-timing-function: cubic-bezier(.83,.01,.76,.21);
-    animation-duration: 2s;
-    animation-fill-mode: forwards;
-    animation-delay: 1.5s;
+.type {
+  animation-name: type;
+  animation-timing-function: cubic-bezier(.94, .01, .53, .86);
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-delay: .9s;
 }
 
-@keyframes name {
-    from {
-        opacity: 0;
-        transform: scale3d(.3, .3, .3);
-    }
-    20% {
-        opacity: 1;
-        transform: none;
-    }
-    80% {
-        opacity: 1;
-        transform: none;
-    }
-    to {
-        opacity: 0;
-        transform: translate3d(0, 100%, 0);
-    }
+@keyframes zoomInOut {
+  from {
+    opacity: 0;
+    transform: scale3d(.3, .3, .3);
+  }
+  20% {
+    opacity: 1;
+    transform: none;
+  }
+  80% {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
 }
 
-#name {
-    animation-name: name;
-    animation-timing-function: cubic-bezier(.83,.01,.76,.21);
-    animation-duration: 6s;
-    animation-fill-mode: forwards;
-    animation-delay: 2.5s;
+#donation .name, #subscription .name, #host .name {
+  animation-name: zoomInOut;
+  animation-timing-function: cubic-bezier(.94, .01, .53, .86);
+  animation-duration: 3.5s;
+  animation-fill-mode: forwards;
+  animation-delay: 2.5s;
 }
 
-#notiBox {
-    display: flex;
+#donation .box {
+  font-weight: 600;
+  animation-name: zoomInOut;
+  animation-timing-function: ease;
+  animation-duration: 4s;
+  animation-fill-mode: forwards;
+  animation-delay: 6s;
+}
+
+@keyframes zoomIn2 {
+  from {
+    opacity: 0;
+    transform: scale3d(.3, .3, .3);
+  }
+  20% {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+#follow .name {
+  animation-name: zoomIn2;
+  animation-timing-function: cubic-bezier(.94, .01, .53, .86);
+  animation-duration: 5s;
+  animation-fill-mode: forwards;
+  animation-delay: 2.5s;
+}
+
+#subscription .box, #host .box {
+  font-weight: 600;
+  animation-name: zoomIn2;
+  animation-timing-function: ease;
+  animation-duration: 4s;
+  animation-fill-mode: forwards;
+  animation-delay: 6s;
+}
+
+.donation-message {
+  font-weight: 600i;
+  animation-name: zoomIn2;
+  animation-timing-function: ease;
+  animation-duration: 5s;
+  animation-fill-mode: forwards;
+  animation-delay: 9.5s;
 }

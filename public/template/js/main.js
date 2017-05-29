@@ -1,4 +1,4 @@
-/* eslint-env browser, jquery */
+/* eslint-env browser, commonjs */
 /* global version, playSound */
 'use strict';
 
@@ -7,82 +7,48 @@ const io = require('../../../node_modules/socket.io-client/dist/socket.io.js');
 
 const socket = io.connect();
 
+class Notification {
+  constructor() {}
+
+  parse(data) {
+
+    $('.name').html(data.name);
+
+    switch (data.type) {
+    case 'subscription':
+      $('.subscription-count').html(data.resubs);
+      break;
+    case 'donation':
+      $('.donation-amount').html(data.amount);
+      $('.donation-currency').html(data.currency);
+      $('.donation-message').html(data.message);
+      break;
+    case 'host':
+      $('.host-views').html(data.viewers);
+      break;
+    }
+
+    this.show(data.type);
+
+  }
+
+  show(type) {
+    $(`.notification`).hide();
+
+    setTimeout(() => $(`#${type}`).css('display', 'flex'), 400);
+
+    if (typeof playSound === 'function') playSound(type);
+  }
+
+}
+
+const notification = new Notification();
+
 socket.on('connect', () => {
-  socket.on('notification', (data) => {
-
-    $('.notification').hide();
-
-    setTimeout(() => {
-      let type = data.type,
-        name,
-        resubs,
-        amount,
-        currency,
-        message;
-
-      if (!data.test) {
-        name = data.name;
-      } else {
-        name = 'Mr. X';
-      }
-
-      if (type === 'subscription') {
-        if (!data.test) {
-          resubs = data.resubs;
-        } else {
-          resubs = '3';
-        }
-        $('.name').html(name);
-        $('#subcount').html(resubs);
-      }
-
-      if (type === 'donation') {
-
-        if (!data.test) {
-          amount = data.amount;
-          currency = data.currency;
-          message = data.message;
-        } else {
-          amount = '25';
-          currency = 'EUR';
-          message = 'This is a test donation';
-        }
-
-        $('#amount').html(`${amount} ${currency}`);
-        $('#message').html(message);
-
-
-      }
-
-      if (type === 'follow' || type === 'subscription' || type === 'host' || type === 'donation') {
-
-        if (type === 'follow') {
-          $('#follow').css('display', 'flex');
-        }
-        if (type === 'subscription') {
-          $('#sub').css('display', 'flex');
-        }
-        if (type === 'host') {
-          $('#host').css('display', 'flex');
-        }
-        if (type === 'donation') {
-          $('#donation').css('display', 'flex');
-        }
-
-      }
-
-      playSound(type);
-
-    }, 600);
-
-  });
-
-  socket.on('general', (data) => {
-    // client-server version matching
-    if (data.version !== undefined) {
-      if (data.version !== version) {
+  socket.on('notification', data => notification.parse(data))
+    .on('general', data => {
+      if (data.version !== undefined && data.version !== version) {
         location.reload(true);
       }
-    }
-  });
+    });
 });

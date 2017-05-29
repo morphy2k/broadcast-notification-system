@@ -527,12 +527,14 @@ const moment = require('../../../node_modules/moment/min/moment-with-locales.min
 
 class Socket extends io {
   constructor() {
+
     super();
     this.connect();
 
     this.connected = undefined;
 
     this.on('connect', () => {
+
       this.connected = true;
 
       if ($('.greyOut')) {
@@ -551,10 +553,10 @@ class Socket extends io {
 
       }).on('dashboard', (type, err, data) => {
         if (err) {
+
           popup('ERROR!');
 
         } else if (type === 'response') {
-
           if (data.type === 'notification' || data.type === 'api') {
 
             window[data.prop] = data.value;
@@ -576,9 +578,11 @@ class Socket extends io {
 
             for (let el of arr) {
               if (el === selected) {
+
                 $('#template > div > select').append(
                   `<option value="${el}" selected>${el}</option>`
                 );
+
               } else {
                 $('#template > div > select').append(
                   `<option value="${el}">${el}</option>`
@@ -588,6 +592,7 @@ class Socket extends io {
           }
 
           if (data.type !== 'testNotification') popup('Success');
+
         }
       }).on('notification', data => {
 
@@ -596,38 +601,39 @@ class Socket extends io {
       }).on('general', data => {
 
         // client-server version matching
-        if (data.version !== undefined) {
+        if (data.version !== undefined && data.version !== version) {
 
-          if (data.version !== version) {
-            let count = 10;
+          let count = 10;
 
-            $('body').addClass('greyOut');
-            $('body').append(`
-                        <div id="message-overlay">
-                          <div class="text">
-                            <div class="line1">Server has been updated!</div>
-                            <div class="line2">page reload in
-                            <span id="reloadCount">${count}</span></div>
-                          </div>
-                        </div>`);
+          $('body').addClass('greyOut');
+          $('body').append(`
+                      <div id="message-overlay">
+                        <div class="text">
+                          <div class="line1">Server has been updated!</div>
+                          <div class="line2">page reload in
+                          <span id="reloadCount">${count}</span></div>
+                        </div>
+                      </div>`);
 
-            setInterval(() => {
-              if (count) {
-                count = count - 1;
-                document.getElementById('reloadCount').innerHTML = count;
-              } else {
-                location.reload(true);
-              }
-            }, 1000);
+          setInterval(() => {
 
-          }
+            if (count) {
+              count = count - 1;
+              document.getElementById('reloadCount').innerHTML = count;
+            } else {
+              location.reload(true);
+            }
+
+          }, 1000);
+
         }
       });
-
     }).on('disconnect', () => {
+
       this.connected = false;
 
       if ($('.greyOut')) {
+
         $('body').addClass('greyOut');
         $('body').css('overflow', 'hidden');
         $('body').append(`
@@ -637,9 +643,10 @@ class Socket extends io {
                         </div>
                     </div>`);
       }
-    });
 
+    });
   }
+  
 }
 
 const socket = new Socket();
@@ -722,6 +729,7 @@ class Feed {
     $('#feed > .wrapper > ul > .donation').click(() => {
       $(this).class('message').toggle();
     });
+
   }
 
   get prop() {
@@ -740,7 +748,9 @@ class Feed {
 
     for (let el in types) {
       if (el !== type) {
+
         hide.push(this.filter.types[el].class);
+
       }
     }
 
@@ -771,16 +781,18 @@ class Feed {
       for (let el in types) {
 
         if (el !== type) {
+
           classes.push(this.filter.types[el].class);
           this.filter.types[el].visible = false;
+
         } else {
           this.filter.types[el].visible = true;
         }
-
       }
 
       $(`${classes}`).hide();
       $(`${types[type].class}`).show();
+
     }
 
     $(`.feed-btn`).removeClass('selected');
@@ -789,6 +801,7 @@ class Feed {
   }
 
   compare(data) {
+
     if (data.remove) {
       this.update(data);
     } else {
@@ -805,14 +818,17 @@ class Feed {
         if (i === data.list.length && arr.length) {
           this.update(arr);
         }
+
       }
     }
   }
 
   update(data) {
+
     if (data.remove) {
       $(`#${data.remove}`).remove();
     } else {
+
       for (let el of data) {
 
         let time = moment(el.date).fromNow(),
@@ -838,6 +854,7 @@ class Feed {
           $(`#${el.uuid} > .body`)
             .append(' is now following you');
         }
+
         if (el.type === 'subscription') {
           if (el.resubs > 0) {
             $(`#${el.uuid} > .body`)
@@ -847,11 +864,13 @@ class Feed {
               .append(' has subscribed you');
           }
         }
+
         if (el.type === 'host') {
           $(`#${el.uuid} > .body`)
             .append(` host you with
                             <span class="viewers">${el.viewers}</span> viewers`);
         }
+
         if (el.type === 'donation') {
           $(`#${el.uuid} > .body`)
             .append(` has
@@ -860,19 +879,23 @@ class Feed {
         }
       }
     }
-
   }
 
   time() {
+
     $('#feed > .wrapper > ul > li > .head > time').each(function () {
+
       let datetime = $(this).attr('datetime'),
         time = moment(datetime).fromNow();
 
       $(this).html(time);
+
     });
 
     setTimeout(() => this.time(), 60000);
+
   }
+
 }
 
 const feed = new Feed();
@@ -880,41 +903,51 @@ const feed = new Feed();
 
 class Charts {
   constructor() {
+
     this.changed = {
       chart1: false,
       chart2: false
     };
+
   }
 
   compare(data) {
 
     // Follows
     for (let i = 0; i < data.follows.length; i++) {
+
       if (data.follows[i] !== chartFollows[i]) {
+
         chartFollows = data.follows;
         chart1.data.datasets[1].data = chartFollows;
 
         this.changed.chart1 = true;
 
         break;
+
       }
     }
 
     // Subscriptions
     for (let i = 0; i < data.subs.length; i++) {
+
       if (data.subs[i] !== chartSubscriptions[i]) {
+
         chartSubscriptions = data.subs;
         chart1.data.datasets[0].data = chartSubscriptions;
 
         this.changed.chart1 = true;
 
         break;
+
       }
     }
 
     // Donations
     for (let i = 0; i < data.donations.count.length; i++) {
+
       if (data.donations.count[i] !== chartDonations.count[i]) {
+
         chartDonations = data.donations.count;
         chart1.data.datasets[0].data = chartDonations.count;
         chart1.data.datasets[1].data = chartDonations.amount;
@@ -922,6 +955,7 @@ class Charts {
         this.changed.chart2 = true;
 
         break;
+
       }
     }
 
@@ -930,14 +964,17 @@ class Charts {
   }
 
   update() {
+
     if (this.changed.chart1) {
       chart1.update();
       this.changed.chart1 = false;
     }
+
     if (this.changed.chart2) {
       chart2.update();
       this.changed.chart2 = false;
     }
+
   }
 }
 
@@ -946,43 +983,48 @@ const charts = new Charts();
 
 class Notification {
   constructor() {
+
     this.data = {
       name: 'Mr. X',
-      resubs: 3,
+      resubs: 6,
       amount: '25',
       currency: 'USD',
-      message: 'This is a test donation',
-      viewer: 38
+      message: 'This is a test donation!',
+      viewers: 38
     };
+
   }
 
   parser(data) {
 
     let str = ``;
 
-    if (!data.test) {
-      this.data = data;
-    }
+    if (!data.test) this.data = data;
 
     if (data.type === 'follow') {
       str = `<span class="name">${this.data.name}</span> follow you now`;
+
     } else if (data.type === 'subscription') {
       str = `<span class="name">${this.data.name}</span>
                 has subscribed! (${this.data.resubs}x)`;
+
     } else if (data.type === 'donation') {
       str = `<span class="name">${this.data.name}</span> has <span class="amount">
                     ${this.data.amount} ${this.data.currency}
                     </span> donated!
                     <span class="message">${this.data.message}</span>`;
+
     } else if (data.type === 'host') {
       str = `<span class="name">${this.data.name}</span>
-                    host you with ${this.data.viewer} viewers`;
+                    host you with ${this.data.viewers} viewers`;
     }
 
     popup(str);
+
   }
 
   test() {
+
     let prop = $('#notificationTest > select option:selected')
       .attr('value');
 
@@ -991,6 +1033,7 @@ class Notification {
         type: 'testNotification',
         prop
       });
+
     }
   }
 
@@ -1045,7 +1088,8 @@ class Settings {
       $('#devWindow').hide();
     });
     $('#notification-duration').focusout(() => {
-      this.send('notification', 'duration', this.value);
+      let value = $('#notification-duration').val();
+      this.send('notification', 'duration', parseInt(value));
     });
 
     // Misc
@@ -1061,16 +1105,20 @@ class Settings {
     $('#popupsToggle input').click(() => {
       this.send('dashboard', 'popups', popups);
     });
+
   }
 
   send(type, prop, value) {
+
     if (socket.connected && (value === true || value === false)) {
+
       if (value) {
         socket.emit('dashboard', {
           type,
           prop,
           value: false
         });
+
       } else {
         socket.emit('dashboard', {
           type,
@@ -1078,14 +1126,17 @@ class Settings {
           value: true
         });
       }
+
     } else {
       socket.emit('dashboard', {
         type,
         prop,
-        value: value
+        value
       });
+
     }
   }
+
 }
 
 new Settings();
@@ -1099,6 +1150,7 @@ const popup = str => {
     $('#popup').html(str);
     $('#popup').show();
   }, 400);
+
 };
 
 },{"../../../node_modules/jquery/dist/jquery.slim.min.js":1,"../../../node_modules/moment/min/moment-with-locales.min.js":2,"../../../node_modules/socket.io-client/dist/socket.io.js":3}]},{},[4]);
