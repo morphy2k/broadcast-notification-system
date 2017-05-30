@@ -52,10 +52,10 @@ $ npm start --production
 
 ### Use
 
-1.  Open the dashboard via `http//:localhost:8080` or what you have configured
+1.  Open the dashboard via `http://localhost:8080` or what you have configured
 2.  Make your settings
 3.  Take the default template as example and build your own
-4.  Put `http//:localhost:8080/notification[/endpoint]` in your OBS browser source *(if authentication on, with token at the end)*
+4.  Put `http://localhost:8080/notification[/endpoint]` in your OBS browser source *(if authentication on, with token at the end)*
 
 If you have questions, [open an issue](https://github.com/Morphy2k/broadcast-notification-system/issues/new)
 
