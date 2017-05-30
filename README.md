@@ -36,19 +36,19 @@ The Broadcast Notification System (BNS) is an open, simple and highly customisab
 ### Install
 
 1.  Download and install the current [NodeJS](https://nodejs.org) version
-2.  [Download]() and extract or clone the repo
+2.  [Download](https://github.com/Morphy2k/broadcast-notification-system/releases/latest) and extract or clone the repo
 3.  Open the bash or command prompt and switch to BNS directory
 
 Install it with
-
-`$ npm install --only=production`
-
+```bash
+$ npm install --only=production
+```
 Configure the app via `config.js` in the root directory
 
 Start the app with
-
-`$ npm start`
-
+```bash
+$ npm start --production
+```
 
 ### Use
 
@@ -57,7 +57,9 @@ Start the app with
 3.  Take the default template as example and build your own
 4.  Put `http//:localhost:8080/notification[/endpoint]` in your OBS browser source *(if authentication on, with token at the end)*
 
-*I will create a better manual later*
+If you have questions, [open an issue](https://github.com/Morphy2k/broadcast-notification-system/issues/new)
+
+**A better guide and wiki will follow later**
 
 ***
 
