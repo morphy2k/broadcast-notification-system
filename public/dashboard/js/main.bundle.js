@@ -646,7 +646,7 @@ class Socket extends io {
 
     });
   }
-  
+
 }
 
 const socket = new Socket();
@@ -846,7 +846,7 @@ class Feed {
                     <time class="date" datetime="${el.date}">${time}</time>
                   </div>
                   <div class="body">
-                    <a href="https://twitch.tv/${el.name}" target="_blank" rel="noopener">${el.name}</a>
+                    <a href="https://twitch.tv/${el.name}" target="_blank" rel="noopener">${el.display_name || el.name}</a>
                   </div>
                 </li>`);
 

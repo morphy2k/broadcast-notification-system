@@ -24,7 +24,7 @@ html(lang="en")
                     .type= event.type
                     time.date(datetime= event.date) ---
                   .body
-                    a(href= "https://twitch.tv/" + event.name target="_blank" rel="noopener")= event.name
+                    a(href= "https://twitch.tv/" + event.name target="_blank" rel="noopener")= event.display_name || event.name
                     if event.type == 'follow'
                       span &nbsp;is now following you
                     if event.type == 'subscription'
