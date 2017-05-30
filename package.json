@@ -18,7 +18,7 @@
     "node": ">=7.8.0"
   },
   "scripts": {
-    "start": "NODE_ENV=production node lib",
+    "start": "node lib",
     "build-js": "browserify public/dashboard/js/main.js > public/dashboard/js/main.bundle.js && browserify public/dashboard/js/charts.js > public/dashboard/js/charts.bundle.js && browserify public/template/js/main.js > public/template/js/main.bundle.js"
   },
   "dependencies": {
