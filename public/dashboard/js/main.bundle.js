@@ -1001,22 +1001,24 @@ class Notification {
 
     if (!data.test) this.data = data;
 
-    if (data.type === 'follow') {
+    switch (data.type) {
+    case 'follow':
       str = `<span class="name">${this.data.name}</span> follow you now`;
-
-    } else if (data.type === 'subscription') {
+      break;
+    case 'subscription':
       str = `<span class="name">${this.data.name}</span>
-                has subscribed! (${this.data.resubs}x)`;
-
-    } else if (data.type === 'donation') {
+              has subscribed! (${this.data.resubs}x)`;
+      break;
+    case 'donation':
       str = `<span class="name">${this.data.name}</span> has <span class="amount">
-                    ${this.data.amount} ${this.data.currency}
-                    </span> donated!
-                    <span class="message">${this.data.message}</span>`;
-
-    } else if (data.type === 'host') {
+                  ${this.data.amount} ${this.data.currency}
+                  </span> donated!
+                  <span class="message">${this.data.message}</span>`;
+      break;
+    case 'host':
       str = `<span class="name">${this.data.name}</span>
-                    host you with ${this.data.viewers} viewers`;
+                  host you with <b>${this.data.viewers}</b> viewers`;
+      break;
     }
 
     popup(str);
