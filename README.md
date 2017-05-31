@@ -1,8 +1,10 @@
+[![Code Climate](https://codeclimate.com/github/Morphy2k/broadcast-notification-system.png)](https://codeclimate.com/github/Morphy2k/broadcast-notification-system)
+
 # Broadcast Notification System
 The Broadcast Notification System (BNS) is an open, simple and highly customisable notification/alert system for live streams on Twitch and YouTube.
 
 **Project is still in development!**
-**[Roadmap]()**
+**[Roadmap](https://github.com/Morphy2k/broadcast-notification-system/projects)**
 
 ### Notes
 
@@ -36,31 +38,30 @@ The Broadcast Notification System (BNS) is an open, simple and highly customisab
 ### Install
 
 1.  Download and install the current [NodeJS](https://nodejs.org) version
--   [Download]() and extract or clone the repo
--   Open the bash or command prompt and switch to BNS directory
+2.  [Download](https://github.com/Morphy2k/broadcast-notification-system/releases/latest) and extract or clone the repo
+3.  Open the bash or command prompt and switch to BNS directory
 
-4.
 Install it with
-
-`$ npm install --only=production`
-
-5.
+```bash
+$ npm install --only=production
+```
 Configure the app via `config.js` in the root directory
 
-6.
 Start the app with
-
-`$ npm start`
-
+```bash
+$ npm start --production
+```
 
 ### Use
 
-1.  Open the dashboard via `http//:localhost:8080` or what you have configured
--   Make your settings
--   Take the default template in the as example and build your own
--   Put `http//:localhost:8080/notification[/endpoint]` in your OBS browser source *(if authentication on, with token at the end)*
+1.  Open the dashboard via `http://localhost:8080` or what you have configured
+2.  Make your settings
+3.  Take the default template as example and build your own
+4.  Put `http://localhost:8080/notification[/endpoint]` in your OBS browser source *(if authentication on, with token at the end)*
 
-*I will create a better manual later*
+If you have questions, [open an issue](https://github.com/Morphy2k/broadcast-notification-system/issues/new)
+
+**A better guide and wiki will follow later**
 
 ***
 
