@@ -33,8 +33,9 @@ html(lang="en")
                       else
                         span &nbsp;has subscribed you
                     if event.type == 'host'
-                      span &nbsp;host you with
-                        span.viewer= event.viewer
+                      span &nbsp;host you with&nbsp;
+                        span.viewers= event.viewers
+                        span &nbsp;viewers
                     if event.type == 'donation'
                       span &nbsp;has
                         span.amount= event.amount + ' donated'
