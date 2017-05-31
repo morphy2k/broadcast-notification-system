@@ -12,7 +12,7 @@ class Notification {
 
   parse(data) {
 
-    $('.name').html(data.name);
+    $('.name').html(data.display_name);
 
     switch (data.type) {
     case 'subscription':
