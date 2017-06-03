@@ -4,7 +4,7 @@
 'use strict';
 
 const $ = require('../../../node_modules/jquery/dist/jquery.slim.min.js');
-const io = require('../../../node_modules/socket.io-client/dist/socket.io.js');
+const io = require('../../../node_modules/socket.io-client/dist/socket.io.slim.js');
 const moment = require('../../../node_modules/moment/min/moment-with-locales.min.js');
 
 
@@ -145,26 +145,27 @@ class Feed {
     // Filter
     this.filter = {
       all: '#feed-all',
-      types: [{
-        id: '#feed-follows',
-        class: '.follow',
-        visible: true
-      },
-      {
-        id: '#feed-subs',
-        class: '.subscription',
-        visible: true
-      },
-      {
-        id: '#feed-donations',
-        class: '.donation',
-        visible: true
-      },
-      {
-        id: '#feed-hosts',
-        class: '.host',
-        visible: true
-      }
+      types: [
+        {
+          id: '#feed-follows',
+          class: '.follow',
+          visible: true
+        },
+        {
+          id: '#feed-subscriptions',
+          class: '.subscription',
+          visible: true
+        },
+        {
+          id: '#feed-donations',
+          class: '.donation',
+          visible: true
+        },
+        {
+          id: '#feed-hosts',
+          class: '.host',
+          visible: true
+        }
       ]
     };
 
@@ -412,11 +413,11 @@ class Charts {
     }
 
     // Subscriptions
-    for (let i = 0; i < data.subs.length; i++) {
+    for (let i = 0; i < data.subscriptions.length; i++) {
 
-      if (data.subs[i] !== chartSubscriptions[i]) {
+      if (data.subscriptions[i] !== chartSubscriptions[i]) {
 
-        chartSubscriptions = data.subs;
+        chartSubscriptions = data.subscriptions;
         chart1.data.datasets[0].data = chartSubscriptions;
 
         this.changed.chart1 = true;
