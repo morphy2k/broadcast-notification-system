@@ -22,6 +22,10 @@
 
 /** general **/
 
+.border {
+  border: .05rem solid rgb(131, 131, 131);
+}
+
 #settings {
     display: grid;
     grid-gap: 1rem;
@@ -68,7 +72,6 @@
     color: black;
     opacity: .3;
     font-weight: 700;
-    border: .05rem solid rgb(131, 131, 131);
     transition: all 400ms ease-in-out;
 }
 
@@ -101,7 +104,6 @@
     animation-timing-function: ease;
     animation-duration: 2.3s;
     animation-fill-mode: forwards;
-    animation-delay: 0;
 }
 
 
@@ -126,7 +128,6 @@
     right: 0;
     bottom: 0;
     transition: .4s;
-    border: .05rem solid rgb(131, 131, 131);
 }
 
 .slider:before {
@@ -203,7 +204,6 @@ input:checked+.slider:before {
     color: rgb(0, 0, 0);
     cursor: pointer;
     text-decoration: none;
-    border: .05rem solid rgb(131, 131, 131);
 }
 
 
@@ -226,7 +226,6 @@ input:checked+.slider:before {
     background: rgb(227, 227, 227);
     width: 50rem;
     padding: 1rem;
-    border: .05rem solid rgb(131, 131, 131);
 }
 
 #devWindow .head {
@@ -255,7 +254,6 @@ input:checked+.slider:before {
     color: rgb(0, 0, 0);
     font-weight: 700;
     cursor: pointer;
-    border: .05rem solid rgb(131, 131, 131);
 }
 
 #devWindow .col-1 {
@@ -299,35 +297,6 @@ input:checked+.slider:before {
     font-size: .9rem;
     padding: .2rem .2rem .2rem .4rem;
     border: .05rem solid rgb(131, 131, 131);
-}
-
-#devWindow input[type="range"] {
-    box-sizing: border-box;
-    -webkit-appearance: none;
-    margin: 0;
-    width: 8rem;
-    height: 1.5rem;
-    padding: .3rem;
-    background: rgb(230, 230, 230);
-    cursor: pointer;
-    border: .05rem solid rgb(131, 131, 131);
-}
-
-#devWindow input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: .9rem;
-    height: .9rem;
-    background: rgb(51, 51, 51);
-}
-
-#devWindow output {
-    line-height: 1.5rem;
-    height: 1.5rem;
-    width: 1.5rem;
-    background: rgb(109, 109, 109);
-    color: white;
-    margin: 0;
-    font-size: .9rem;
 }
 
 #devWindow .slider1 {
@@ -397,7 +366,6 @@ input:checked+.slider:before {
     width: 4rem;
     color: rgb(0, 0, 0);
     cursor: pointer;
-    border: .05rem solid rgb(131, 131, 131);
 }
 
 #misc .col-2 {
@@ -428,7 +396,6 @@ input:checked+.slider:before {
     color: rgb(0, 0, 0);
     cursor: pointer;
     text-decoration: none;
-    border: .05rem solid rgb(131, 131, 131);
 }
 
 #misc .col-3 {

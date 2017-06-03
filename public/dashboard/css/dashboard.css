@@ -135,7 +135,6 @@
     box-sizing: border-box;
     display: block;
     padding: .5rem .7rem;
-    transition: opacity .4s ease;
     opacity: 1;
     transition: background .2s ease, opacity .2s ease;
     cursor: default;
