@@ -3,7 +3,7 @@
 'use strict';
 
 const $ = require('../../../node_modules/jquery/dist/jquery.slim.min.js');
-const io = require('../../../node_modules/socket.io-client/dist/socket.io.js');
+const io = require('../../../node_modules/socket.io-client/dist/socket.io.slim.js');
 
 const socket = io.connect();
 
