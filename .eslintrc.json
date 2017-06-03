@@ -5,10 +5,13 @@
   },
   "extends": ["eslint:recommended"],
   "parserOptions": {
-    "ecmaVersion": 8,
-    "impliedStrict": true
+    "ecmaVersion": 8
   },
   "rules": {
+    "strict": [
+      "error",
+      "global"
+    ],
     "eqeqeq": "error",
     "no-var": "error",
     "indent": [
