@@ -26,7 +26,7 @@ if pageTitle == 'Dashboard'
   script.
     // stats
     chartFollows = [#{stats.charts.follows}],
-    chartSubscriptions = [#{stats.charts.subs}],
+    chartSubscriptions = [#{stats.charts.subscriptions}],
     chartDonations = {count: [#{stats.charts.donations.count}],amount: [#{stats.charts.donations.amount}]};
   script(defer src='ressources/js/charts.bundle.js?v=' + version)
 
