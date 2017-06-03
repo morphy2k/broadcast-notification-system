@@ -695,37 +695,23 @@ class Feed {
     $(this.filter.all).click(() => {
       this.select(null);
     });
-    $(types[0].id).click(() => {
-      this.select(0);
-    }).mouseenter(() => {
-      this.hide(0);
-    }).mouseleave(() => {
-      removeUnfocused();
-    });
 
-    $(types[1].id).click(() => {
-      this.select(1);
-    }).mouseenter(() => {
-      this.hide(1);
-    }).mouseleave(() => {
-      removeUnfocused();
-    });
+    const spawnListener = n => {
+      $(types[n].id).click(() => {
+        this.select(n);
+      }).mouseenter(() => {
+        this.hide(n);
+      }).mouseleave(() => {
+        removeUnfocused();
+      });
+    };
 
-    $(types[2].id).click(() => {
-      this.select(2);
-    }).mouseenter(() => {
-      this.hide(2);
-    }).mouseleave(() => {
-      removeUnfocused();
-    });
+    let i = 0;
 
-    $(types[3].id).click(() => {
-      this.select(3);
-    }).mouseenter(() => {
-      this.hide(3);
-    }).mouseleave(() => {
-      removeUnfocused();
-    });
+    while (i < types.length) {
+      spawnListener(i);
+      i = i + 1;
+    }
 
     $('#feed > .wrapper > ul > .donation').click(() => {
       $(this).class('message').toggle();
@@ -745,14 +731,15 @@ class Feed {
   hide(type) {
 
     let types = this.filter.types,
-      hide = [];
+      hide = [],
+      i = 0;
 
-    for (let el in types) {
-      if (el !== type) {
-
-        hide.push(this.filter.types[el].class);
-
+    while (i < types.length) {
+      if (i !== type) {
+        hide.push(this.filter.types[i].class);
       }
+
+      i = i + 1;
     }
 
     $(`${hide}`).addClass('unfocused');
@@ -839,8 +826,10 @@ class Feed {
           visible = 'none';
         }
 
+        const id = el.uuid;
+
         $('#feed > .wrapper > ul')
-          .append(`<li id="${el.uuid}" class="${el.type}"
+          .append(`<li id="${id}" class="${el.type}"
                     style="display:${visible};">
                   <div class="head">
                     <div class="type">${el.type}</div>
@@ -851,32 +840,28 @@ class Feed {
                   </div>
                 </li>`);
 
+
+        const append = $(`#${id} > .body`).append;
+
         if (el.type === 'follow') {
-          $(`#${el.uuid} > .body`)
-            .append(' is now following you');
+          append(' is now following you');
         }
 
         if (el.type === 'subscription') {
           if (el.resubs > 0) {
-            $(`#${el.uuid} > .body`)
-              .append(` has re-subscribed (${el.resubs}x) you`);
+            append(` has re-subscribed (${el.resubs}x) you`);
           } else {
-            $(`#${el.uuid} > .body`)
-              .append(' has subscribed you');
+            append(' has subscribed you');
           }
         }
 
         if (el.type === 'host') {
-          $(`#${el.uuid} > .body`)
-            .append(` host you with
-                            <span class="viewers">${el.viewers}</span> viewers`);
+          append(` host you with <span class="viewers">${el.viewers}</span> viewers`);
         }
 
         if (el.type === 'donation') {
-          $(`#${el.uuid} > .body`)
-            .append(` has
-                            <span class="amount">${el.amount}</span> donated
-                            <div class="message">${el.message}</div>`);
+          append(` has <span class="amount">${el.amount}</span> donated
+                    <div class="message">${el.message}</div>`);
         }
       }
     }
@@ -1002,23 +987,24 @@ class Notification {
 
     if (!data.test) this.data = data;
 
+    const name = `<span class="name">${this.data.name}</span>`;
+
     switch (data.type) {
     case 'follow':
-      str = `<span class="name">${this.data.name}</span> follow you now`;
+      str = `${name} follow you now`;
       break;
     case 'subscription':
-      str = `<span class="name">${this.data.name}</span>
-              has subscribed! (${this.data.resubs}x)`;
+      str = `${name} has subscribed! (${this.data.resubs}x)`;
       break;
     case 'donation':
-      str = `<span class="name">${this.data.name}</span> has <span class="amount">
-                  ${this.data.amount} ${this.data.currency}
+      str = `${name} has
+                  <span class="amount">
+                    ${this.data.amount} ${this.data.currency}
                   </span> donated!
                   <span class="message">${this.data.message}</span>`;
       break;
     case 'host':
-      str = `<span class="name">${this.data.name}</span>
-                  host you with <b>${this.data.viewers}</b> viewers`;
+      str = `${name} host you with <b>${this.data.viewers}</b> viewers`;
       break;
     }
 
