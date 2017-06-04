@@ -189,11 +189,8 @@ class Feed {
       });
     };
 
-    let i = 0;
-
-    while (i < types.length) {
+    for (let i = 0; i < types.length; i = i + 1) {
       spawnListener(i);
-      i = i + 1;
     }
 
     $('#feed > .wrapper > ul > .donation').click(() => {
@@ -324,7 +321,7 @@ class Feed {
                 </li>`);
 
 
-        const append = $(`#${id} > .body`).append;
+        const append = str => $(`#${id} > .body`).append(str);
 
         if (el.type === 'follow') {
           append(' is now following you');
