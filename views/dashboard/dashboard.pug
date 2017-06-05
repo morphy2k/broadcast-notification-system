@@ -18,7 +18,7 @@ html(lang="en")
         #feed
           .wrapper
             ul.list
-              each event in stats.feed.list
+              each event in data.stats.feed.list
                 li(id= event.uuid class= event.type)
                   .head
                     .type= event.type

@@ -1,33 +1,48 @@
 footer
-  p BNS v#{version} coded by&nbsp;
+  p
+    strong BNS
+    | &nbsp;v#{data.version} 
+    | coded by&nbsp;
     a(href="https://github.com/Morphy2k" target="_blank" rel="noopener") Morphy
+  p
+    a(href="https://github.com/Morphy2k/broadcast-notification-system" target="_blank" rel="noopener") GitHub
 
 script.
-  let version = '#{version}',
-    pageTitle = '#{pageTitle}',
-    page = pageTitle.toLowerCase(),
-    popups = #{settings.dashboard.popups};
+  const pageTitle = '#{pageTitle}',
+    page = pageTitle.toLowerCase();
+    
+  let version = '#{data.version}',
+    popups = #{data.settings.dashboard.popups};
 
 if pageTitle == 'Settings'
   script.
-    // service
-    twitch = #{settings.api.twitch.enabled},
-    youtube = #{settings.api.youtube.enabled},
-    streamlabs = #{settings.api.streamlabs.enabled},
+    // api
+    api = {
+      twitch: #{data.settings.api.twitch.enabled},
+      youtube: #{data.settings.api.youtube.enabled},
+      streamlabs: #{data.settings.api.streamlabs.enabled}
+    },
     // notifications
-    notifications = #{settings.notification.enabled},
-    duration = #{settings.notification.duration},
-    follows = #{settings.notification.types.follows},
-    subscriptions = #{settings.notification.types.subscriptions},
-    hosts = #{settings.notification.types.hosts},
-    donations = #{settings.notification.types.donations};
+    notification = {
+      enabled: #{data.settings.notification.enabled},
+      duration: #{data.settings.notification.duration},
+      follows: #{data.settings.notification.types.follows},
+      subscriptions: #{data.settings.notification.types.subscriptions},
+      hosts: #{data.settings.notification.types.hosts},
+      donations: #{data.settings.notification.types.donations}
+    };
 
 if pageTitle == 'Dashboard'
   script.
-    // stats
-    chartFollows = [#{stats.charts.follows}],
-    chartSubscriptions = [#{stats.charts.subscriptions}],
-    chartDonations = {count: [#{stats.charts.donations.count}],amount: [#{stats.charts.donations.amount}]};
+    // charts
+    chartData = {
+      follows: [#{data.stats.charts.follows}],
+      subscriptions: [#{data.stats.charts.subscriptions}],
+      donations: {
+        count: [#{data.stats.charts.donations.count}],
+        amount: [#{data.stats.charts.donations.amount}]
+      }
+    };
   script(defer src='ressources/js/charts.bundle.js?v=' + version)
 
-script(src='ressources/js/main.bundle.js?v=' + version)
+script(src='ressources/js/main.bundle.js?v=' + data.version)
