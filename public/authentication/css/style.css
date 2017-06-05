@@ -1,81 +1,85 @@
 @charset "UTF-8";
 html, body {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    background-color: rgb(241, 241, 241);
-    font-family: 'Roboto', sans-serif;
-    font-size: 1rem;
-    color: rgb(0, 0, 0);
-    font-weight: 400;
+  background-color: rgb(241, 241, 241);
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  color: rgb(0, 0, 0);
+  font-weight: 400;
 }
 
 main {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    width: auto;
-    height: 50rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: 50rem;
 }
 
 #s40x {
-    background: url(../../ressources/img/locked.svg) no-repeat center;
-    background-size: 30rem;
-    width: 100%;
-    height: 100%;
-    margin-top: 5rem;
-}
-
-#email .headline {
-    font-size: 1.2rem;
-    width: 100%;
-    line-height: 3rem;
-    text-align: center;
+  background: url(../../ressources/img/locked.svg) no-repeat center;
+  background-size: 30rem;
+  width: 100%;
+  height: 100%;
+  margin-top: 5rem;
 }
 
 #email p {
-    font-size: .9rem;
-    max-width: 40rem;
-    color: red;
-    margin: .6rem 0;
+  font-size: .9rem;
+  max-width: 40rem;
+  color: red;
+  margin: .6rem 0;
 }
 
 #email form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    padding: 0;
-    margin-bottom: 3rem;
-    line-height: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 2rem;
+  line-height: 4rem;
 }
 
 #email input[type="email"] {
-    box-sizing: border-box;
-    line-height: 3rem;
-    height: 3rem;
-    width: 26rem;
-    font-size: 2rem;
-    padding: .2rem;
-    margin: 0;
-    margin-right: .3rem;
-    border: 0;
-    background: rgb(255, 255, 255);
+  box-sizing: border-box;
+  line-height: 3rem;
+  height: 3rem;
+  width: 30rem;
+  font-size: 1.8rem;
+  padding: .2rem;
+  margin: 0;
+  margin-right: .3rem;
+  border: 0;
+  background: rgba(255, 255, 255, 0);
+  border-bottom: .1rem solid grey;
+  text-align: center;
+}
+
+#email input[type="email"]:focus {
+  outline: none;
+}
+
+#email input[type="email"]:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px rgb(241, 241, 241) inset;
 }
 
 #email input[type="submit"] {
-    display: block;
-    box-sizing: border-box;
-    width: 8rem;
-    font-size: 1.6rem;
-    padding: .7rem 0 .4rem 0;
-    margin: 0;
-    border: 0;
-    background: rgb(61, 61, 61);
-    color: rgb(255, 255, 255);
-    text-transform: uppercase;
-    cursor: pointer;
+  display: block;
+  box-sizing: border-box;
+  width: 8rem;
+  font-size: 1.6rem;
+  padding: .7rem 0 .4rem 0;
+  margin-top: 1rem;
+  border: 0;
+  background: rgb(61, 61, 61);
+  color: rgb(255, 255, 255);
+  text-transform: uppercase;
+  cursor: pointer;
 }
