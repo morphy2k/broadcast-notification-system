@@ -467,7 +467,7 @@ class Notification {
 
     if (!data.test) this.data = data;
 
-    const name = `<span class="name">${this.data.name}</span>`;
+    const name = `<span class="name">${this.data.display_name || this.data.name}</span>`;
 
     switch (data.type) {
     case 'follow':
