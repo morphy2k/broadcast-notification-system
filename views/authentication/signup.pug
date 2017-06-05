@@ -13,10 +13,8 @@ html(lang="en")
 
       #email
 
-        .headline Please enter your E-Mail address
-
         form(onsubmit="return submitData();")
-          input(required id="mail" type="email" name="email" placeholder="john.doe@example.com")
+          input(required id="mail" type="email" name="email" placeholder="enter your email address")
           input(type="submit" value="send")
 
         p Please note, a mail will be sent automatically by the system only every #{days} days! Keep the mail content carefully, you can only access to the system with the link or token in this mail!
