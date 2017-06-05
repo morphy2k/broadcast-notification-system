@@ -516,8 +516,7 @@ this.writable=!0,this.emit("open")},n.prototype.onData=function(t){var e=o.decod
 
 },{}],4:[function(require,module,exports){
 /* eslint-env browser, commonjs */
-/* global twitch, youtube, streamlabs, tipeee, follows, subscriptions, hosts, donations, chart1, chart2, chartFollows:true,
-    chartSubscriptions:true, chartDonations:true, page, popups, notifications version */
+/* global api, notification, chartData, chart1, chart2, page, popups, version */
 'use strict';
 
 const $ = require('../../../node_modules/jquery/dist/jquery.slim.min.js');
@@ -559,7 +558,7 @@ class Socket extends io {
         } else if (type === 'response') {
           if (data.type === 'notification' || data.type === 'api') {
 
-            window[data.prop] = data.value;
+            window[data.type][data.prop] = data.value;
 
             if (data.value) {
               $(`#${data.type}-${data.prop}`).addClass('enabled');
@@ -596,7 +595,7 @@ class Socket extends io {
         }
       }).on('notification', data => {
 
-        if (popups) notification.parser(data);
+        if (popups) notifications.parser(data);
 
       }).on('general', data => {
 
@@ -899,10 +898,10 @@ class Charts {
     // Follows
     for (let i = 0; i < data.follows.length; i++) {
 
-      if (data.follows[i] !== chartFollows[i]) {
+      if (data.follows[i] !== chartData.follows[i]) {
 
-        chartFollows = data.follows;
-        chart1.data.datasets[1].data = chartFollows;
+        chartData.follows = data.follows;
+        chart1.data.datasets[1].data = chartData.follows;
 
         this.changed.chart1 = true;
 
@@ -914,10 +913,10 @@ class Charts {
     // Subscriptions
     for (let i = 0; i < data.subscriptions.length; i++) {
 
-      if (data.subscriptions[i] !== chartSubscriptions[i]) {
+      if (data.subscriptions[i] !== chartData.subscriptions[i]) {
 
-        chartSubscriptions = data.subscriptions;
-        chart1.data.datasets[0].data = chartSubscriptions;
+        chartData.subscriptions = data.subscriptions;
+        chart1.data.datasets[0].data = chartData.subscriptions;
 
         this.changed.chart1 = true;
 
@@ -929,11 +928,11 @@ class Charts {
     // Donations
     for (let i = 0; i < data.donations.count.length; i++) {
 
-      if (data.donations.count[i] !== chartDonations.count[i]) {
+      if (data.donations.count[i] !== chartData.donations.count[i]) {
 
-        chartDonations = data.donations.count;
-        chart1.data.datasets[0].data = chartDonations.count;
-        chart1.data.datasets[1].data = chartDonations.amount;
+        chartData.donations = data.donations.count;
+        chart1.data.datasets[0].data = chartData.donations.count;
+        chart1.data.datasets[1].data = chartData.donations.amount;
 
         this.changed.chart2 = true;
 
@@ -964,7 +963,7 @@ class Charts {
 const charts = new Charts();
 
 
-class Notification {
+class Notifications {
   constructor() {
 
     this.data = {
@@ -1025,7 +1024,7 @@ class Notification {
 
 }
 
-const notification = new Notification();
+const notifications = new Notifications();
 
 
 class Settings {
@@ -1033,30 +1032,30 @@ class Settings {
 
     // API buttons
     $('#api-twitch').click(() => {
-      this.send('api', 'twitch', twitch);
+      this.send('api', 'twitch', api.twitch);
     });
     $('#api-youtube').click(() => {
-      this.send('api', 'youtube', youtube);
+      this.send('api', 'youtube', api.youtube);
     });
     $('#api-streamlabs').click(() => {
-      this.send('api', 'streamlabs', streamlabs);
+      this.send('api', 'streamlabs', api.streamlabs);
     });
     $('#api-tipeee').click(() => {
-      this.send('api', 'tipeee', tipeee);
+      this.send('api', 'tipeee', api.tipeee);
     });
 
     // Notification buttons
     $('#notification-follows').click(() => {
-      this.send('notification', 'follows', follows);
+      this.send('notification', 'follows', notification.follows);
     });
     $('#notification-subscriptions').click(() => {
-      this.send('notification', 'subscriptions', subscriptions);
+      this.send('notification', 'subscriptions', notification.subscriptions);
     });
     $('#notification-hosts').click(() => {
-      this.send('notification', 'hosts', hosts);
+      this.send('notification', 'hosts', notification.hosts);
     });
     $('#notification-donations').click(() => {
-      this.send('notification', 'donations', donations);
+      this.send('notification', 'donations', notification.donations);
     });
 
     // Template
@@ -1086,7 +1085,7 @@ class Settings {
       this.send('notification', 'clearQueue', true);
     });
     $('#notificationToggle input').click(() => {
-      this.send('notification', 'enabled', notifications);
+      this.send('notification', 'enabled', notification.enabled);
     });
     $('#popupsToggle input').click(() => {
       this.send('dashboard', 'popups', popups);
@@ -1095,6 +1094,8 @@ class Settings {
   }
 
   send(type, prop, value) {
+
+    console.log(type, prop, value);
 
     if (socket.connected && (value === true || value === false)) {
 

@@ -15,28 +15,28 @@ html(lang="en")
           .head API
           ul
             li
-              if settings.api.twitch.auth.token
-                if settings.api.twitch.enabled
+              if data.settings.api.twitch.auth.token
+                if data.settings.api.twitch.enabled
                   a#api-twitch.check.border.border.enabled(style="cursor:pointer;") Twitch
                 else
                   a#api-twitch.check.border(style="cursor:pointer;") Twitch
               else
                 a#api-twitch.check.border(href="/twitch/auth") Twitch
             li
-              if settings.api.youtube.enabled
+              if data.settings.api.youtube.enabled
                 a#api-youtube.check.border.enabled(style="cursor:not-allowed;" title="Not implemented yet!") YouTube
               else
                 a#api-youtube.check.border(style="cursor:not-allowed;" onclick="alert('Sorry, has not yet been implemented!');" title="Not implemented yet!") YouTube
             li
-              if settings.api.streamlabs.auth.token
-                if settings.api.streamlabs.enabled
+              if data.settings.api.streamlabs.auth.token
+                if data.settings.api.streamlabs.enabled
                   a#api-streamlabs.check.border.enabled(style="cursor:pointer;") Streamlabs
                 else
                   a#api-streamlabs.check.border(style="cursor:pointer;") Streamlabs
               else
                 a#api-streamlabs.check.border(href="/streamlabs/auth") Streamlabs
             li
-              if settings.api.youtube.enabled
+              if data.settings.api.youtube.enabled
                 a#api-tipeee.check.border.enabled(style="cursor:not-allowed;" title="Not implemented yet!") TipeeeStream
               else
                 a#api-tipeee.check.border(style="cursor:not-allowed;" onclick="alert('Sorry, has not yet been implemented!');" title="Not implemented yet!") TipeeeStream
@@ -46,22 +46,22 @@ html(lang="en")
           .head Notifications
           ul
             li
-              if settings.notification.types.follows
+              if data.settings.notification.types.follows
                 a#notification-follows.check.border.enabled(style="cursor:pointer;"  title="Follows on/off") Follows
               else
                 a#notification-follows.check.border(style="cursor:pointer;"  title="Follows on/off") Follows
             li
-              if settings.notification.types.subscriptions
+              if data.settings.notification.types.subscriptions
                 a#notification-subscriptions.check.border.enabled(style="cursor:pointer;" title="Subscriptions on/off") Subscriptions
               else
                 a#notification-subscriptions.check.border(style="cursor:pointer;"  title="Subscriptions on/off") Subscriptions
             li
-              if settings.notification.types.hosts
+              if data.settings.notification.types.hosts
                 a#notification-hosts.check.border.enabled(style="cursor:pointer;" title="Hosts on/off") Hosts
               else
                 a#notification-hosts.check.border(style="cursor:pointer;" title="Hosts on/off") Hosts
             li
-              if settings.notification.types.donations
+              if data.settings.notification.types.donations
                 a#notification-donations.check.border.enabled(style="cursor:pointer;" title="Donations on/off") Donations
               else
                 a#notification-donations.check.border(style="cursor:pointer;" title="Donations on/off") Donations
@@ -71,8 +71,8 @@ html(lang="en")
           .head Template
           div
             select(id ="template-selection" name="templates")
-              each template in settings.notification.template.list
-                if template == settings.notification.template.selected
+              each template in data.settings.notification.template.list
+                if template == data.settings.notification.template.selected
                   option(value= template selected)= template
                 else
                   option(value= template)= template
@@ -86,7 +86,7 @@ html(lang="en")
 
               .col-1
                 .label Duration
-                input(id="notification-duration" type="number" name="duration" value= settings.notification.duration title="The time in milliseconds until the next notification")
+                input(id="notification-duration" type="number" name="duration" value= data.settings.notification.duration title="The time in milliseconds until the next notification")
 
               .col-2
 
@@ -117,7 +117,7 @@ html(lang="en")
                 li(title="Notification switch (global)")
                   .switch#notificationToggle
                     label.switch
-                      if settings.notification.enabled
+                      if data.settings.notification.enabled
                         input(type="checkbox" checked)
                       else
                         input(type="checkbox")
@@ -127,7 +127,7 @@ html(lang="en")
                 li(title="Switch for notifications on dashboard")
                   .switch#popupsToggle
                     label.switch
-                      if settings.dashboard.popups
+                      if data.settings.dashboard.popups
                         input(type="checkbox" checked)
                       else
                         input(type="checkbox")

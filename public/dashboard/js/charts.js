@@ -1,5 +1,5 @@
 /* eslint-env browser, commonjs */
-/* global chartFollows:true, chartSubscriptions:true, chartDonations:true */
+/* global chartData */
 'use strict';
 
 const Chart = require('../../../node_modules/chart.js/dist/Chart.min.js');
@@ -10,7 +10,7 @@ let chart1 = {
     type: 'bar',
     label: 'Subscriber',
     backgroundColor: 'rgb(216, 72, 57)',
-    data: chartSubscriptions,
+    data: chartData.subscriptions,
     borderColor: 'white',
     borderWidth: 0
   },
@@ -19,7 +19,7 @@ let chart1 = {
     label: 'Follower',
     borderColor: 'rgb(44, 62, 80)',
     backgroundColor: 'rgba(44, 62, 80, 0.3)',
-    data: chartFollows,
+    data: chartData.follows,
     borderWidth: 0,
     lineTension: 0
   }
@@ -32,7 +32,7 @@ let chart2 = {
     type: 'bar',
     label: 'Donations',
     backgroundColor: 'rgb(52, 152, 219)',
-    data: chartDonations.count,
+    data: chartData.donations.count,
     borderColor: 'white',
     borderWidth: 0
   },
@@ -40,7 +40,7 @@ let chart2 = {
     type: 'bar',
     label: 'Amount',
     backgroundColor: 'rgb(33, 114, 167)',
-    data: chartDonations.amount,
+    data: chartData.donations.amount,
     borderColor: 'white',
     borderWidth: 0
   }
