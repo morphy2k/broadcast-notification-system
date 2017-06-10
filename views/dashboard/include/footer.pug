@@ -18,18 +18,26 @@ if pageTitle == 'Settings'
   script.
     // api
     api = {
-      twitch: #{data.settings.api.twitch.enabled},
-      youtube: #{data.settings.api.youtube.enabled},
-      streamlabs: #{data.settings.api.streamlabs.enabled}
+      twitch: {
+        enabled: #{data.settings.api.twitch.enabled}
+      },
+      youtube: {
+        enabled: #{data.settings.api.youtube.enabled}
+      },
+      streamlabs: {
+        enabled: #{data.settings.api.streamlabs.enabled}
+      }
     },
     // notifications
     notification = {
       enabled: #{data.settings.notification.enabled},
       duration: #{data.settings.notification.duration},
-      follows: #{data.settings.notification.types.follows},
-      subscriptions: #{data.settings.notification.types.subscriptions},
-      hosts: #{data.settings.notification.types.hosts},
-      donations: #{data.settings.notification.types.donations}
+      types: {
+        follows: #{data.settings.notification.types.follows},
+        subscriptions: #{data.settings.notification.types.subscriptions},
+        hosts: #{data.settings.notification.types.hosts},
+        donations: #{data.settings.notification.types.donations}
+      }
     };
 
 if pageTitle == 'Dashboard'

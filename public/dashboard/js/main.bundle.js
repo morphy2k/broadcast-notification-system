@@ -516,15 +516,15 @@ this.writable=!0,this.emit("open")},n.prototype.onData=function(t){var e=o.decod
 
 },{}],4:[function(require,module,exports){
 /* eslint-env browser, commonjs */
-/* global api, notification, chartData, chart1, chart2, page, popups, version */
+/* global charts, api, notification, page, popups, version */
 'use strict';
 
 const $ = require('../../../node_modules/jquery/dist/jquery.slim.min.js');
-const io = require('../../../node_modules/socket.io-client/dist/socket.io.slim.js');
+const IO = require('../../../node_modules/socket.io-client/dist/socket.io.slim.js');
 const moment = require('../../../node_modules/moment/min/moment-with-locales.min.js');
 
 
-class Socket extends io {
+class Socket extends IO {
   constructor() {
 
     super();
@@ -545,10 +545,12 @@ class Socket extends io {
       // Listeners
       this.on('stats', data => {
 
-        if (data.charts !== undefined && page === 'dashboard')
-          charts.compare(data.charts);
-        if (data.feed !== undefined && page === 'dashboard')
-          feed.compare(data.feed);
+        if (typeof charts === 'object') {
+          if (data.charts !== undefined && page === 'dashboard')
+            charts.compare(data.charts);
+          if (data.feed !== undefined && page === 'dashboard')
+            feed.compare(data.feed);
+        }
 
       }).on('dashboard', (type, err, data) => {
         if (err) {
@@ -556,41 +558,64 @@ class Socket extends io {
           popup('ERROR!');
 
         } else if (type === 'response') {
-          if (data.type === 'notification' || data.type === 'api') {
+          if (data.type === 'set') {
 
-            window[data.type][data.prop] = data.value;
+            const prop = data.prop,
+              value = data.value;
 
-            if (data.value) {
-              $(`#${data.type}-${data.prop}`).addClass('enabled');
-            } else {
-              $(`#${data.type}-${data.prop}`).removeClass('enabled');
-            }
+            if (prop.indexOf('.') !== -1) {
+              const props = prop.split('.');
 
-          } else if (data.prop === 'templates') {
+              let obj = window,
+                i = 0;
 
-            let arr = data.templates,
-              selected = data.selected;
-
-            $('#template > div > select option').each(function () {
-              $(this).remove();
-            });
-
-            for (let el of arr) {
-              if (el === selected) {
-
-                $('#template > div > select').append(
-                  `<option value="${el}" selected>${el}</option>`
-                );
-
-              } else {
-                $('#template > div > select').append(
-                  `<option value="${el}">${el}</option>`
-                );
+              for (let prop of props) {
+                if (i === props.length - 1) {
+                  obj[prop] = value;
+                } else {
+                  obj = obj[prop];
+                  i = i + 1;
+                }
               }
+            } else {
+              window[prop] = value;
             }
+
+            if (value) {
+              $(`#${data.domId}`).addClass('enabled');
+            } else {
+              $(`#${data.domId}`).removeClass('enabled');
+            }
+
+          } else if (data.type === 'function') {
+            if (data.prop === 'template.search') {
+
+              let arr = data.templates,
+                selected = data.selected;
+
+              $('#template > div > select option').each(function () {
+                $(this).remove();
+              });
+
+              for (let el of arr) {
+                if (el === selected) {
+
+                  $('#template > div > select').append(
+                    `<option value="${el}" selected>${el}</option>`
+                  );
+
+                } else {
+                  $('#template > div > select').append(
+                    `<option value="${el}">${el}</option>`
+                  );
+                }
+              }
+
+            }
+
           }
 
-          if (data.type !== 'testNotification') popup('Success');
+          if (data.prop !== 'notification.test') popup('Success');
 
         }
       }).on('notification', data => {
@@ -883,86 +908,6 @@ class Feed {
 const feed = new Feed();
 
 
-class Charts {
-  constructor() {
-
-    this.changed = {
-      chart1: false,
-      chart2: false
-    };
-
-  }
-
-  compare(data) {
-
-    // Follows
-    for (let i = 0; i < data.follows.length; i++) {
-
-      if (data.follows[i] !== chartData.follows[i]) {
-
-        chartData.follows = data.follows;
-        chart1.data.datasets[1].data = chartData.follows;
-
-        this.changed.chart1 = true;
-
-        break;
-
-      }
-    }
-
-    // Subscriptions
-    for (let i = 0; i < data.subscriptions.length; i++) {
-
-      if (data.subscriptions[i] !== chartData.subscriptions[i]) {
-
-        chartData.subscriptions = data.subscriptions;
-        chart1.data.datasets[0].data = chartData.subscriptions;
-
-        this.changed.chart1 = true;
-
-        break;
-
-      }
-    }
-
-    // Donations
-    for (let i = 0; i < data.donations.count.length; i++) {
-
-      if (data.donations.count[i] !== chartData.donations.count[i]) {
-
-        chartData.donations = data.donations.count;
-        chart1.data.datasets[0].data = chartData.donations.count;
-        chart1.data.datasets[1].data = chartData.donations.amount;
-
-        this.changed.chart2 = true;
-
-        break;
-
-      }
-    }
-
-    if (this.changed.chart1 || this.changed.chart2) this.update();
-
-  }
-
-  update() {
-
-    if (this.changed.chart1) {
-      chart1.update();
-      this.changed.chart1 = false;
-    }
-
-    if (this.changed.chart2) {
-      chart2.update();
-      this.changed.chart2 = false;
-    }
-
-  }
-}
-
-const charts = new Charts();
-
-
 class Notifications {
   constructor() {
 
@@ -1008,20 +953,6 @@ class Notifications {
 
   }
 
-  test() {
-
-    let prop = $('#notificationTest > select option:selected')
-      .attr('value');
-
-    if (socket.connected) {
-      socket.emit('dashboard', {
-        type: 'testNotification',
-        prop
-      });
-
-    }
-  }
-
 }
 
 const notifications = new Notifications();
@@ -1031,40 +962,77 @@ class Settings {
   constructor() {
 
     // API buttons
-    $('#api-twitch').click(() => {
-      this.send('api', 'twitch', api.twitch);
+    $('#api-twitch').click((e) => {
+      this.send('set', {
+        prop: 'api.twitch.enabled',
+        value: api.twitch.enabled,
+        domId: e.target.id
+      });
     });
-    $('#api-youtube').click(() => {
-      this.send('api', 'youtube', api.youtube);
+    $('#api-youtube').click((e) => {
+      this.send('set', {
+        prop: 'api.youtube.enabled',
+        value: api.youtube.enabled,
+        domId: e.target.id
+      });
     });
-    $('#api-streamlabs').click(() => {
-      this.send('api', 'streamlabs', api.streamlabs);
+    $('#api-streamlabs').click((e) => {
+      this.send('set', {
+        prop: 'api.streamlabs.enabled',
+        value: api.streamlabs.enabled,
+        domId: e.target.id
+      });
     });
-    $('#api-tipeee').click(() => {
-      this.send('api', 'tipeee', api.tipeee);
+    $('#api-tipeee').click((e) => {
+      this.send('set', {
+        prop: 'api.tipeee.enabled',
+        value: api.tipeee.enabled,
+        domId: e.target.id
+      });
     });
 
     // Notification buttons
-    $('#notification-follows').click(() => {
-      this.send('notification', 'follows', notification.follows);
+    $('#notification-follows').click((e) => {
+      this.send('set', {
+        prop: 'notification.types.follows',
+        value: notification.types.follows,
+        domId: e.target.id
+      });
     });
-    $('#notification-subscriptions').click(() => {
-      this.send('notification', 'subscriptions', notification.subscriptions);
+    $('#notification-subscriptions').click((e) => {
+      this.send('set', {
+        prop: 'notification.types.subscriptions',
+        value: notification.types.subscriptions,
+        domId: e.target.id
+      });
     });
-    $('#notification-hosts').click(() => {
-      this.send('notification', 'hosts', notification.hosts);
+    $('#notification-hosts').click((e) => {
+      this.send('set', {
+        prop: 'notification.types.hosts',
+        value: notification.types.hosts,
+        domId: e.target.id
+      });
     });
-    $('#notification-donations').click(() => {
-      this.send('notification', 'donations', notification.donations);
+    $('#notification-donations').click((e) => {
+      this.send('set', {
+        prop: 'notification.types.donations',
+        value: notification.types.donations,
+        domId: e.target.id
+      });
     });
 
     // Template
-    $('#template-selection').click(() => {
-      let value = $('#template-selection').val();
-      this.send('template', 'template', value);
+    $('#template-selection').click((e) => {
+      const value = $(`#${e.target.id}`).val();
+      this.send('function', {
+        prop: 'template.set',
+        value
+      });
     });
     $('#template-search').click(() => {
-      this.send('template', 'search', true);
+      this.send('function', {
+        prop: 'template.search'
+      });
     });
     $('#devButton').click(() => {
       $('#devWindow').show();
@@ -1072,55 +1040,54 @@ class Settings {
     $('#devWindow .closeButton').click(() => {
       $('#devWindow').hide();
     });
-    $('#notification-duration').focusout(() => {
-      let value = $('#notification-duration').val();
-      this.send('notification', 'duration', parseInt(value));
+    $('#notification-duration').focusout((e) => {
+      const value = $(`#${e.target.id}`).val();
+      this.send('set', {
+        prop: 'notification.duration',
+        value: parseInt(value)
+      });
     });
 
     // Misc
     $('#notificationTest > #push').click(() => {
-      notification.test();
+      const value = $('#notificationTest > select').val();
+      this.send('function', {
+        prop: 'notification.test',
+        value
+      });
     });
     $('#clearQueue').click(() => {
-      this.send('notification', 'clearQueue', true);
+      this.send('function', {
+        prop: 'notification.clearQueue'
+      });
     });
     $('#notificationToggle input').click(() => {
-      this.send('notification', 'enabled', notification.enabled);
+      this.send('set', {
+        prop: 'notification.enabled',
+        value: notification.enabled
+      });
     });
     $('#popupsToggle input').click(() => {
-      this.send('dashboard', 'popups', popups);
+      this.send('set', {
+        prop: 'dashboard.popups',
+        value: popups
+      });
     });
 
   }
 
-  send(type, prop, value) {
+  send(type, obj) {
 
-    console.log(type, prop, value);
-
-    if (socket.connected && (value === true || value === false)) {
-
-      if (value) {
-        socket.emit('dashboard', {
-          type,
-          prop,
-          value: false
-        });
-
-      } else {
-        socket.emit('dashboard', {
-          type,
-          prop,
-          value: true
-        });
+    if (socket.connected) {
+      if (obj.value === true || obj.value === false) {
+        if (obj.value) {
+          obj.value = false;
+        } else {
+          obj.value = true;
+        }
       }
 
-    } else {
-      socket.emit('dashboard', {
-        type,
-        prop,
-        value
-      });
-
+      socket.emit('dashboard', type, obj);
     }
   }
 
