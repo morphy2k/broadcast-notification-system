@@ -963,32 +963,40 @@ class Settings {
 
     // API buttons
     $('#api-twitch').click((e) => {
-      this.send('set', {
-        prop: 'api.twitch.enabled',
-        value: api.twitch.enabled,
-        domId: e.target.id
-      });
+      if (!$(`#${e.target.id}`).hasClass('noEvent')) {
+        this.send('set', {
+          prop: 'api.twitch.enabled',
+          value: api.twitch.enabled,
+          domId: e.target.id
+        });
+      }
     });
     $('#api-youtube').click((e) => {
-      this.send('set', {
-        prop: 'api.youtube.enabled',
-        value: api.youtube.enabled,
-        domId: e.target.id
-      });
+      if (!$(`#${e.target.id}`).hasClass('noEvent')) {
+        this.send('set', {
+          prop: 'api.youtube.enabled',
+          value: api.youtube.enabled,
+          domId: e.target.id
+        });
+      }
     });
     $('#api-streamlabs').click((e) => {
-      this.send('set', {
-        prop: 'api.streamlabs.enabled',
-        value: api.streamlabs.enabled,
-        domId: e.target.id
-      });
+      if (!$(`#${e.target.id}`).hasClass('noEvent')) {
+        this.send('set', {
+          prop: 'api.streamlabs.enabled',
+          value: api.streamlabs.enabled,
+          domId: e.target.id
+        });
+      }
     });
     $('#api-tipeee').click((e) => {
-      this.send('set', {
-        prop: 'api.tipeee.enabled',
-        value: api.tipeee.enabled,
-        domId: e.target.id
-      });
+      if (!$(`#${e.target.id}`).hasClass('noEvent')) {
+        this.send('set', {
+          prop: 'api.tipeee.enabled',
+          value: api.tipeee.enabled,
+          domId: e.target.id
+        });
+      }
     });
 
     // Notification buttons
