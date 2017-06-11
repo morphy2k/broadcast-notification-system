@@ -17,16 +17,16 @@ html(lang="en")
             li
               if data.settings.api.twitch.auth.token
                 if data.settings.api.twitch.enabled
-                  a#api-twitch.check.border.border.enabled(style="cursor:pointer;") Twitch
+                  a#api-twitch.check.border.enabled(style="cursor:pointer;") Twitch
                 else
                   a#api-twitch.check.border(style="cursor:pointer;") Twitch
               else
-                a#api-twitch.check.border(href="/twitch/auth") Twitch
+                a#api-twitch.check.border.noEvent(href="/api/twitch/auth") Twitch
             li
               if data.settings.api.youtube.enabled
                 a#api-youtube.check.border.enabled(style="cursor:not-allowed;" title="Not implemented yet!") YouTube
               else
-                a#api-youtube.check.border(style="cursor:not-allowed;" onclick="alert('Sorry, has not yet been implemented!');" title="Not implemented yet!") YouTube
+                a#api-youtube.check.border.noEvent(style="cursor:not-allowed;" onclick="alert('Sorry, has not yet been implemented!');" title="Not implemented yet!") YouTube
             li
               if data.settings.api.streamlabs.auth.token
                 if data.settings.api.streamlabs.enabled
@@ -34,12 +34,12 @@ html(lang="en")
                 else
                   a#api-streamlabs.check.border(style="cursor:pointer;") Streamlabs
               else
-                a#api-streamlabs.check.border(href="/streamlabs/auth") Streamlabs
+                a#api-streamlabs.check.border.noEvent(href="/api/streamlabs/auth") Streamlabs
             li
               if data.settings.api.youtube.enabled
                 a#api-tipeee.check.border.enabled(style="cursor:not-allowed;" title="Not implemented yet!") TipeeeStream
               else
-                a#api-tipeee.check.border(style="cursor:not-allowed;" onclick="alert('Sorry, has not yet been implemented!');" title="Not implemented yet!") TipeeeStream
+                a#api-tipeee.check.border.noEvent(style="cursor:not-allowed;" onclick="alert('Sorry, has not yet been implemented!');" title="Not implemented yet!") TipeeeStream
 
 
         #notifications.box

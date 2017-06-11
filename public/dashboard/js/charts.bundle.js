@@ -17,7 +17,7 @@ B=b+N),R=W?a.right-B:a.left+B;var E=a.getPixelForTick(n);E+=i.aliasPixel(h),L=a.
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],2:[function(require,module,exports){
 /* eslint-env browser, commonjs */
-/* global chartData*/
+/* global chartData */
 'use strict';
 
 const Chart = require('../../../node_modules/chart.js/dist/Chart.min.js');
