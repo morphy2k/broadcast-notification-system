@@ -1,5 +1,5 @@
 /* eslint-env browser, commonjs */
-/* global charts, api, notification, page, popups, version */
+/* global charts, page, popups, version */
 'use strict';
 
 const $ = require('../../../node_modules/jquery/dist/jquery.slim.min.js');
@@ -46,14 +46,16 @@ class Socket extends IO {
             const prop = data.prop,
               value = data.value;
 
+            let obj = window;
+
             if (prop.indexOf('.') !== -1) {
+
               const props = prop.split('.');
 
-              let obj = window,
-                i = 0;
+              let i = 1;
 
               for (let prop of props) {
-                if (i === props.length - 1) {
+                if (i === props.length) {
                   obj[prop] = value;
                 } else {
                   obj = obj[prop];
@@ -61,7 +63,7 @@ class Socket extends IO {
                 }
               }
             } else {
-              window[prop] = value;
+              obj[prop] = value;
             }
 
             if (value) {
@@ -444,77 +446,126 @@ const notifications = new Notifications();
 class Settings {
   constructor() {
 
+    const resolve = path => {
+
+      let obj = window;
+
+      if (path.indexOf('.') !== -1) {
+
+        const props = path.split('.');
+
+        let i = 1;
+
+        for (let prop of props) {
+          if (i === props.length) {
+            return obj[prop];
+          } else {
+            obj = obj[prop];
+            i = i + 1;
+          }
+        }
+      } else {
+        return obj[path];
+      }
+    };
+
     // API buttons
     $('#api-twitch').click((e) => {
-      if (!$(`#${e.target.id}`).hasClass('noEvent')) {
+      const domId = e.target.id;
+      const prop = 'api.twitch.enabled';
+
+      if (!$(`#${domId}`).hasClass('noEvent')) {
         this.send('set', {
-          prop: 'api.twitch.enabled',
-          value: api.twitch.enabled,
-          domId: e.target.id
+          prop,
+          value: resolve(prop),
+          domId
         });
       }
     });
     $('#api-youtube').click((e) => {
-      if (!$(`#${e.target.id}`).hasClass('noEvent')) {
+      const domId = e.target.id;
+      const prop = 'api.youtube.enabled';
+
+      if (!$(`#${domId}`).hasClass('noEvent')) {
         this.send('set', {
-          prop: 'api.youtube.enabled',
-          value: api.youtube.enabled,
-          domId: e.target.id
+          prop,
+          value: resolve(prop),
+          domId
         });
       }
     });
     $('#api-streamlabs').click((e) => {
-      if (!$(`#${e.target.id}`).hasClass('noEvent')) {
+      const domId = e.target.id;
+      const prop = 'api.streamlabs.enabled';
+
+      if (!$(`#${domId}`).hasClass('noEvent')) {
         this.send('set', {
-          prop: 'api.streamlabs.enabled',
-          value: api.streamlabs.enabled,
-          domId: e.target.id
+          prop,
+          value: resolve(prop),
+          domId
         });
       }
     });
     $('#api-tipeee').click((e) => {
-      if (!$(`#${e.target.id}`).hasClass('noEvent')) {
+      const domId = e.target.id;
+      const prop = 'api.tipeee.enabled';
+
+      if (!$(`#${domId}`).hasClass('noEvent')) {
         this.send('set', {
-          prop: 'api.tipeee.enabled',
-          value: api.tipeee.enabled,
-          domId: e.target.id
+          prop,
+          value: resolve(prop),
+          domId
         });
       }
     });
 
     // Notification buttons
     $('#notification-follows').click((e) => {
+      const domId = e.target.id;
+      const prop = 'notification.types.follows';
+
       this.send('set', {
-        prop: 'notification.types.follows',
-        value: notification.types.follows,
-        domId: e.target.id
+        prop,
+        value: resolve(prop),
+        domId
       });
     });
     $('#notification-subscriptions').click((e) => {
+      const domId = e.target.id;
+      const prop = 'notification.types.subscriptions';
+
       this.send('set', {
-        prop: 'notification.types.subscriptions',
-        value: notification.types.subscriptions,
-        domId: e.target.id
+        prop,
+        value: resolve(prop),
+        domId
       });
     });
     $('#notification-hosts').click((e) => {
+      const domId = e.target.id;
+      const prop = 'notification.types.hosts';
+
       this.send('set', {
-        prop: 'notification.types.hosts',
-        value: notification.types.hosts,
-        domId: e.target.id
+        prop,
+        value: resolve(prop),
+        domId
       });
     });
     $('#notification-donations').click((e) => {
+      const domId = e.target.id;
+      const prop = 'notification.types.donations';
+
       this.send('set', {
-        prop: 'notification.types.donations',
-        value: notification.types.donations,
-        domId: e.target.id
+        prop,
+        value: resolve(prop),
+        domId
       });
     });
 
     // Template
     $('#template-selection').click((e) => {
-      const value = $(`#${e.target.id}`).val();
+      const domId = e.target.id;
+      const value = $(`#${domId}`).val();
+
       this.send('function', {
         prop: 'template.set',
         value
@@ -532,7 +583,9 @@ class Settings {
       $('#devWindow').hide();
     });
     $('#notification-duration').focusout((e) => {
-      const value = $(`#${e.target.id}`).val();
+      const domId = e.target.id;
+      const value = $(`#${domId}`).val();
+
       this.send('set', {
         prop: 'notification.duration',
         value: parseInt(value)
@@ -542,6 +595,7 @@ class Settings {
     // Misc
     $('#notificationTest > #push').click(() => {
       const value = $('#notificationTest > select').val();
+
       this.send('function', {
         prop: 'notification.test',
         value
@@ -553,9 +607,11 @@ class Settings {
       });
     });
     $('#notificationToggle input').click(() => {
+      const prop = 'notification.enabled';
+
       this.send('set', {
-        prop: 'notification.enabled',
-        value: notification.enabled
+        prop,
+        value: resolve(prop)
       });
     });
     $('#popupsToggle input').click(() => {
