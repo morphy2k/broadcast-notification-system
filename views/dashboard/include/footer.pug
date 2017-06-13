@@ -8,16 +8,17 @@ footer
     a(href="https://github.com/Morphy2k/broadcast-notification-system" target="_blank" rel="noopener") GitHub
 
 script.
-  const pageTitle = '#{pageTitle}',
-    page = pageTitle.toLowerCase();
+  window.page = '#{pageTitle}'.toLowerCase();
     
-  let version = '#{data.version}',
-    popups = #{data.settings.dashboard.popups};
+  window.version = '#{data.version}';
+  window.dashboard = {
+      popups: #{data.settings.dashboard.popups}
+    };
 
 if pageTitle == 'Settings'
   script.
     // api
-    api = {
+    window.api = {
       twitch: {
         enabled: #{data.settings.api.twitch.enabled}
       },
@@ -27,9 +28,9 @@ if pageTitle == 'Settings'
       streamlabs: {
         enabled: #{data.settings.api.streamlabs.enabled}
       }
-    },
+    };
     // notifications
-    notification = {
+    window.notification = {
       enabled: #{data.settings.notification.enabled},
       duration: #{data.settings.notification.duration},
       types: {
@@ -43,7 +44,7 @@ if pageTitle == 'Settings'
 if pageTitle == 'Dashboard'
   script.
     // charts
-    chartData = {
+    window.chartData = {
       follows: [#{data.stats.charts.follows}],
       subscriptions: [#{data.stats.charts.subscriptions}],
       donations: {
