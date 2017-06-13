@@ -30,16 +30,16 @@
     "nodemailer": "^4.0.1",
     "pug": "^2.0.0-rc.2",
     "request": "^2.81.0",
-    "socket.io": "^2.0.2",
+    "socket.io": "^2.0.3",
     "uuid": "^3.0.1"
   },
   "devDependencies": {
     "browserify": "^14.4.0",
     "chart.js": "^2.5.0",
-    "eslint": "^4.0.0-rc.0",
+    "eslint": "^4.0.0",
     "jquery": "^3.2.1",
     "moment": "^2.18.1",
-    "socket.io-client": "^2.0.2"
+    "socket.io-client": "^2.0.3"
   },
   "repository": {
     "type": "git",
