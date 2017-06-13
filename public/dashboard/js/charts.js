@@ -1,5 +1,4 @@
 /* eslint-env browser, commonjs */
-/* global chartData */
 'use strict';
 
 const Chart = require('../../../node_modules/chart.js/dist/Chart.min.js');
@@ -13,7 +12,7 @@ class Charts {
         type: 'bar',
         label: 'Subscriptions',
         backgroundColor: 'rgb(216, 72, 57)',
-        data: chartData.subscriptions,
+        data: window.chartData.subscriptions,
         borderColor: 'white',
         borderWidth: 0
       },
@@ -22,7 +21,7 @@ class Charts {
         label: 'Follows',
         borderColor: 'rgb(44, 62, 80)',
         backgroundColor: 'rgba(44, 62, 80, 0.3)',
-        data: chartData.follows,
+        data: window.chartData.follows,
         borderWidth: 0,
         lineTension: 0
       }
@@ -35,7 +34,7 @@ class Charts {
         type: 'bar',
         label: 'Donations',
         backgroundColor: 'rgb(52, 152, 219)',
-        data: chartData.donations.count,
+        data: window.chartData.donations.count,
         borderColor: 'white',
         borderWidth: 0
       },
@@ -43,7 +42,7 @@ class Charts {
         type: 'bar',
         label: 'Amount',
         backgroundColor: 'rgb(33, 114, 167)',
-        data: chartData.donations.amount,
+        data: window.chartData.donations.amount,
         borderColor: 'white',
         borderWidth: 0
       }
@@ -118,10 +117,10 @@ class Charts {
     // Follows
     for (let i = 0; i < data.follows.length; i++) {
 
-      if (data.follows[i] !== chartData.follows[i]) {
+      if (data.follows[i] !== window.chartData.follows[i]) {
 
-        chartData.follows = data.follows;
-        this.chart1.data.datasets[1].data = chartData.follows;
+        window.chartData.follows = data.follows;
+        this.chart1.data.datasets[1].data = window.chartData.follows;
 
         this.changed.chart1 = true;
 
@@ -133,10 +132,10 @@ class Charts {
     // Subscriptions
     for (let i = 0; i < data.subscriptions.length; i++) {
 
-      if (data.subscriptions[i] !== chartData.subscriptions[i]) {
+      if (data.subscriptions[i] !== window.chartData.subscriptions[i]) {
 
-        chartData.subscriptions = data.subscriptions;
-        this.chart1.data.datasets[0].data = chartData.subscriptions;
+        window.chartData.subscriptions = data.subscriptions;
+        this.chart1.data.datasets[0].data = window.chartData.subscriptions;
 
         this.changed.chart1 = true;
 
@@ -148,11 +147,11 @@ class Charts {
     // Donations
     for (let i = 0; i < data.donations.count.length; i++) {
 
-      if (data.donations.count[i] !== chartData.donations.count[i]) {
+      if (data.donations.count[i] !== window.chartData.donations.count[i]) {
 
-        chartData.donations = data.donations.count;
-        this.chart1.data.datasets[0].data = chartData.donations.count;
-        this.chart1.data.datasets[1].data = chartData.donations.amount;
+        window.chartData.donations = data.donations.count;
+        this.chart1.data.datasets[0].data = window.chartData.donations.count;
+        this.chart1.data.datasets[1].data = window.chartData.donations.amount;
 
         this.changed.chart2 = true;
 

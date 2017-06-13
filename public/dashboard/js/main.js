@@ -1,5 +1,4 @@
 /* eslint-env browser, commonjs */
-/* global charts, page, popups, version */
 'use strict';
 
 const $ = require('../../../node_modules/jquery/dist/jquery.slim.min.js');
@@ -28,16 +27,15 @@ class Socket extends IO {
       // Listeners
       this.on('stats', data => {
 
-        if (typeof charts === 'object') {
-          if (data.charts !== undefined && page === 'dashboard')
-            charts.compare(data.charts);
-          if (data.feed !== undefined && page === 'dashboard')
+        if (typeof window.charts === 'object') {
+          if (data.charts !== undefined && window.page === 'dashboard')
+            window.charts.compare(data.charts);
+          if (data.feed !== undefined && window.page === 'dashboard')
             feed.compare(data.feed);
         }
 
       }).on('dashboard', (type, err, data) => {
         if (err) {
-
           popup('ERROR!');
 
         } else if (type === 'response') {
@@ -95,7 +93,6 @@ class Socket extends IO {
                   );
                 }
               }
-
             }
 
           }
@@ -105,12 +102,12 @@ class Socket extends IO {
         }
       }).on('notification', data => {
 
-        if (popups) notifications.parser(data);
+        if (window.dashboard.popups) notifications.parser(data);
 
       }).on('general', data => {
 
         // client-server version matching
-        if (data.version !== undefined && data.version !== version) {
+        if (data.version !== undefined && data.version !== window.version) {
 
           let count = 10;
 
@@ -205,7 +202,7 @@ class Feed {
       this.select(null);
     });
 
-    const spawnListener = n => {
+    const addEventHandler = n => {
       $(types[n].id).click(() => {
         this.select(n);
       }).mouseenter(() => {
@@ -216,7 +213,7 @@ class Feed {
     };
 
     for (let i = 0; i < types.length; i = i + 1) {
-      spawnListener(i);
+      addEventHandler(i);
     }
 
     $('#feed > .wrapper > ul > .donation').click(() => {
@@ -446,6 +443,152 @@ const notifications = new Notifications();
 class Settings {
   constructor() {
 
+    const sendEventHandlers = [
+
+      // API buttons
+      {
+        type: 'set',
+        event: 'click',
+        id: 'api-twitch',
+        prop: 'api.twitch.enabled',
+        value: 'prop',
+        sendId: true
+      },
+      // {
+      //   type: 'set',
+      //   event: 'click',
+      //   id: 'api-youtube',
+      //   prop: 'api.youtube.enabled',
+      //   value: 'prop',
+      //   sendId: true
+      // },
+      {
+        type: 'set',
+        event: 'click',
+        id: 'api-streamlabs',
+        prop: 'api.streamlabs.enabled',
+        value: 'prop',
+        sendId: true
+      },
+      // {
+      //   type: 'set',
+      //   event: 'click',
+      //   id: 'api-tipeee',
+      //   prop: 'api.tipeee.enabled',
+      //   value: 'prop',
+      //   sendId: true
+      // },
+
+      // Notification buttons
+      {
+        type: 'set',
+        event: 'click',
+        id: 'notification-follows',
+        prop: 'notification.types.follows',
+        value: 'prop',
+        sendId: true
+      },
+      {
+        type: 'set',
+        event: 'click',
+        id: 'notification-subscriptions',
+        prop: 'notification.types.subscriptions',
+        value: 'prop',
+        sendId: true
+      },
+      {
+        type: 'set',
+        event: 'click',
+        id: 'notification-hosts',
+        prop: 'notification.types.hosts',
+        value: 'prop',
+        sendId: true
+      },
+      {
+        type: 'set',
+        event: 'click',
+        id: 'notification-donations',
+        prop: 'notification.types.donations',
+        value: 'prop',
+        sendId: true
+      },
+
+      // Template
+      {
+        type: 'function',
+        event: 'click',
+        id: 'template-selection',
+        prop: 'template.set',
+        value: 'id',
+        sendId: false
+      },
+      {
+        type: 'function',
+        event: 'click',
+        id: 'template-search',
+        prop: 'template.search',
+        value: null,
+        sendId: false
+      },
+      {
+        type: 'set',
+        event: 'focusout',
+        id: 'notification-duration',
+        prop: 'notification.duration',
+        value: 'id',
+        sendId: false
+      },
+
+      // Misc
+      {
+        type: 'function',
+        event: 'click',
+        id: 'notificationTest > #push',
+        prop: 'notification.test',
+        value: '#notificationTest > select',
+        sendId: false
+      },
+      {
+        type: 'function',
+        event: 'click',
+        id: 'clearQueue',
+        prop: 'notification.clearQueue',
+        value: null,
+        sendId: false
+      },
+      {
+        type: 'set',
+        event: 'click',
+        id: 'notificationToggle input',
+        prop: 'notification.enabled',
+        value: 'prop',
+        sendId: false
+      },
+      {
+        type: 'set',
+        event: 'click',
+        id: 'popupsToggle input',
+        prop: 'dashboard.popups',
+        value: 'prop',
+        sendId: false
+      }
+    ];
+
+    for (let el of sendEventHandlers) {
+      this.addEventHandler(el);
+    }
+
+    $('#devButton').click(() => {
+      $('#devWindow').show();
+    });
+    $('#devWindow .closeButton').click(() => {
+      $('#devWindow').hide();
+    });
+
+  }
+
+  addEventHandler(obj) {
+
     const resolve = path => {
 
       let obj = window;
@@ -469,157 +612,37 @@ class Settings {
       }
     };
 
-    // API buttons
-    $('#api-twitch').click((e) => {
-      const domId = e.target.id;
-      const prop = 'api.twitch.enabled';
+    const type = obj.type;
+    const domId = obj.id;
+    const prop = obj.prop;
+    const sendId = obj.sendId;
 
-      if (!$(`#${domId}`).hasClass('noEvent')) {
-        this.send('set', {
-          prop,
-          value: resolve(prop),
-          domId
-        });
-      }
-    });
-    $('#api-youtube').click((e) => {
-      const domId = e.target.id;
-      const prop = 'api.youtube.enabled';
+    let value = obj.value;
 
-      if (!$(`#${domId}`).hasClass('noEvent')) {
-        this.send('set', {
-          prop,
-          value: resolve(prop),
-          domId
-        });
-      }
-    });
-    $('#api-streamlabs').click((e) => {
-      const domId = e.target.id;
-      const prop = 'api.streamlabs.enabled';
+    if (value === 'prop') {
+      value = resolve(prop);
+    } else if (value === 'id') {
+      value = `#${domId}`;
+    }
 
-      if (!$(`#${domId}`).hasClass('noEvent')) {
-        this.send('set', {
-          prop,
-          value: resolve(prop),
-          domId
-        });
-      }
-    });
-    $('#api-tipeee').click((e) => {
-      const domId = e.target.id;
-      const prop = 'api.tipeee.enabled';
+    if (typeof value === 'string' &&
+      !isNaN(value)) value = parseInt(value);
 
-      if (!$(`#${domId}`).hasClass('noEvent')) {
-        this.send('set', {
-          prop,
-          value: resolve(prop),
-          domId
-        });
-      }
-    });
+    let object = {
+      prop,
+      value
+    };
 
-    // Notification buttons
-    $('#notification-follows').click((e) => {
-      const domId = e.target.id;
-      const prop = 'notification.types.follows';
+    if (sendId) object.domId = domId;
 
-      this.send('set', {
-        prop,
-        value: resolve(prop),
-        domId
+    if (!$(`#${domId}`).hasClass('noEvent')) {
+      $(`#${domId}`)[obj.event](() => {
+        if (typeof value === 'string' &&
+          value.startsWith('#')) object.value = $(value).val();
+
+        this.send(type, object);
       });
-    });
-    $('#notification-subscriptions').click((e) => {
-      const domId = e.target.id;
-      const prop = 'notification.types.subscriptions';
-
-      this.send('set', {
-        prop,
-        value: resolve(prop),
-        domId
-      });
-    });
-    $('#notification-hosts').click((e) => {
-      const domId = e.target.id;
-      const prop = 'notification.types.hosts';
-
-      this.send('set', {
-        prop,
-        value: resolve(prop),
-        domId
-      });
-    });
-    $('#notification-donations').click((e) => {
-      const domId = e.target.id;
-      const prop = 'notification.types.donations';
-
-      this.send('set', {
-        prop,
-        value: resolve(prop),
-        domId
-      });
-    });
-
-    // Template
-    $('#template-selection').click((e) => {
-      const domId = e.target.id;
-      const value = $(`#${domId}`).val();
-
-      this.send('function', {
-        prop: 'template.set',
-        value
-      });
-    });
-    $('#template-search').click(() => {
-      this.send('function', {
-        prop: 'template.search'
-      });
-    });
-    $('#devButton').click(() => {
-      $('#devWindow').show();
-    });
-    $('#devWindow .closeButton').click(() => {
-      $('#devWindow').hide();
-    });
-    $('#notification-duration').focusout((e) => {
-      const domId = e.target.id;
-      const value = $(`#${domId}`).val();
-
-      this.send('set', {
-        prop: 'notification.duration',
-        value: parseInt(value)
-      });
-    });
-
-    // Misc
-    $('#notificationTest > #push').click(() => {
-      const value = $('#notificationTest > select').val();
-
-      this.send('function', {
-        prop: 'notification.test',
-        value
-      });
-    });
-    $('#clearQueue').click(() => {
-      this.send('function', {
-        prop: 'notification.clearQueue'
-      });
-    });
-    $('#notificationToggle input').click(() => {
-      const prop = 'notification.enabled';
-
-      this.send('set', {
-        prop,
-        value: resolve(prop)
-      });
-    });
-    $('#popupsToggle input').click(() => {
-      this.send('set', {
-        prop: 'dashboard.popups',
-        value: popups
-      });
-    });
+    }
 
   }
 
@@ -640,7 +663,7 @@ class Settings {
 
 }
 
-new Settings();
+if (window.page === 'settings') new Settings();
 
 
 const popup = str => {
