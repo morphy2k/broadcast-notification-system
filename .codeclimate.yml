@@ -16,9 +16,6 @@ engines:
       - javascript
   eslint:
     enabled: true
-    checks:
-      semi-style:
-        enabled: false
 ratings:
   paths:
   - "**.js"
