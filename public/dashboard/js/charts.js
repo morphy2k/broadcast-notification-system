@@ -6,13 +6,15 @@ const Chart = require('../../../node_modules/chart.js/dist/Chart.min.js');
 class Charts {
   constructor() {
 
-    this.chart1 = {
+    const stats = window.stats.charts;
+
+    const data1 = {
       labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
       datasets: [{
         type: 'bar',
         label: 'Subscriptions',
         backgroundColor: 'rgb(216, 72, 57)',
-        data: window.chartData.subscriptions,
+        data: stats.subscriptions,
         borderColor: 'white',
         borderWidth: 0
       },
@@ -21,20 +23,20 @@ class Charts {
         label: 'Follows',
         borderColor: 'rgb(44, 62, 80)',
         backgroundColor: 'rgba(44, 62, 80, 0.3)',
-        data: window.chartData.follows,
+        data: stats.follows,
         borderWidth: 0,
         lineTension: 0
       }
       ]
     };
 
-    this.chart2 = {
+    const data2 = {
       labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
       datasets: [{
         type: 'bar',
         label: 'Donations',
         backgroundColor: 'rgb(52, 152, 219)',
-        data: window.chartData.donations.count,
+        data: stats.donations.count,
         borderColor: 'white',
         borderWidth: 0
       },
@@ -42,18 +44,22 @@ class Charts {
         type: 'bar',
         label: 'Amount',
         backgroundColor: 'rgb(33, 114, 167)',
-        data: window.chartData.donations.amount,
+        data: stats.donations.amount,
         borderColor: 'white',
         borderWidth: 0
       }
       ]
     };
 
-    window.onload = () => {
-      this.ctx1 = document.getElementById('chart1').getContext('2d');
-      this.ctx2 = document.getElementById('chart2').getContext('2d');
+    let options = {},
+      ctx1,
+      ctx2;
 
-      this.options = {
+    window.onload = () => {
+      ctx1 = document.getElementById('chart1').getContext('2d');
+      ctx2 = document.getElementById('chart2').getContext('2d');
+
+      options = {
         responsive: true,
         defaultFontFamily: '\'Roboto\', sans-serif',
         title: {
@@ -93,90 +99,76 @@ class Charts {
         }
       };
 
-      window.chart1 = new Chart(this.ctx1, {
+      this.chart1 = new Chart(ctx1, {
         type: 'bar',
-        data: this.chart1,
-        options: this.options
+        data: data1,
+        options
       });
-      window.chart2 = new Chart(this.ctx2, {
+      this.chart2 = new Chart(ctx2, {
         type: 'bar',
-        data: this.chart2,
-        options: this.options
+        data: data2,
+        options
       });
-    };
-
-    this.changed = {
-      chart1: false,
-      chart2: false
     };
 
   }
 
   compare(data) {
 
-    // Follows
-    for (let i = 0; i < data.follows.length; i++) {
+    new Promise(resolve => {
 
-      if (data.follows[i] !== window.chartData.follows[i]) {
+      let changed = false;
 
-        window.chartData.follows = data.follows;
-        window.chart1.data.datasets[1].data = window.chartData.follows;
+      for (let i = 0; i < data.subscriptions.length; i++) {
+        if (data.subscriptions[i] !== this.chart1.data.datasets[0].data[i]) {
 
-        this.changed.chart1 = true;
+          this.chart1.data.datasets[0].data = data.subscriptions;
 
-        break;
-
+          changed = true;
+          break;
+        }
       }
-    }
 
-    // Subscriptions
-    for (let i = 0; i < data.subscriptions.length; i++) {
+      for (let i = 0; i < data.follows.length; i++) {
+        if (data.follows[i] !== this.chart1.data.datasets[1].data[i]) {
 
-      if (data.subscriptions[i] !== window.chartData.subscriptions[i]) {
+          this.chart1.data.datasets[1].data = data.follows;
 
-        window.chartData.subscriptions = data.subscriptions;
-        window.chart1.data.datasets[0].data = window.chartData.subscriptions;
-
-        this.changed.chart1 = true;
-
-        break;
-
+          changed = true;
+          break;
+        }
       }
-    }
 
-    // Donations
-    for (let i = 0; i < data.donations.count.length; i++) {
+      resolve(changed);
 
-      if (data.donations.count[i] !== window.chartData.donations.count[i]) {
+    }).then(changed => {
+      if (changed) this.chart1.update();
+    });
 
-        window.chartData.donations = data.donations.count;
-        window.chart2.data.datasets[0].data = window.chartData.donations.count;
-        window.chart2.data.datasets[1].data = window.chartData.donations.amount;
 
-        this.changed.chart2 = true;
+    new Promise(resolve => {
 
-        break;
+      let changed = false;
 
+      for (let i = 0; i < data.donations.count.length; i++) {
+        if (data.donations.count[i] !== this.chart2.data.datasets[0].data[i]) {
+
+          this.chart2.data.datasets[0].data = data.donations.count;
+          this.chart2.data.datasets[1].data = data.donations.amount;
+
+          changed = true;
+          break;
+        }
       }
-    }
 
-    if (this.changed.chart1 || this.changed.chart2) this.update();
+      resolve(changed);
+
+    }).then(changed => {
+      if (changed) this.chart2.update();
+    });
 
   }
 
-  update() {
-
-    if (this.changed.chart1) {
-      window.chart1.update();
-      this.changed.chart1 = false;
-    }
-
-    if (this.changed.chart2) {
-      window.chart2.update();
-      this.changed.chart2 = false;
-    }
-
-  }
 }
 
 window.charts = new Charts();

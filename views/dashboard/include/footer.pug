@@ -44,14 +44,16 @@ if pageTitle == 'Settings'
 if pageTitle == 'Dashboard'
   script.
     // charts
-    window.chartData = {
-      follows: [#{data.stats.charts.follows}],
-      subscriptions: [#{data.stats.charts.subscriptions}],
-      donations: {
-        count: [#{data.stats.charts.donations.count}],
-        amount: [#{data.stats.charts.donations.amount}]
+    window.stats = {
+      charts: {
+        follows: [#{data.stats.charts.follows}],
+        subscriptions: [#{data.stats.charts.subscriptions}],
+        donations: {
+          count: [#{data.stats.charts.donations.count}],
+          amount: [#{data.stats.charts.donations.amount}]
+        }
       }
     };
-  script(defer src='ressources/js/charts.bundle.js?v=' + data.version)
+  script(src='ressources/js/charts.bundle.js?v=' + data.version)
 
 script(src='ressources/js/main.bundle.js?v=' + data.version)
