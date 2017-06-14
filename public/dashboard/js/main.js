@@ -552,8 +552,8 @@ class Settings {
       {
         type: 'function',
         event: 'click',
-        id: 'clearQueue',
-        prop: 'notification.clearQueue',
+        id: 'cleanupQueue',
+        prop: 'notification.cleanupQueue',
         value: null,
         sendId: false
       },
