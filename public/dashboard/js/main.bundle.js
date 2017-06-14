@@ -547,6 +547,7 @@ class Socket extends IO {
         if (typeof window.charts === 'object') {
           if (data.charts !== undefined && window.page === 'dashboard')
             window.charts.compare(data.charts);
+
           if (data.feed !== undefined && window.page === 'dashboard')
             feed.compare(data.feed);
         }
