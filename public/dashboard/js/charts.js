@@ -120,7 +120,7 @@ class Charts {
       if (data.follows[i] !== window.chartData.follows[i]) {
 
         window.chartData.follows = data.follows;
-        this.chart1.data.datasets[1].data = window.chartData.follows;
+        window.chart1.data.datasets[1].data = window.chartData.follows;
 
         this.changed.chart1 = true;
 
@@ -135,7 +135,7 @@ class Charts {
       if (data.subscriptions[i] !== window.chartData.subscriptions[i]) {
 
         window.chartData.subscriptions = data.subscriptions;
-        this.chart1.data.datasets[0].data = window.chartData.subscriptions;
+        window.chart1.data.datasets[0].data = window.chartData.subscriptions;
 
         this.changed.chart1 = true;
 
@@ -150,8 +150,8 @@ class Charts {
       if (data.donations.count[i] !== window.chartData.donations.count[i]) {
 
         window.chartData.donations = data.donations.count;
-        this.chart1.data.datasets[0].data = window.chartData.donations.count;
-        this.chart1.data.datasets[1].data = window.chartData.donations.amount;
+        window.chart2.data.datasets[0].data = window.chartData.donations.count;
+        window.chart2.data.datasets[1].data = window.chartData.donations.amount;
 
         this.changed.chart2 = true;
 
@@ -167,12 +167,12 @@ class Charts {
   update() {
 
     if (this.changed.chart1) {
-      this.chart1.update();
+      window.chart1.update();
       this.changed.chart1 = false;
     }
 
     if (this.changed.chart2) {
-      this.chart2.update();
+      window.chart2.update();
       this.changed.chart2 = false;
     }
 
