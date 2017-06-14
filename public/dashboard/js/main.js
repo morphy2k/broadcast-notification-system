@@ -637,12 +637,14 @@ class Settings {
     if (sendId) object.domId = domId;
 
     if (!$(`#${domId}`).hasClass('noEvent')) {
+
       $(`#${domId}`)[obj.event](() => {
         if (typeof value === 'string' &&
           value.startsWith('#')) object.value = $(value).val();
 
         this.send(type, object);
       });
+
     }
 
   }
