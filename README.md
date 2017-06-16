@@ -3,10 +3,19 @@
 # Broadcast Notification System
 The Broadcast Notification System (BNS) is an open, simple and highly customisable notification/alert system for live streams on Twitch and YouTube.
 
-**Project is still in development!**
-**[Roadmap](https://github.com/Morphy2k/broadcast-notification-system/projects)**
+### Features
+-   Complete design freedom *(fully HTML, CSS and JS editing)*
+-   Trigger different notifications and variations according to your own rules *(soon with v0.11)*
+-   Modern and lightweight dashboard with different options, activity feed and weekly statistics
+-   Different API support
+-   Passwordless authentication *(optional)*
+-   Runs on your local machine and on remote hosts
+-   Cross-platform support
 
 ### Notes
+
+**The project is still in development!**
+**[Roadmap](https://github.com/Morphy2k/broadcast-notification-system/projects)**
 
 #### Notification type support
 -   Follows
@@ -25,15 +34,14 @@ The Broadcast Notification System (BNS) is an open, simple and highly customisab
 -   Only **new** subscriptions will show up, no resubs! *(This will change with a future API implementation like TipeeeStream)*
 
 ### Requirements
--   HTML + CSS skills
+-   HTML and CSS skills *(+ JS optional)*
 -   Technical know-how
--   NodeJS
+-   NodeJS runtime
 -   Server (optional)
--   Git (optional)
 
 ***
 
-## Get started
+## Getting started
 
 ### Install
 
@@ -61,9 +69,4 @@ $ npm start --production
 
 If you have questions, [open an issue](https://github.com/Morphy2k/broadcast-notification-system/issues/new)
 
-**A better guide and wiki will follow later**
-
-***
-
-## Story behind the project
-...
+**A better guide and wiki will follow later!**
