@@ -7,14 +7,16 @@ The Broadcast Notification System (BNS) is an open, simple and highly customisab
 -   Complete design freedom *(fully HTML, CSS and JS editing)*
 -   Trigger different notifications and variations according to your own rules *(soon with v0.11)*
 -   Modern and lightweight dashboard with different options, activity feed and weekly statistics
--   Different API support
+-   Different API support *(look at notes)*
 -   Passwordless authentication *(optional)*
 -   Runs on your local machine and on remote hosts
 -   Cross-platform support
 
-### Notes
+---
 
-**The project is still in development!**
+## Notes
+
+**The project is still in development and not feature complete!**
 **[Roadmap](https://github.com/Morphy2k/broadcast-notification-system/projects)**
 
 #### Notification type support
@@ -27,7 +29,7 @@ The Broadcast Notification System (BNS) is an open, simple and highly customisab
 -   [x] Twitch
 -   [x] Streamlabs
 -   [ ] TipeeeStream
--   [ ] Twitch Event Tracker *(my own project)*
+-   [ ] Twitch Event Tracker *(own project)*
 -   [ ] YouTube
 
 #### Current restrictions
@@ -38,8 +40,9 @@ The Broadcast Notification System (BNS) is an open, simple and highly customisab
 -   Technical know-how
 -   NodeJS runtime
 -   Server (optional)
+-   OBS Studio + Browser plugin *(included in full package)*
 
-***
+---
 
 ## Getting started
 
@@ -67,6 +70,6 @@ $ npm start --production
 3.  Take the default template as example and build your own
 4.  Put `http://localhost:8080/notification[/endpoint]` in your OBS browser source *(if authentication on, with token at the end)*
 
-If you have questions, [open an issue](https://github.com/Morphy2k/broadcast-notification-system/issues/new)
+If you have questions or find a bug, please [open an issue](https://github.com/Morphy2k/broadcast-notification-system/issues/new)
 
 **A better guide and wiki will follow later!**
