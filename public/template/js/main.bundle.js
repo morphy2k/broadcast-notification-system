@@ -10,7 +10,7 @@ this.writable=!0,this.emit("open")},n.prototype.onData=function(t){var e=o.decod
 
 },{}],3:[function(require,module,exports){
 /* eslint-env browser, commonjs */
-/* global version, playSound */
+/* global playSound */
 'use strict';
 
 const $ = require('../../../node_modules/jquery/dist/jquery.slim.min.js');
@@ -19,13 +19,26 @@ const io = require('../../../node_modules/socket.io-client/dist/socket.io.slim.j
 const socket = io.connect();
 
 class Notification {
-  constructor() {}
+  constructor() {
+    this.data = {
+      display_name: 'Mr. X',
+      resubs: 6,
+      amount: '25',
+      currency: 'USD',
+      message: 'This is a test donation!',
+      viewers: 38
+    };
+  }
 
   parse(data) {
 
+    const type = data.type;
+
+    if (data.test) data = this.data;
+
     $('.name').html(data.display_name);
 
-    switch (data.type) {
+    switch (type) {
     case 'subscription':
       $('.subscription-count').html(data.resubs);
       break;
@@ -39,7 +52,7 @@ class Notification {
       break;
     }
 
-    this.show(data.type);
+    this.show(type);
 
   }
 
@@ -58,7 +71,7 @@ const notification = new Notification();
 socket.on('connect', () => {
   socket.on('notification', data => notification.parse(data))
     .on('general', data => {
-      if (data.version !== undefined && data.version !== version) {
+      if (data.version !== undefined && data.version !== window.version) {
         location.reload(true);
       }
     });
