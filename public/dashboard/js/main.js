@@ -626,9 +626,6 @@ class Settings {
       value = `#${domId}`;
     }
 
-    if (typeof value === 'string' &&
-      !isNaN(value)) value = parseInt(value);
-
     let object = {
       prop,
       value
@@ -639,8 +636,10 @@ class Settings {
     if (!$(`#${domId}`).hasClass('noEvent')) {
 
       $(`#${domId}`)[obj.event](() => {
-        if (typeof value === 'string' &&
-          value.startsWith('#')) object.value = $(value).val();
+        if (typeof value === 'string') {
+          if (value.startsWith('#')) object.value = $(value).val();
+          if (!isNaN(object.value)) object.value = parseInt(object.value);
+        }
 
         this.send(type, object);
       });
