@@ -36,7 +36,7 @@
   "devDependencies": {
     "browserify": "^14.4.0",
     "chart.js": "^2.5.0",
-    "eslint": "^4.0.0",
+    "eslint": "^4.1.1",
     "jquery": "^3.2.1",
     "moment": "^2.18.1",
     "socket.io-client": "^2.0.3"
