@@ -28,18 +28,18 @@
     "lodash": "^4.17.4",
     "lowdb": "^1.0.0",
     "moment": "^2.19.1",
-    "nodemailer": "^4.2.0",
+    "nodemailer": "^4.3.1",
     "pug": "^2.0.0-rc.4",
     "request": "^2.83.0",
-    "socket.io": "^2.0.3",
+    "socket.io": "^2.0.4",
     "uuid": "^3.1.0"
   },
   "devDependencies": {
-    "browserify": "^14.4.0",
+    "browserify": "^14.5.0",
     "chart.js": "^2.7.0",
     "eslint": "^4.9.0",
     "jquery": "^3.2.1",
-    "socket.io-client": "^2.0.3"
+    "socket.io-client": "^2.0.4"
   },
   "repository": {
     "type": "git",
