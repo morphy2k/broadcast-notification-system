@@ -37,8 +37,10 @@ html(lang="en")
                         span.viewers= event.viewers
                         span &nbsp;viewers
                     if event.type == 'donation'
-                      span &nbsp;has
-                        span.amount= event.amount + ' donated'
+                      span &nbsp;has&nbsp;
+                        span.amount= event.amount
+                        .
+                         &nbsp;donated
                         .message= event.message
           nav
             ul
