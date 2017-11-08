@@ -230,8 +230,8 @@ class Feed {
       addEventHandler(i);
     }
 
-    $('#feed > .wrapper > ul > .donation').click(() => {
-      $(this).class('message').toggle();
+    $('#feed > .wrapper > ul > .donation').click((e) => {
+      $(`#${e.currentTarget.id} > .body > span > .message`).toggle();
     });
 
   }
