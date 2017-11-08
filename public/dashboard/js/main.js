@@ -364,7 +364,7 @@ class Feed {
         }
 
         if (el.type === 'donation') {
-          append(` has <span class="amount">${el.amount}</span> donated
+          append(` has <span class="amount">${el.amount}</span> ${el.currency} donated
                     <div class="message">${el.message}</div>`);
         }
       }
