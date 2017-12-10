@@ -19,7 +19,10 @@
   },
   "scripts": {
     "start": "node lib",
-    "build-js": "browserify public/dashboard/js/main.js > public/dashboard/js/main.bundle.js && browserify public/dashboard/js/charts.js > public/dashboard/js/charts.bundle.js && browserify public/template/js/main.js > public/template/js/main.bundle.js"
+    "build-js": "browserify public/dashboard/js/main.js > public/dashboard/js/main.bundle.js && browserify public/dashboard/js/charts.js > public/dashboard/js/charts.bundle.js && browserify public/template/js/main.js > public/template/js/main.bundle.js",
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "echo \"No tests\""
   },
   "dependencies": {
     "jsonwebtoken": "^8.1.0",
