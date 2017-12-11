@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/morphy2k/broadcast-notification-system.svg?branch=master)](https://travis-ci.org/morphy2k/broadcast-notification-system)  [![David](https://david-dm.org/morphy2k/broadcast-notification-system.svg)](https://david-dm.org)
 [![Code Climate](https://codeclimate.com/github/Morphy2k/broadcast-notification-system.png)](https://codeclimate.com/github/Morphy2k/broadcast-notification-system)
 
 # Broadcast Notification System
