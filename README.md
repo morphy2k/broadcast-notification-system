@@ -1,4 +1,5 @@
-[![Code Climate](https://codeclimate.com/github/Morphy2k/broadcast-notification-system.png)](https://codeclimate.com/github/Morphy2k/broadcast-notification-system)
+[![Build Status](https://travis-ci.org/morphy2k/broadcast-notification-system.svg?branch=master)](https://travis-ci.org/morphy2k/broadcast-notification-system)  [![David](https://david-dm.org/morphy2k/broadcast-notification-system.svg)](https://david-dm.org)
+[![Maintainability](https://api.codeclimate.com/v1/badges/fb03324368e5a3066289/maintainability)](https://codeclimate.com/github/Morphy2k/broadcast-notification-system/maintainability)
 
 # Broadcast Notification System
 The Broadcast Notification System (BNS) is an open, simple and highly customisable notification/alert system for live streams on Twitch and YouTube.
