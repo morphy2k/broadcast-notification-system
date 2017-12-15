@@ -3,201 +3,181 @@
 /** general **/
 
 #dashboard {
-    box-sizing: border-box;
-    display: grid;
-    grid-gap: .5rem;
-    grid-template-columns: 1.1fr 1.1fr 1fr;
-    grid-template-rows: 28rem 28rem;
-    padding: 0 2rem;
+  box-sizing: border-box;
+  display: grid;
+  grid-gap: .5rem;
+  grid-template-columns: 1.1fr 1.1fr 1fr;
+  grid-template-rows: 28rem 28rem;
+  padding: 0 2rem;
 }
 
 .stats {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #chartBox-1 {
-    box-sizing: border-box;
-    grid-column: 1 / 3;
-    grid-row: 1;
-    height: 28rem;
+  box-sizing: border-box;
+  grid-column: 1 / 3;
+  grid-row: 1;
+  height: 28rem;
 }
 
 #chartBox-2 {
-    box-sizing: border-box;
-    grid-column: 1 / 3;
-    grid-row: 2;
-    height: 28rem;
+  box-sizing: border-box;
+  grid-column: 1 / 3;
+  grid-row: 2;
+  height: 28rem;
 }
 
 
 /** feed **/
 
 #feed {
-    box-sizing: border-box;
-    display: flex;
-    grid-column: 3;
-    grid-row: 1 / 2;
-    height: 56.5rem;
+  box-sizing: border-box;
+  display: flex;
+  grid-column: 3;
+  grid-row: 1 / 2;
+  height: 56.5rem;
 }
 
 
 /* navigation */
 
 #feed nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 #feed nav li {
-    box-sizing: border-box;
-    line-height: 2.5rem;
-    width: 2.5rem;
-    text-align: center;
-    background: rgba(230, 230, 230, 0.5);
+  box-sizing: border-box;
+  line-height: 2.5rem;
+  width: 2.5rem;
+  text-align: center;
 }
 
 .feed-btn {
-    z-index: 10;
-    width: 2.5rem;
-    transition: background .3s ease, color .2s ease, width .3s ease;
+  z-index: 10;
+  width: 2.5rem;
+  transition: background .3s ease, color .2s ease, width .3s ease;
+  opacity: .5;
 }
 
 .feed-btn:hover {
-    width: 4rem;
-    color: rgb(255, 255, 255);
-    cursor: pointer;
+  width: 4rem;
+  cursor: pointer;
+  opacity: .8;
 }
 
 .feed-btn.selected {
-    background: rgb(90, 90, 90);
-    color: rgb(255, 255, 255);
+  opacity: 1;
 }
 
-#feed-all:hover {
-    background: rgba(121, 121, 121, 0.8);
-}
+#feed-all:hover {}
 
-#feed-follows:hover {
-    background: rgba(44, 62, 80, 0.8);
-}
+#feed-follows:hover {}
 
-#feed-subscriptions:hover {
-    background: rgba(216, 72, 57, 0.8);
-}
+#feed-subscriptions:hover {}
 
-#feed-donations:hover {
-    background: rgba(52, 152, 219, 0.8);
-}
+#feed-donations:hover {}
 
-#feed-hosts:hover {
-    background: rgba(145, 145, 145, 0.8);
-}
+#feed-hosts:hover {}
 
 .unfocused {
-    opacity: 0.2 !important;
+  opacity: 0.4 !important;
 }
 
 
 /* list */
 
 #feed .wrapper {
-    background: rgb(230, 230, 230);
-    overflow-y: scroll;
-    box-sizing: border-box;
-    width: 100%;
+  overflow-y: scroll;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 #feed .wrapper::-webkit-scrollbar {
-    width: .4rem;
+  width: .4rem;
 }
 
 #feed .wrapper::-webkit-scrollbar-thumb {
-    background: rgba(51, 51, 51, .1);
+  background: rgba(51, 51, 51, .1);
 }
 
 #feed .wrapper::-webkit-scrollbar-thumb:hover {
-    background: rgba(51, 51, 51, 0.6);
+  background: rgba(51, 51, 51, 0.6);
 }
 
 #feed .wrapper .list {
-    display: flex;
-    flex-direction: column-reverse;
-    list-style: none;
-    font-size: .9rem;
-    margin: 0;
-    padding: .2rem 0 0 0;
+  display: flex;
+  flex-direction: column-reverse;
+  list-style: none;
+  font-size: .9rem;
+  margin: 0;
+  padding: .2rem 0 0 0;
 }
 
 #feed .wrapper .list li {
-    box-sizing: border-box;
-    display: block;
-    padding: .5rem .7rem;
-    opacity: 1;
-    transition: background .2s ease, opacity .2s ease;
-    cursor: default;
+  box-sizing: border-box;
+  display: block;
+  padding: .5rem .7rem;
+  opacity: 1;
+  transition: background .2s ease, opacity .2s ease;
+  cursor: default;
 }
 
-#feed .wrapper .list li:hover {
-    background: rgb(211, 211, 211);
-}
+#feed .wrapper .list li:hover {}
 
 #feed .wrapper .list .head {
-    display: flex;
+  display: flex;
 }
 
 #feed .wrapper .list .type {
-    flex: 50;
-    font-weight: bold;
-    text-transform: uppercase;
+  flex: 50;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 #feed .wrapper .list .date {
-    display: block;
-    flex: 50;
-    text-align: right;
-    font-size: .7rem;
-    opacity: .8;
+  display: block;
+  flex: 50;
+  text-align: right;
+  font-size: .7rem;
+  opacity: .5;
 }
 
-#feed .wrapper .list a {
-    color: black;
+#feed .wrapper .list .body {
+  margin-top: .2rem;
+  opacity: .8;
 }
 
 #feed .wrapper .list .amount, #feed .list .viewers {
-    font-weight: bold;
+  font-weight: 700;
 }
 
 #feed .wrapper .list .donation {
-    cursor: pointer !important;
+  cursor: pointer !important;
 }
 
 #feed .wrapper .list .message {
-    display: none;
-    margin-top: .5rem;
-    padding: 0 .3rem;
-    font-style: italic;
-    font-size: .85rem;
+  display: none;
+  margin-top: .5rem;
+  padding: 0 .3rem;
+  font-style: italic;
+  font-size: .85rem;
 }
 
 
 /** settings button **/
 
 .settings-btn {
-    display: inline-block;
-    text-decoration: none;
-    text-align: center;
-    color: white;
-    font-weight: 700;
-    background: rgb(64, 64, 64);
-    transition: all 400ms ease-in-out;
-    line-height: 2rem;
-    width: 6rem;
-    font-size: .9rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-decoration: none;
 }
 
 .settings-btn:hover {
-    opacity: .6;
+  opacity: .6;
 }

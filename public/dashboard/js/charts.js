@@ -8,12 +8,15 @@ class Charts {
 
     const stats = window.stats.charts;
 
+    Chart.defaults.global.defaultFontColor = 'rgba(177, 191, 198, 0.7)';
+    Chart.defaults.global.defaultFontFamily = 'Roboto, sans-serif';
+
     const data1 = {
       labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
       datasets: [{
         type: 'bar',
         label: 'Subscriptions',
-        backgroundColor: 'rgb(216, 72, 57)',
+        backgroundColor: 'rgb(198, 40, 40)',
         data: stats.subscriptions,
         borderColor: 'white',
         borderWidth: 0
@@ -21,8 +24,8 @@ class Charts {
       {
         type: 'line',
         label: 'Follows',
-        borderColor: 'rgb(44, 62, 80)',
-        backgroundColor: 'rgba(44, 62, 80, 0.3)',
+        borderColor: 'rgb(245, 245, 245)',
+        backgroundColor: 'rgba(245, 245, 245, 0.6)',
         data: stats.follows,
         borderWidth: 0,
         lineTension: 0
@@ -35,7 +38,7 @@ class Charts {
       datasets: [{
         type: 'bar',
         label: 'Donations',
-        backgroundColor: 'rgb(52, 152, 219)',
+        backgroundColor: 'rgb(21, 101, 193)',
         data: stats.donations.count,
         borderColor: 'white',
         borderWidth: 0
@@ -43,7 +46,7 @@ class Charts {
       {
         type: 'bar',
         label: 'Amount',
-        backgroundColor: 'rgb(33, 114, 167)',
+        backgroundColor: 'rgb(30, 136, 230)',
         data: stats.donations.amount,
         borderColor: 'white',
         borderWidth: 0
@@ -61,7 +64,6 @@ class Charts {
 
       options = {
         responsive: true,
-        defaultFontFamily: '\'Roboto\', sans-serif',
         title: {
           display: false
         },
@@ -73,13 +75,12 @@ class Charts {
           }],
           yAxes: [{
             gridLines: {
-              display: true,
-              color: 'rgba(0, 0, 0, 0.05)',
+              display: false,
+              color: '#37474F',
               drawBorder: false
             },
             ticks: {
               display: true,
-              fontColor: 'rgba(0, 0, 0, 0.4)',
               beginAtZero: true,
               suggestedMin: 0,
               suggestedMax: 10
