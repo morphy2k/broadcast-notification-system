@@ -1,0 +1,85 @@
+@charset "utf-8";
+
+body {
+  background-color: rgb(38, 50, 56);
+  color: rgb(177, 191, 198);
+}
+
+a {
+  color: rgb(177, 191, 198);
+}
+
+.box {
+  background: rgb(31, 40, 46);
+}
+
+/** dashboard **/
+
+#feed .wrapper {
+  background: rgb(31, 40, 46);
+}
+
+#feed .list li:hover {
+  background: rgb(38, 50, 56);
+}
+
+.feed-btn {
+  background: rgb(31, 40, 46);
+}
+
+.button {
+  background-color: rgb(84, 110, 122);
+  color: rgb(207, 217, 221);
+}
+
+.check.disabled {
+  background-color: rgb(120, 144, 156);
+}
+
+select {
+  background-color: rgb(84, 110, 122);
+  color: rgb(207, 217, 221);
+}
+
+input[type="checkbox"] {
+	border: 1px solid rgb(120, 144, 156);
+}
+
+input[type="checkbox"]:checked {
+  background-color: rgb(84, 110, 122);
+  border: 1px solid rgb(84, 110, 122);
+}
+
+input[type="checkbox"]:checked:after {
+	color: rgb(207, 217, 221);
+}
+
+#popup {
+  background: rgba(144, 164, 173, .8);
+  color: black;
+}
+
+
+/* #feed-all:hover {
+  background: rgba(121, 121, 121, 0.8);
+}
+
+#feed-follows:hover {
+  background: rgba(44, 62, 80, 0.8);
+}
+
+#feed-subscriptions:hover {
+  background: rgba(216, 72, 57, 0.8);
+}
+
+#feed-donations:hover {
+  background: rgba(52, 152, 219, 0.8);
+}
+
+#feed-hosts:hover {
+  background: rgba(145, 145, 145, 0.8);
+} */
+
+/* .settings-btn {
+  background: rgb(64, 64, 64);
+} */
