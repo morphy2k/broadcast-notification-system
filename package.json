@@ -4,7 +4,11 @@
   "private": false,
   "license": "MIT",
   "description": "An open, simple and highly customisable notification/alert system for live streams on Twitch and YouTube.",
-  "author": "Markus Wiegand <markus.wiegand@outlook.com>",
+  "author": {
+    "name": "Markus Wiegand",
+    "email": "mail@morphy2k.io",
+    "url": "https://morphy2k.io"
+  },
   "contributors": "https://github.com/morphy2k/broadcast-notification-system/graphs/contributors",
   "keywords": [
     "livestream",
@@ -34,6 +38,7 @@
     "nodemailer": "^4.4.1",
     "pug": "^2.0.0-rc.4",
     "request": "^2.83.0",
+    "request-promise-native": "^1.0.5",
     "socket.io": "^2.0.4",
     "uuid": "^3.1.0"
   },
