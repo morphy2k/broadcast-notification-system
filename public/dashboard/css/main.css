@@ -3,85 +3,110 @@
 /*** Global ***/
 
 html, body {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    background-color: rgb(241, 241, 241);
-    font-family: 'Roboto', sans-serif;
-    font-size: 1rem;
-    color: rgb(0, 0, 0);
-    font-weight: 400;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
 }
 
-header, main, footer {
-    box-sizing: border-box;
-    margin: 0 auto;
-    max-width: 90rem;
+header,
+main,
+footer {
+  box-sizing: border-box;
+  margin: 0 auto;
+  max-width: 90rem;
 }
 
-div {
-    transition: all linear 2s;
+a {}
+
+select {
+  margin-top: .2rem;
+  height: 2.3rem;
+  padding: 0 .6rem;
+  border: none;
+  font-size: .9rem;
+  text-transform: uppercase;
+  border: none;
 }
 
+input[type="checkbox"] {
+  -webkit-appearance: none;
+	background: none;
+  opacity: .6;
+	box-shadow: none;
+	padding: 9px;
+	border-radius: none;
+	display: inline-block;
+	position: relative;
+  transition: .2s;
+}
+
+input[type="checkbox"]:checked {
+  opacity: 1;
+}
+
+input[type="checkbox"]:checked:after {
+  content: '\2714';
+	position: absolute;
+	top: 0px;
+	left: 3px;
+  font-size: 1rem;
+}
 
 /** general **/
 
 .box {
-    box-sizing: border-box;
-    background: rgb(233, 233, 233);
+  box-sizing: border-box;
 }
 
 
 /** header **/
 
 header {
-    display: flex;
-    padding: 1rem;
-    align-items: center;
+  display: flex;
+  padding: 1rem;
+  align-items: center;
 }
 
 header .col-1 {
-    display: flex;
-    flex: auto;
+  display: flex;
+  flex: auto;
 }
 
 header .col-2 {
-    display: flex;
-    flex: auto;
-    justify-content: flex-end;
+  display: flex;
+  flex: auto;
+  justify-content: flex-end;
 }
 
 header h1 {
-    box-sizing: border-box;
-    display: block;
-    margin: 0;
-    padding: 0;
-    line-height: 3rem;
-    color: rgb(83, 83, 83);
-    font-size: 2.4rem;
-    text-transform: uppercase;
+  box-sizing: border-box;
+  display: block;
+  margin: 0;
+  padding: 0;
+  line-height: 3rem;
+  font-size: 2.4rem;
+  text-transform: uppercase;
 }
 
 header nav {
-    box-sizing: border-box;
-    line-height: 3rem;
+  box-sizing: border-box;
+  line-height: 3rem;
 }
 
 
 /** footer **/
 
 footer {
-    font-size: .9rem;
-    text-align: center;
-    color: rgba(0, 0, 0, 0.7);
-    margin-top: 4rem;
-    margin-bottom: 2rem;
-}
-
-footer a {
-    color: rgba(0, 0, 0, 0.7);
+  font-size: .9rem;
+  text-align: center;
+  margin-top: 4rem;
+  margin-bottom: 2rem;
+  opacity: .8;
 }
 
 footer p {
@@ -94,149 +119,149 @@ footer p {
 /** message overlay **/
 
 @keyframes fadeOut {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: .1;
-    }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: .1;
+  }
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-.greyOut header, .greyOut main, .greyOut footer {
-    animation-name: fadeOut;
-    animation-timing-function: ease;
-    animation-duration: 4s;
-    animation-fill-mode: forwards;
+.greyOut header,
+.greyOut main,
+.greyOut footer {
+  animation-name: fadeOut;
+  animation-timing-function: ease;
+  animation-duration: 4s;
+  animation-fill-mode: forwards;
 }
 
 #message-overlay {
-    z-index: 100;
-    position: fixed;
-    display: flex;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
-    color: rgb(0, 0, 0);
-    font-size: 1.3rem;
-    text-align: center;
-    animation-name: fadeIn;
-    animation-timing-function: ease;
-    animation-duration: 6s;
-    animation-fill-mode: forwards;
+  z-index: 100;
+  position: fixed;
+  display: flex;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  color: rgb(0, 0, 0);
+  font-size: 1.3rem;
+  text-align: center;
+  animation-name: fadeIn;
+  animation-timing-function: ease;
+  animation-duration: 6s;
+  animation-fill-mode: forwards;
 }
 
 #message-overlay .text {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 #message-overlay .text div {
-    width: 100%;
+  width: 100%;
 }
 
 #message-overlay .text .line1 {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 #message-overlay .text .line2 {
-    font-size: 1.1rem;
+  font-size: 1.1rem;
 }
 
 
 /** notification popup **/
 
 @keyframes popup {
-    0% {
-        left: -20rem;
-        opacity: 0;
-    }
-    15% {
-        left: 4rem;
-        opacity: 1;
-    }
-    70% {
-        left: 4rem;
-        opacity: 1;
-    }
-    100% {
-        left: 4rem;
-        opacity: 0;
-    }
+  0% {
+    left: -20rem;
+    opacity: 0;
+  }
+  15% {
+    left: 4rem;
+    opacity: 1;
+  }
+  70% {
+    left: 4rem;
+    opacity: 1;
+  }
+  100% {
+    left: 4rem;
+    opacity: 0;
+  }
 }
 
 @keyframes message {
-    0% {
-        opacity: 0;
-        max-height: 0;
-    }
-    15% {
-        opacity: 0;
-        max-height: 0;
-    }
-    60% {
-        opacity: 1;
-        max-height: 8rem;
-    }
-    80% {
-        opacity: 1;
-        max-height: 8rem;
-    }
-    90% {
-        opacity: 0;
-        max-height: 0;
-    }
-    100% {
-        opacity: 0;
-        max-height: 0;
-    }
+  0% {
+    opacity: 0;
+    max-height: 0;
+  }
+  15% {
+    opacity: 0;
+    max-height: 0;
+  }
+  60% {
+    opacity: 1;
+    max-height: 8rem;
+  }
+  80% {
+    opacity: 1;
+    max-height: 8rem;
+  }
+  90% {
+    opacity: 0;
+    max-height: 0;
+  }
+  100% {
+    opacity: 0;
+    max-height: 0;
+  }
 }
 
 #popup {
-    position: fixed;
-    display: none;
-    z-index: 10;
-    bottom: 3rem;
-    left: -20rem;
-    background: rgba(0, 0, 0, .8);
-    color: white;
-    padding: 1.5rem;
-    width: 18rem;
-    text-align: center;
-    animation-name: popup;
-    animation-timing-function: ease;
-    animation-duration: 15s;
-    animation-fill-mode: forwards;
-    opacity: 0;
+  position: fixed;
+  display: none;
+  z-index: 10;
+  bottom: 3rem;
+  left: -20rem;
+  padding: 1.5rem;
+  width: 18rem;
+  text-align: center;
+  animation-name: popup;
+  animation-timing-function: ease;
+  animation-duration: 15s;
+  animation-fill-mode: forwards;
+  opacity: 0;
 }
 
 #popup .name {
-    font-weight: 700;
-    font-size: 1rem;
+  font-weight: 700;
+  font-size: 1rem;
 }
 
 #popup .amount {
-    font-weight: 700;
-    font-size: 1rem;
+  font-weight: 700;
+  font-size: 1rem;
 }
 
 #popup .message {
-    display: block;
-    margin-top: .3rem;
-    font-style: italic;
-    max-height: 0;
-    animation-name: message;
-    animation-timing-function: ease;
-    animation-duration: 12s;
-    animation-fill-mode: forwards;
+  display: block;
+  margin-top: .3rem;
+  font-style: italic;
+  max-height: 0;
+  animation-name: message;
+  animation-timing-function: ease;
+  animation-duration: 12s;
+  animation-fill-mode: forwards;
 }

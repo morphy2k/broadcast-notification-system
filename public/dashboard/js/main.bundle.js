@@ -79,9 +79,10 @@ class Socket extends IO {
             }
 
             if (value) {
-              $(`#${data.domId}`).addClass('enabled');
+              $(`#${data.domId}`).removeClass('disabled');
+
             } else {
-              $(`#${data.domId}`).removeClass('enabled');
+              $(`#${data.domId}`).addClass('disabled');
             }
 
           } else if (data.type === 'function') {

@@ -17,29 +17,29 @@ html(lang="en")
             li
               if data.settings.api.twitch.auth.token
                 if data.settings.api.twitch.enabled
-                  a#api-twitch.check.border.enabled(style="cursor:pointer;") Twitch
+                  a#api-twitch.check.button(style="cursor:pointer;") Twitch
                 else
-                  a#api-twitch.check.border(style="cursor:pointer;") Twitch
+                  a#api-twitch.check.button.disabled(style="cursor:pointer;") Twitch
               else
-                a#api-twitch.check.border.noEvent(href="/api/twitch/auth") Twitch
+                a#api-twitch.check.button.noEvent(href="/api/twitch/auth") Twitch
             li
               if data.settings.api.youtube.enabled
-                a#api-youtube.check.border.enabled(style="cursor:not-allowed;" title="Not implemented yet!") YouTube
+                a#api-youtube.check.button(style="cursor:not-allowed;" title="Not implemented yet!") YouTube
               else
-                a#api-youtube.check.border.noEvent(style="cursor:not-allowed;" onclick="alert('Sorry, has not yet been implemented!');" title="Not implemented yet!") YouTube
+                a#api-youtube.check.button.disabled.noEvent(style="cursor:not-allowed;" onclick="alert('Sorry, has not yet been implemented!');" title="Not implemented yet!") YouTube
             li
               if data.settings.api.streamlabs.auth.token
                 if data.settings.api.streamlabs.enabled
-                  a#api-streamlabs.check.border.enabled(style="cursor:pointer;") Streamlabs
+                  a#api-streamlabs.check.button(style="cursor:pointer;") Streamlabs
                 else
-                  a#api-streamlabs.check.border(style="cursor:pointer;") Streamlabs
+                  a#api-streamlabs.check.button.disabled(style="cursor:pointer;") Streamlabs
               else
-                a#api-streamlabs.check.border.noEvent(href="/api/streamlabs/auth") Streamlabs
+                a#api-streamlabs.check.button.noEvent(href="/api/streamlabs/auth") Streamlabs
             li
               if data.settings.api.youtube.enabled
-                a#api-tipeee.check.border.enabled(style="cursor:not-allowed;" title="Not implemented yet!") TipeeeStream
+                a#api-tipeee.check.button(style="cursor:not-allowed;" title="Not implemented yet!") TipeeeStream
               else
-                a#api-tipeee.check.border.noEvent(style="cursor:not-allowed;" onclick="alert('Sorry, has not yet been implemented!');" title="Not implemented yet!") TipeeeStream
+                a#api-tipeee.check.button.disabled.noEvent(style="cursor:not-allowed;" onclick="alert('Sorry, has not yet been implemented!');" title="Not implemented yet!") TipeeeStream
 
 
         #notifications.box
@@ -47,24 +47,24 @@ html(lang="en")
           ul
             li
               if data.settings.notification.types.follows
-                a#notification-follows.check.border.enabled(style="cursor:pointer;"  title="Follows on/off") Follows
+                a#notification-follows.check.button(style="cursor:pointer;"  title="Follows enabled") Follows
               else
-                a#notification-follows.check.border(style="cursor:pointer;"  title="Follows on/off") Follows
+                a#notification-follows.check.button.disabled(style="cursor:pointer;"  title="Follows disabledd") Follows
             li
               if data.settings.notification.types.subscriptions
-                a#notification-subscriptions.check.border.enabled(style="cursor:pointer;" title="Subscriptions on/off") Subscriptions
+                a#notification-subscriptions.check.button(style="cursor:pointer;" title="Subscriptions enabled") Subscriptions
               else
-                a#notification-subscriptions.check.border(style="cursor:pointer;"  title="Subscriptions on/off") Subscriptions
+                a#notification-subscriptions.check.button.disabled(style="cursor:pointer;"  title="Subscriptions disabledd") Subscriptions
             li
               if data.settings.notification.types.hosts
-                a#notification-hosts.check.border.enabled(style="cursor:pointer;" title="Hosts on/off") Hosts
+                a#notification-hosts.check.button(style="cursor:pointer;" title="Hosts enabled") Hosts
               else
-                a#notification-hosts.check.border(style="cursor:pointer;" title="Hosts on/off") Hosts
+                a#notification-hosts.check.button.disabled(style="cursor:pointer;" title="Hosts disabledd") Hosts
             li
               if data.settings.notification.types.donations
-                a#notification-donations.check.border.enabled(style="cursor:pointer;" title="Donations on/off") Donations
+                a#notification-donations.check.button(style="cursor:pointer;" title="Donations enabled") Donations
               else
-                a#notification-donations.check.border(style="cursor:pointer;" title="Donations on/off") Donations
+                a#notification-donations.check.button.disabled(style="cursor:pointer;" title="Donations disabledd") Donations
 
 
         #template.box
@@ -77,11 +77,11 @@ html(lang="en")
                 else
                   option(value= template)= template
 
-          a#template-search.button.border(style="cursor:pointer;" title="Search for templates in directory") Search
-          a#devButton.button.border Developer options
+          a#template-search.button(style="cursor:pointer;" title="Search for templates in directory") Search
+          a#devButton.button Developer options
 
           #devWindow
-            .inner.border
+            .inner.button
               .head Developer options
 
               .col-1
@@ -91,7 +91,7 @@ html(lang="en")
               .col-2
 
               .bottom
-                .closeButton.border Close
+                .closeButton.button Close
 
 
         #misc.box
@@ -105,40 +105,31 @@ html(lang="en")
                   option(value="subscription") Subscription
                   option(value="host") Host
                   option(value="donation") Donation
-                #push.border Push
+                #push.button Push
 
             .col-2
               ul
                 li
-                  a#cleanupQueue.button.border(title="Clears the current notification queue") Clear queue
+                  a#cleanupQueue.button(title="Clears the current notification queue") Clear queue
 
             .col-3
               ul
-                li(title="Notification switch (global)")
-                  .switch#notificationToggle
-                    label.switch
-                      if data.settings.notification.enabled
-                        input(type="checkbox" checked)
-                      else
-                        input(type="checkbox")
-                      .slider.border
+                li#notificationToggle(title="Notification switch (global)")
+                  if data.settings.notification.enabled
+                    input(type="checkbox" checked)
+                  else
+                    input(type="checkbox")
                   span(title="Notification switch (global)") Notifications
 
-                li(title="Switch for notifications on dashboard")
-                  .switch#popupsToggle
-                    label.switch
-                      if data.settings.dashboard.popups
-                        input(type="checkbox" checked)
-                      else
-                        input(type="checkbox")
-                      .slider.border
+                li#popupsToggle(title="Switch for notifications on dashboard")
+                  if data.settings.dashboard.popups
+                    input(type="checkbox" checked)
+                  else
+                    input(type="checkbox")
                   span(title="Switch for notifications on dashboard") Dashboard popups
 
                 li
-                  .switch
-                    label.switch
-                      input(type="checkbox")
-                      .slider.border
+                  input(type="checkbox")
                   span Placeholder
 
     include include/footer.pug
