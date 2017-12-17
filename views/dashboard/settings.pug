@@ -114,19 +114,19 @@ html(lang="en")
 
             .col-3
               ul
-                li#notificationToggle(title="Notification switch (global)")
+                li#notificationToggle(title="Enable notifications globally")
                   if data.settings.notification.enabled
                     input(type="checkbox" checked)
                   else
                     input(type="checkbox")
-                  span(title="Notification switch (global)") Notifications
+                  span(title="Enable notifications globally") Notifications
 
-                li#popupsToggle(title="Switch for notifications on dashboard")
+                li#popupsToggle(title="Enable notifications on dashboard")
                   if data.settings.dashboard.popups
                     input(type="checkbox" checked)
                   else
                     input(type="checkbox")
-                  span(title="Switch for notifications on dashboard") Dashboard popups
+                  span(title="Enable notifications on dashboard") Dashboard notifications
 
                 li
                   input(type="checkbox")
