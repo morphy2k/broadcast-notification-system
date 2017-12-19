@@ -18,7 +18,7 @@ class Socket extends IO {
 
       this.connected = true;
 
-      if ($('.greyOut')) {
+      if ($('.greyOut').length) {
         $('body').removeClass('greyOut');
         $('body').css('overflow', 'auto');
         $('#message-overlay').remove();
@@ -109,11 +109,12 @@ class Socket extends IO {
       }).on('general', data => {
 
         // client-server version matching
-        if (data.version !== undefined && data.version !== window.version) {
+        if (data.version !== undefined && data.version !== window.version && !$('#reloadCount').length) {
 
           let count = 10;
 
           $('body').addClass('greyOut');
+          $('body').css('overflow', 'hidden');
           $('body').append(`
                       <div id="message-overlay">
                         <div class="text">
@@ -140,7 +141,7 @@ class Socket extends IO {
 
       this.connected = false;
 
-      if ($('.greyOut')) {
+      if (!$('.greyOut').length) {
 
         $('body').addClass('greyOut');
         $('body').css('overflow', 'hidden');
