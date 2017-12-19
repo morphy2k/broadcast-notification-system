@@ -52,8 +52,8 @@ input[type="checkbox"]:checked {
 input[type="checkbox"]:checked:after {
   content: '\2714';
 	position: absolute;
-	top: 0px;
-	left: 3px;
+	top: 0;
+	left: .2rem;
   font-size: 1rem;
 }
 
@@ -154,7 +154,6 @@ footer p {
   height: 100%;
   align-items: center;
   justify-content: center;
-  color: rgb(0, 0, 0);
   font-size: 1.3rem;
   text-align: center;
   animation-name: fadeIn;

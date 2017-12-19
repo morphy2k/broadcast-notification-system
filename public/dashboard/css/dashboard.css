@@ -61,7 +61,7 @@
 .feed-btn {
   z-index: 10;
   width: 2.5rem;
-  transition: background .3s ease, color .2s ease, width .3s ease;
+  transition: all .3s ease;
   opacity: .5;
 }
 
@@ -102,13 +102,9 @@
   width: .4rem;
 }
 
-#feed .wrapper::-webkit-scrollbar-thumb {
-  background: rgba(51, 51, 51, .1);
-}
+#feed .wrapper::-webkit-scrollbar-thumb {}
 
-#feed .wrapper::-webkit-scrollbar-thumb:hover {
-  background: rgba(51, 51, 51, 0.6);
-}
+#feed .wrapper::-webkit-scrollbar-thumb:hover {}
 
 #feed .wrapper .list {
   display: flex;
@@ -116,16 +112,16 @@
   list-style: none;
   font-size: .9rem;
   margin: 0;
-  padding: .2rem 0 0 0;
+  padding: 0;
 }
 
 #feed .wrapper .list li {
   box-sizing: border-box;
   display: block;
-  padding: .5rem .7rem;
-  opacity: 1;
-  transition: background .2s ease, opacity .2s ease;
+  padding: .6rem .7rem;
+  transition: all .3s ease;
   cursor: default;
+  opacity: 1;
 }
 
 #feed .wrapper .list li:hover {}
@@ -153,7 +149,8 @@
   opacity: .8;
 }
 
-#feed .wrapper .list .amount, #feed .list .viewers {
+#feed .wrapper .list .amount,
+#feed .list .viewers {
   font-weight: 700;
 }
 
@@ -175,9 +172,9 @@
 .settings-btn {
   text-transform: uppercase;
   font-weight: 700;
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 .settings-btn:hover {
-  opacity: .6;
+  opacity: .8;
 }
