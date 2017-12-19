@@ -27,44 +27,46 @@ class Charts {
 
     const data1 = {
       labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-      datasets: [{
-        type: 'bar',
-        label: 'Subscriptions',
-        backgroundColor: 'rgb(198, 40, 40)',
-        data: stats.subscriptions,
-        borderColor: 'white',
-        borderWidth: 0
-      },
-      {
-        type: 'line',
-        label: 'Follows',
-        borderColor: 'rgb(245, 245, 245)',
-        backgroundColor: 'rgba(245, 245, 245, 0.6)',
-        data: stats.follows,
-        borderWidth: 0,
-        lineTension: 0
-      }
+      datasets: [
+        {
+          type: 'line',
+          label: 'Follows',
+          borderColor: 'rgb(245, 245, 245)',
+          backgroundColor: 'rgba(245, 245, 245, 0.4)',
+          data: stats.follows,
+          borderWidth: 0,
+          lineTension: 0
+        },
+        {
+          type: 'bar',
+          label: 'Subscriptions',
+          backgroundColor: 'rgb(198, 40, 40)',
+          data: stats.subscriptions,
+          borderColor: 'white',
+          borderWidth: 0
+        }
       ]
     };
 
     const data2 = {
       labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-      datasets: [{
-        type: 'bar',
-        label: 'Donations',
-        backgroundColor: 'rgb(21, 101, 193)',
-        data: stats.donations.count,
-        borderColor: 'white',
-        borderWidth: 0
-      },
-      {
-        type: 'bar',
-        label: 'Amount',
-        backgroundColor: 'rgb(30, 136, 230)',
-        data: stats.donations.amount,
-        borderColor: 'white',
-        borderWidth: 0
-      }
+      datasets: [
+        {
+          type: 'bar',
+          label: 'Donations',
+          backgroundColor: 'rgb(21, 101, 193)',
+          data: stats.donations.count,
+          borderColor: 'white',
+          borderWidth: 0
+        },
+        {
+          type: 'bar',
+          label: 'Amount',
+          backgroundColor: 'rgb(30, 136, 230)',
+          data: stats.donations.amount,
+          borderColor: 'white',
+          borderWidth: 0
+        }
       ]
     };
 
@@ -107,7 +109,11 @@ class Charts {
           cornerRadius: 0,
           caretSize: 0,
           xPadding: 15,
-          yPadding: 12
+          yPadding: 12,
+          backgroundColor: 'rgba(144, 164, 173, .9)',
+          titleFontColor: 'black',
+          bodyFontColor: 'black',
+          displayColors: false
         },
         layout: {
           padding: 20
@@ -134,20 +140,20 @@ class Charts {
 
       let changed = false;
 
-      for (let i = 0; i < data.subscriptions.length; i++) {
-        if (data.subscriptions[i] !== this.chart1.data.datasets[0].data[i]) {
+      for (let i = 0; i < data.follows.length; i++) {
+        if (data.follows[i] !== this.chart1.data.datasets[0].data[i]) {
 
-          this.chart1.data.datasets[0].data = data.subscriptions;
+          this.chart1.data.datasets[0].data = data.follows;
 
           changed = true;
           break;
         }
       }
 
-      for (let i = 0; i < data.follows.length; i++) {
-        if (data.follows[i] !== this.chart1.data.datasets[1].data[i]) {
+      for (let i = 0; i < data.subscriptions.length; i++) {
+        if (data.subscriptions[i] !== this.chart1.data.datasets[1].data[i]) {
 
-          this.chart1.data.datasets[1].data = data.follows;
+          this.chart1.data.datasets[1].data = data.subscriptions;
 
           changed = true;
           break;
