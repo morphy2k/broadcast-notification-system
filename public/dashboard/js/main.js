@@ -36,86 +36,22 @@ class Socket extends IO {
         }
 
       }).on('dashboard', (type, err, data) => {
-        if (err) {
-          popup('ERROR!');
-
-        } else if (type === 'response') {
-          if (data.type === 'set') {
-
-            const prop = data.prop,
-              value = data.value;
-
-            let obj = window;
-
-            if (prop.indexOf('.') !== -1) {
-
-              const props = prop.split('.');
-
-              let i = 1;
-
-              for (let prop of props) {
-                if (i === props.length) {
-                  obj[prop] = value;
-                } else {
-                  obj = obj[prop];
-                  i = i + 1;
-                }
-              }
-            } else {
-              obj[prop] = value;
-            }
-
-            if (value) {
-              $(`#${data.domId}`).removeClass('disabled');
-
-            } else {
-              $(`#${data.domId}`).addClass('disabled');
-            }
-
-          } else if (data.type === 'function') {
-            if (data.prop === 'template.search') {
-
-              let arr = data.templates,
-                selected = data.selected;
-
-              $('#template > div > select option').each(function () {
-                $(this).remove();
-              });
-
-              for (let el of arr) {
-                if (el === selected) {
-
-                  $('#template > div > select').append(
-                    `<option value="${el}" selected>${el}</option>`
-                  );
-
-                } else {
-                  $('#template > div > select').append(
-                    `<option value="${el}">${el}</option>`
-                  );
-                }
-              }
-            }
-
-          }
-
-          if (data.prop !== 'notification.test') popup('Success');
-
-        }
-      }).on('notification', data => {
-
-        if (window.dashboard.popups) notifications.parser(data);
-
-      }).on('general', data => {
+        if (settings) settings.response(type, err, data);
+      })
+        .on('notification', data => {
+          if (window.dashboard.popups) notifications.parser(data);
+        }).on('general', data => {
 
         // client-server version matching
-        if (data.version !== undefined && data.version !== window.version && !$('#reloadCount').length) {
+          if (data.version !== undefined &&
+            data.version !== window.version &&
+            !$('#reloadCount').length) {
 
-          let count = 10;
+            let count = 10;
 
-          $('body').addClass('greyOut');
-          $('body').css('overflow', 'hidden');
-          $('body').append(`
+            $('body').addClass('greyOut');
+            $('body').css('overflow', 'hidden');
+            $('body').append(`
                       <div id="message-overlay">
                         <div class="text">
                           <div class="line1">Server has been updated!</div>
@@ -124,19 +60,20 @@ class Socket extends IO {
                         </div>
                       </div>`);
 
-          setInterval(() => {
+            setInterval(() => {
 
-            if (count) {
-              count = count - 1;
-              document.getElementById('reloadCount').innerHTML = count;
-            } else {
-              location.reload(true);
-            }
+              if (count) {
+                count = count - 1;
+                document.getElementById('reloadCount').innerHTML = count;
+              } else {
+                location.reload(true);
+              }
 
-          }, 1000);
+            }, 1000);
 
-        }
-      });
+          }
+        });
+
     }).on('disconnect', () => {
 
       this.connected = false;
@@ -164,11 +101,6 @@ const socket = new Socket();
 class Feed {
   constructor() {
 
-    $(document).ready(() => {
-      this.time();
-    });
-
-    // Filter
     this.filter = {
       all: '#feed-all',
       types: [
@@ -195,34 +127,30 @@ class Feed {
       ]
     };
 
-    let types = this.filter.types;
+    this.addEventListeners();
 
-    const removeUnfocused = () => {
-      $('#feed > .wrapper > ul > li').removeClass('unfocused');
-    };
+    $(document).ready(() => this.time());
 
-    $(this.filter.all).click(() => {
-      this.select(null);
-    });
+  }
 
-    const addEventHandler = n => {
-      $(types[n].id).click(() => {
-        this.select(n);
-      }).mouseenter(() => {
-        this.hide(n);
-      }).mouseleave(() => {
-        removeUnfocused();
-      });
-    };
+  addEventListeners() {
+    const types = this.filter.types;
+
+    $(this.filter.all).click(() => this.select(null));
+
+    const removeUnfocused = () => $('#feed > .wrapper > ul > li').removeClass('unfocused');
+
+    const add = n => $(types[n].id)
+      .click(() => this.select(n))
+      .mouseenter(() => this.hide(n))
+      .mouseleave(() => removeUnfocused());
 
     for (let i = 0; i < types.length; i = i + 1) {
-      addEventHandler(i);
+      add(i);
     }
 
-    $('#feed > .wrapper > ul > .donation').click((e) => {
-      $(`#${e.currentTarget.id} > .body > span > .message`).toggle();
-    });
-
+    $('#feed > .wrapper > ul > .donation')
+      .click(e => $(`#${e.currentTarget.id} > .body > span > .message`).toggle());
   }
 
   get prop() {
@@ -241,9 +169,7 @@ class Feed {
       i = 0;
 
     while (i < types.length) {
-      if (i !== type) {
-        hide.push(this.filter.types[i].class);
-      }
+      if (i !== type) hide.push(this.filter.types[i].class);
 
       i = i + 1;
     }
@@ -296,92 +222,82 @@ class Feed {
 
   compare(data) {
 
-    if (data.remove) {
-      this.update(data);
-    } else {
+    if (data.remove) return this.update(data);
 
-      let arr = [],
-        i = 0;
+    let arr = [],
+      i = 0;
 
-      for (let el of data.list) {
-
-        i = i + 1;
-
-        if (!$(`#${el.uuid}`).length) arr.push(el);
-
-        if (i === data.list.length && arr.length) {
-          this.update(arr);
-        }
-
-      }
+    for (let el of data.list) {
+      i = i + 1;
+      if (!$(`#${el.uuid}`).length) arr.push(el);
+      if (i === data.list.length && arr.length) this.update(arr);
     }
+
   }
 
   update(data) {
 
-    if (data.remove) {
-      $(`#${data.remove}`).remove();
-    } else {
+    if (data.remove) return $(`#${data.remove}`).remove();
 
-      for (let el of data) {
+    for (let el of data) {
 
-        let time = moment(el.date).fromNow(),
-          visible = 'block';
+      let time = moment(el.date).fromNow(),
+        visible = 'block';
 
-        if (!feed.prop[el.type].visible) {
-          visible = 'none';
-        }
+      if (!feed.prop[el.type].visible) {
+        visible = 'none';
+      }
 
-        const id = el.uuid;
+      const id = el.uuid;
 
-        $('#feed > .wrapper > ul')
-          .append(`<li id="${id}" class="${el.type}"
-                    style="display:${visible};">
-                  <div class="head">
-                    <div class="type">${el.type}</div>
-                    <time class="date" datetime="${el.date}">${time}</time>
-                  </div>
-                  <div class="body">
-                    <a href="https://twitch.tv/${el.name}" target="_blank" rel="noopener">${el.display_name || el.name}</a>
-                  </div>
-                </li>`);
+      $('#feed > .wrapper > ul')
+        .append(`<li id="${id}" class="${el.type}"
+                  style="display:${visible};">
+                <div class="head">
+                  <div class="type">${el.type}</div>
+                  <time class="date" datetime="${el.date}">${time}</time>
+                </div>
+                <div class="body">
+                  <a href="https://twitch.tv/${el.name}" target="_blank" rel="noopener">${el.display_name || el.name}</a>
+                </div>
+              </li>`);
 
 
-        const append = str => $(`#${id} > .body`).append(str);
+      const append = str => $(`#${id} > .body`).append(str);
 
-        if (el.type === 'follow') {
-          append(' is now following you');
-        }
+      if (el.type === 'follow') {
+        append(' is now following you');
+      }
 
-        if (el.type === 'subscription') {
-          if (el.resubs > 0) {
-            append(` has re-subscribed (${el.resubs}x) you`);
-          } else {
-            append(' has subscribed you');
-          }
-        }
-
-        if (el.type === 'host') {
-          append(` host you with <span class="viewers">${el.viewers}</span> viewers`);
-        }
-
-        if (el.type === 'donation') {
-          append(`<span> has <span class="amount">${el.amount}</span> ${el.currency} donated
-                    <div class="message">${el.message}</div></span>`);
+      if (el.type === 'subscription') {
+        if (el.resubs > 0) {
+          append(` has re-subscribed (${el.resubs}x) you`);
+        } else {
+          append(' has subscribed you');
         }
       }
+
+      if (el.type === 'host') {
+        append(` host you with <span class="viewers">${el.viewers}</span> viewers`);
+      }
+
+      if (el.type === 'donation') {
+        append(`<span> has <span class="amount">${el.amount}</span> ${el.currency} donated
+                  <div class="message">${el.message}</div></span>`);
+
+        $(`#${id}`).click(() => $(`#${id} > .body > span > .message`).toggle());
+      }
     }
+
   }
 
   time() {
 
     $('#feed > .wrapper > ul > li > .head > time').each(function () {
-
-      let datetime = $(this).attr('datetime'),
+      const datetime = $(this).attr('datetime'),
         time = moment(datetime).fromNow();
 
       $(this).html(time);
-
     });
 
     setTimeout(() => this.time(), 60000);
@@ -446,7 +362,7 @@ const notifications = new Notifications();
 class Settings {
   constructor() {
 
-    const sendEventHandlers = [
+    const sendEventListeners = [
 
       // API buttons
       {
@@ -577,8 +493,8 @@ class Settings {
       }
     ];
 
-    for (let el of sendEventHandlers) {
-      this.addEventHandler(el);
+    for (let el of sendEventListeners) {
+      this.addEventListener(el);
     }
 
     $('#devButton').click(() => {
@@ -590,7 +506,7 @@ class Settings {
 
   }
 
-  addEventHandler(obj) {
+  addEventListener(obj) {
 
     const resolve = path => {
 
@@ -643,14 +559,14 @@ class Settings {
           if (!isNaN(object.value)) object.value = parseInt(object.value);
         }
 
-        this.send(type, object);
+        this.request(type, object);
       });
 
     }
 
   }
 
-  send(type, obj) {
+  request(type, obj) {
 
     if (socket.connected) {
       if (obj.value === true || obj.value === false) {
@@ -665,9 +581,79 @@ class Settings {
     }
   }
 
+  response(type, err, data) {
+    if (err) return popup('ERROR!');
+
+    if (type === 'response') {
+      if (data.type === 'set') {
+
+        const prop = data.prop,
+          value = data.value;
+
+        let obj = window;
+
+        if (prop.indexOf('.') !== -1) {
+
+          const props = prop.split('.');
+
+          let i = 1;
+
+          for (let prop of props) {
+            if (i === props.length) {
+              obj[prop] = value;
+            } else {
+              obj = obj[prop];
+              i = i + 1;
+            }
+          }
+        } else {
+          obj[prop] = value;
+        }
+
+        if (value) {
+          $(`#${data.domId}`).removeClass('disabled');
+
+        } else {
+          $(`#${data.domId}`).addClass('disabled');
+        }
+
+      }
+
+      if (data.type === 'function') {
+        if (data.prop === 'template.search') {
+
+          let arr = data.templates,
+            selected = data.selected;
+
+          $('#template > div > select option').each(function () {
+            $(this).remove();
+          });
+
+          for (let el of arr) {
+            if (el === selected) {
+
+              $('#template > div > select').append(
+                `<option value="${el}" selected>${el}</option>`
+              );
+
+            } else {
+              $('#template > div > select').append(
+                `<option value="${el}">${el}</option>`
+              );
+            }
+          }
+        }
+
+      }
+
+      if (data.prop !== 'notification.test') popup('Success');
+    }
+  }
+
 }
 
-if (window.page === 'settings') new Settings();
+let settings;
+if (window.page === 'settings') settings = new Settings();
 
 
 const popup = str => {

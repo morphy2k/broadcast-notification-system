@@ -64,7 +64,7 @@
 /** buttons **/
 
 .button {
-
+  cursor: pointer;
 }
 
 .check {
@@ -129,7 +129,6 @@
   text-align: center;
   width: 10rem;
   line-height: 2.6rem;
-  cursor: pointer;
   text-decoration: none;
 }
 
@@ -179,7 +178,6 @@
   width: 10rem;
   line-height: 2.4rem;
   font-weight: 700;
-  cursor: pointer;
 }
 
 #devWindow .col-1 {
@@ -271,14 +269,15 @@
 }
 
 #notificationTest select {
+  margin: 0;
   width: 12rem;
+  height: 2.32rem;
 }
 
 #push {
-  margin: .2rem 0 0 .2rem;
-  line-height: 2.3rem;
+  margin: 0 0 0 .2rem;
+  line-height: 2.32rem;
   width: 4rem;
-  cursor: pointer;
 }
 
 #misc .col-2 {
@@ -306,7 +305,6 @@
   text-align: center;
   width: 11rem;
   line-height: 2.5rem;
-  cursor: pointer;
   text-decoration: none;
 }
 
