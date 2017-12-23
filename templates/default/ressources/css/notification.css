@@ -78,7 +78,7 @@ body {
   }
 }
 
-#follow {
+.follow {
   animation-name: slideOut;
   animation-timing-function: cubic-bezier(.94, .01, .53, .86);
   animation-duration: 1.5s;
@@ -86,7 +86,7 @@ body {
   animation-delay: 7.5s;
 }
 
-#donation {
+.donation {
   animation-name: slideOut;
   animation-timing-function: cubic-bezier(.94, .01, .53, .86);
   animation-duration: 1.5s;
@@ -94,7 +94,8 @@ body {
   animation-delay: 14s;
 }
 
-#subscription, #host {
+.subscription,
+.host {
   animation-name: slideOut;
   animation-timing-function: cubic-bezier(.94, .01, .53, .86);
   animation-duration: 1.5s;
@@ -171,7 +172,8 @@ body {
   }
 }
 
-#donation .name, #subscription .name, #host .name {
+.donation .name, .subscription .name,
+.host .name {
   animation-name: zoomInOut;
   animation-timing-function: cubic-bezier(.94, .01, .53, .86);
   animation-duration: 3.5s;
@@ -179,7 +181,7 @@ body {
   animation-delay: 2.5s;
 }
 
-#donation .box {
+.donation .box {
   font-weight: 600;
   animation-name: zoomInOut;
   animation-timing-function: ease;
@@ -203,7 +205,7 @@ body {
   }
 }
 
-#follow .name {
+.follow .name {
   animation-name: zoomIn2;
   animation-timing-function: cubic-bezier(.94, .01, .53, .86);
   animation-duration: 5s;
@@ -211,7 +213,8 @@ body {
   animation-delay: 2.5s;
 }
 
-#subscription .box, #host .box {
+.subscription .box,
+.host .box {
   font-weight: 600;
   animation-name: zoomIn2;
   animation-timing-function: ease;

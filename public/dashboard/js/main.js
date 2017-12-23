@@ -37,21 +37,20 @@ class Socket extends IO {
 
       }).on('dashboard', (type, err, data) => {
         if (settings) settings.response(type, err, data);
-      })
-        .on('notification', data => {
-          if (window.dashboard.popups) notifications.parser(data);
-        }).on('general', data => {
+      }).on('notification', data => {
+        if (window.dashboard.popups) notifications.parser(data);
+      }).on('general', data => {
 
         // client-server version matching
-          if (data.version !== undefined &&
+        if (data.version !== undefined &&
             data.version !== window.version &&
             !$('#reloadCount').length) {
 
-            let count = 10;
+          let count = 10;
 
-            $('body').addClass('greyOut');
-            $('body').css('overflow', 'hidden');
-            $('body').append(`
+          $('body').addClass('greyOut');
+          $('body').css('overflow', 'hidden');
+          $('body').append(`
                       <div id="message-overlay">
                         <div class="text">
                           <div class="line1">Server has been updated!</div>
@@ -60,19 +59,19 @@ class Socket extends IO {
                         </div>
                       </div>`);
 
-            setInterval(() => {
+          setInterval(() => {
 
-              if (count) {
-                count = count - 1;
-                document.getElementById('reloadCount').innerHTML = count;
-              } else {
-                location.reload(true);
-              }
+            if (count) {
+              count = count - 1;
+              document.getElementById('reloadCount').innerHTML = count;
+            } else {
+              location.reload(true);
+            }
 
-            }, 1000);
+          }, 1000);
 
-          }
-        });
+        }
+      });
 
     }).on('disconnect', () => {
 
