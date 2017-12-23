@@ -1,0 +1,64 @@
+doctype html
+
+html(lang="en")
+  
+  include includes/head.pug
+
+  body
+    #follow.follow.notification.default
+      .text
+        .type New Follower
+        .name
+
+    #subscription.subscription.notification.default
+      .text
+        .type New Sub
+        .name
+        .box
+          span.subscription-count
+          span months
+    
+    #host.host.notification.default
+      .text
+        .type New Host
+        .name
+        .box
+          span.host-views
+          span viewer
+    
+    #donation.donation.notification.default
+      .text
+        .type New Donation
+        .name
+        .box
+          span.donation-amount
+          span.donation-currency
+        .donation-message
+          
+    
+    script.
+      // if function playSound exists, will be executed
+      const playSound = (type) => {
+        const path = '/notification/ressources/media';
+        
+        const follow = new Audio(`${path}/sound_follow.ogg`);
+        const subscription = new Audio(`${path}/sound_subscription.ogg`);
+        const donation = new Audio(`${path}/sound_donation.ogg`);
+        const host = new Audio(`${path}/sound_host.ogg`);
+
+        switch (type) {
+        case 'follow':
+          follow.play();
+          break;
+        case 'subscription':
+          subscription.play();
+          break;
+        case 'donation':
+          donation.play();
+          break;
+        case 'host':
+          host.play();
+        }
+      };
+
+  include ../includes/template.pug
