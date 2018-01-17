@@ -1,6 +1,6 @@
 {
   "name": "broadcast-notification-system",
-  "version": "0.11.0-alpha.2",
+  "version": "0.11.0-beta.0",
   "private": false,
   "license": "MIT",
   "description": "An open, simple and highly customisable notification/alert system for live streams on Twitch and YouTube.",
