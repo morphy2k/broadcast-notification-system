@@ -1,0 +1,128 @@
+doctype html
+
+html(lang="en")
+  
+  include includes/head.pug
+
+  body
+    #follow.follow.notification.default
+      .text
+        .type New Follower
+        .name
+
+    #subscription.subscription.notification.default
+      .text
+        .type New Sub
+        .name
+        .box
+          span.subscription-count
+          span months
+          
+    #subscription-6.subscription.notification.default
+      .text
+        .type New Sub
+        .name
+        .box
+          span.subscription-count
+          span months
+          
+    #subscription-12.subscription.notification.default
+      .text
+        .type New Sub
+        .name
+        .box
+          span.subscription-count
+          span months
+    
+    #host.host.notification.default
+      .text
+        .type New Host
+        .name
+        .box
+          span.host-views
+          span viewer
+          
+    #host-100.host.notification.default
+      .text
+        .type New Host
+        .name
+        .box
+          span.host-views
+          span viewer
+    
+    #donation.donation.notification.default
+      .text
+        .type New Donation
+        .name
+        .box
+          span.donation-amount
+          span.donation-currency
+        .donation-message
+          
+    #donation-50.donation.notification.default
+      .text
+        .type New Donation
+        .name
+        .box
+          span.donation-amount
+          span.donation-currency
+        .donation-message
+          
+    
+    script(src="https://code.responsivevoice.org/responsivevoice.js")
+    script.
+      // if function customController exists, will be executed
+      const customController = (type, data) => {
+
+        const audioPath = '/notification/ressources/media';
+
+        let id = `${type}`;
+        let audio;
+
+        $('.name').html(data.display_name);
+
+        switch (type) {
+        case 'subscription':
+          $('.subscription-count').html(data.resubs);
+
+          if (data.resubs >= 6 && data.resubs < 12) {
+            id = 'subscription-6';
+            //audio = new Audio(`${audioPath}/sound_subscription-6.ogg`);
+          }
+          if (data.resubs >= 12) {
+            id = 'subscription-12';
+            //audio = new Audio(`${audioPath}/sound_subscription-12.ogg`);
+          }
+          break;
+        case 'donation':
+          $('.donation-amount').html(data.amount);
+          $('.donation-currency').html(data.currency);
+          $('.donation-message').html(data.message);
+          
+          if (data.amount > 10) {
+            setTimeout(() => responsiveVoice.speak(data.message), 9000);
+          }
+          if (data.amount >= 50) {
+            id = 'donation-50';
+          }
+          break;
+        case 'host':
+          $('.host-views').html(data.viewers);
+
+          if (data.viewers >= 50) {
+            id = 'host-100';
+            //audio = new Audio(`${audioPath}/sound_host-100.ogg`);
+          }
+          break;
+        }
+        
+        $(`.notification`).hide();
+
+        setTimeout(() => {
+          $(`#${id}`).css('display', 'flex');
+          if (audio) audio.play();
+        }, 200);
+
+      };
+
+  include ../includes/template.pug

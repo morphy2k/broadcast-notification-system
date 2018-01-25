@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -17,7 +15,7 @@
    style="enable-background:new 0 0 57 57;"
    xml:space="preserve"
    sodipodi:docname="locked.svg"
-   inkscape:version="0.92.0 r"><metadata
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"><metadata
      id="metadata43"><rdf:RDF><cc:Work
          rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><defs
@@ -35,32 +33,17 @@
      id="namedview39"
      showgrid="false"
      inkscape:zoom="4.1403509"
-     inkscape:cx="28.983051"
-     inkscape:cy="28.5"
+     inkscape:cx="-23.911017"
+     inkscape:cy="27.533898"
      inkscape:window-x="0"
      inkscape:window-y="32"
      inkscape:window-maximized="1"
      inkscape:current-layer="Capa_1" /><g
      id="g6"
-     style="fill:#333333"><path
+     style="fill:#b1bfc6;fill-opacity:1"><path
        d="M40.5,23V11.601C40.5,5.204,34.893,0,28,0S15.5,5.204,15.5,11.601V23h-9v26v8h44v-8V23H40.5z M17.5,11.601   C17.5,6.307,22.21,2,28,2s10.5,4.307,10.5,9.601V23h-21V11.601z M48.5,55h-40v-4h40V55z M8.5,49V25h7h25h8v24H8.5z"
        id="path2"
-       style="fill:#333333" /><path
+       style="fill:#b1bfc6;fill-opacity:1" /><path
        d="M28.5,31c-2.206,0-4,1.794-4,4v6c0,2.206,1.794,4,4,4s4-1.794,4-4v-6C32.5,32.794,30.706,31,28.5,31z M30.5,41   c0,1.103-0.897,2-2,2s-2-0.897-2-2v-6c0-1.103,0.897-2,2-2s2,0.897,2,2V41z"
        id="path4"
-       style="fill:#333333" /></g><g
-     id="g8" /><g
-     id="g10" /><g
-     id="g12" /><g
-     id="g14" /><g
-     id="g16" /><g
-     id="g18" /><g
-     id="g20" /><g
-     id="g22" /><g
-     id="g24" /><g
-     id="g26" /><g
-     id="g28" /><g
-     id="g30" /><g
-     id="g32" /><g
-     id="g34" /><g
-     id="g36" /></svg>
+       style="fill:#b1bfc6;fill-opacity:1" /></g></svg>

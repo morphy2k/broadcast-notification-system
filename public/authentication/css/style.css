@@ -1,14 +1,15 @@
 @charset "UTF-8";
+
 html, body {
   margin: 0;
   padding: 0;
 }
 
 body {
-  background-color: rgb(241, 241, 241);
+  background-color: rgb(38, 50, 56);
   font-family: 'Roboto', sans-serif;
   font-size: 1rem;
-  color: rgb(0, 0, 0);
+  color: rgb(177, 191, 198);
   font-weight: 400;
 }
 
@@ -22,17 +23,18 @@ main {
 }
 
 #s40x {
-  background: url(../../ressources/img/locked.svg) no-repeat center;
+  background: url('../../ressources/img/locked.svg') no-repeat center;
   background-size: 30rem;
   width: 100%;
   height: 100%;
   margin-top: 5rem;
+  opacity: .5;
 }
 
 #email p {
   font-size: .9rem;
   max-width: 40rem;
-  color: red;
+  color: rgb(230, 57, 53);
   margin: .6rem 0;
 }
 
@@ -47,6 +49,14 @@ main {
   line-height: 4rem;
 }
 
+#email input {
+  color: rgb(177, 191, 198);
+}
+
+#email input::placeholder {
+  color: rgb(177, 191, 198);
+}
+
 #email input[type="email"] {
   box-sizing: border-box;
   line-height: 3rem;
@@ -56,9 +66,9 @@ main {
   padding: .2rem;
   margin: 0;
   margin-right: .3rem;
-  border: 0;
-  background: rgba(255, 255, 255, 0);
-  border-bottom: .1rem solid grey;
+  border: none;
+  background-color: rgba(255, 255, 255, 0);
+  border-bottom: .1rem solid rgb(177, 191, 198);
   text-align: center;
 }
 
@@ -67,19 +77,17 @@ main {
 }
 
 #email input[type="email"]:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 30px rgb(241, 241, 241) inset;
+  -webkit-box-shadow: 0 0 0 30px rgb(38, 50, 56) inset;
+  -webkit-text-fill-color: rgb(177, 191, 198);
 }
 
 #email input[type="submit"] {
   display: block;
   box-sizing: border-box;
-  width: 8rem;
   font-size: 1.6rem;
-  padding: .7rem 0 .4rem 0;
-  margin-top: 1rem;
-  border: 0;
-  background: rgb(61, 61, 61);
-  color: rgb(255, 255, 255);
+  margin-top: 1.5rem;
+  border: none;
+  background: none;
   text-transform: uppercase;
   cursor: pointer;
 }
