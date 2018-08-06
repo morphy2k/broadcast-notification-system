@@ -230,7 +230,7 @@ class Feed {
 
     }
 
-    $(`.feed-btn`).removeClass('selected');
+    $('.feed-btn').removeClass('selected');
     $(id).addClass('selected');
 
   }
@@ -340,7 +340,7 @@ class Notifications {
 
   parser(data) {
 
-    let str = ``;
+    let str = '';
 
     if (!data.test) this.data = data;
 

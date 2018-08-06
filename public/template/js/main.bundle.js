@@ -66,7 +66,7 @@ class Notification {
   }
 
   show(type) {
-    $(`.notification`).hide();
+    $('.notification').hide();
     setTimeout(() => {
       $(`#${type}`).css('display', 'flex');
       if (typeof playSound === 'function') playSound(type);
