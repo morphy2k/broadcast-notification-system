@@ -21,7 +21,7 @@ html(lang="en")
                 else
                   a#api-twitch.check.button.disabled(style="cursor:pointer;") Twitch
               else
-                a#api-twitch.check.button.noEvent(href="/api/twitch/auth") Twitch
+                a#api-twitch.check.button.disabled.noEvent(href="/api/twitch/auth") Twitch
             li
               if data.settings.api.youtube.enabled
                 a#api-youtube.check.button(style="cursor:not-allowed;" title="Not implemented yet!") YouTube
@@ -34,7 +34,7 @@ html(lang="en")
                 else
                   a#api-streamlabs.check.button.disabled(style="cursor:pointer;") Streamlabs
               else
-                a#api-streamlabs.check.button.noEvent(href="/api/streamlabs/auth") Streamlabs
+                a#api-streamlabs.check.button.disabled.noEvent(href="/api/streamlabs/auth") Streamlabs
             li
               if data.settings.api.youtube.enabled
                 a#api-tipeee.check.button(style="cursor:not-allowed;" title="Not implemented yet!") TipeeeStream
