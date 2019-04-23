@@ -29,26 +29,26 @@
     "test": "echo \"No tests\""
   },
   "dependencies": {
-    "jsonwebtoken": "^8.3.0",
-    "koa": "^2.6.1",
-    "koa-views": "^6.1.4",
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.7.0",
+    "koa-views": "^6.2.0",
     "lodash": "^4.17.11",
     "lowdb": "^1.0.0",
-    "luxon": "^1.4.5",
-    "moment": "^2.22.2",
-    "nodemailer": "^4.6.8",
+    "luxon": "^1.12.1",
+    "moment": "^2.24.0",
+    "nodemailer": "^4.7.0",
     "pug": "^2.0.3",
     "request": "^2.88.0",
-    "request-promise-native": "^1.0.5",
-    "socket.io": "^2.1.1",
+    "request-promise-native": "^1.0.7",
+    "socket.io": "^2.2.0",
+    "socket.io-client": "^2.2.0",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
     "browserify": "^16.2.3",
-    "chart.js": "^2.7.3",
-    "eslint": "^5.8.0",
-    "jquery": "^3.3.1",
-    "socket.io-client": "^2.1.1"
+    "chart.js": "^2.8.0",
+    "eslint": "^5.16.0",
+    "jquery": "^3.4.0"
   },
   "repository": {
     "type": "git",
