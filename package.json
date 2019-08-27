@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "jsonwebtoken": "^8.5.1",
-    "koa": "^2.7.0",
+    "koa": "^2.8.1",
     "koa-views": "^6.2.0",
     "lodash": "^4.17.14",
     "lowdb": "^1.0.0",
