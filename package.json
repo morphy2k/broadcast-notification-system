@@ -46,7 +46,7 @@
   },
   "devDependencies": {
     "browserify": "^16.5.0",
-    "chart.js": "^2.9.1",
+    "chart.js": "^2.9.3",
     "eslint": "^6.6.0",
     "jquery": "^3.4.1"
   },
