@@ -42,7 +42,7 @@
     "request-promise-native": "^1.0.8",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0",
-    "uuid": "^3.3.3"
+    "uuid": "^8.1.0"
   },
   "devDependencies": {
     "browserify": "^16.5.0",
